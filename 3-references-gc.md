@@ -2,13 +2,13 @@
 
 ---
 
-[← Intro](1-intro.md) •  →
+[←](2-frametimes-profiler.md) • [Intro](1-intro.md) • [Frametimes](2-frametimes-profiler.md) • **References, GC** • [→]()
 
 ---
 
 We beginnen bij een herhaling van de basis: bij het programmeren moeten we kunnen bijhouden waar we onze data opslaan. Dit doen we door variabelen mooie namen te geven waarmee we ze altijd kunnen terugvinden. Maar voor de computer werkt dit heel anders. Deze houdt een verwijzing bij naar waar het stukje data opgeslagen staat in het geheugen. Dit heet een memory address, en wordt vaak opgeslagen in een pointer of een reference.
 
-Elk programma op de computer krijgt een stukje geheugen toegewezen als die daar om vraagt. De programmeur kan zeggen “ik heb 10 megabyte aan geheugen nodig” en dan gaat de computer kijken waar hij 10 megabyte heeft, en geeft jou een adres terug van een plekje in het geheugen dat jij mag hebben. Maar je krijgt daarmee ook de verantwoordelijkheid om dit geheugen weer vrij te maken. Een programmeertaal als C# is ontworpen zodat jij hier niet over na hoeft te denken. Het enige wat jij als programmeur moet doen is zeggen wat je gaat opslaan, en de rest bepaalt het systeem: hoe groot jouw data is, het geheugen dat moet worden opgevraagd, en zelfs het opruimen daarvan. Dit scheelt de programmeur veel werk, maar net als bij de meeste dingen die de programmeur werk schelen gaat dit ook ten koste van performance.
+Elk programma op de computer krijgt een stukje geheugen toegewezen als die daar om vraagt. De programmeur kan zeggen “ik heb 10 megabyte aan geheugen nodig” en dan gaat de computer kijken waar hij 10 megabyte heeft, en geeft jou een adres terug van een plekje in het geheugen dat jij mag hebben. Maar je krijgt daarmee ook de verantwoordelijkheid om dit geheugen weer vrij te maken. Een programmeertaal als C# is ontworpen zodat jij hier niet over na hoeft te denken. Het enige wat jij als programmeur moet doen is zeggen wat je gaat opslaan, en de rest bepaalt het systeem: hoe groot jouw data is, het geheugen dat moet worden opgevraagd, en zelfs het opruimen daarvan. Dit scheelt de programmeur veel werk, maar net als bij de meeste dingen die de programmeur werk schelen zitten er ook nadelen aan, en in dit geval lever je een klein stukje performance in. In veel gevallen niet noemenswaardig, maar in bepaalde situaties die je tegenkomt bij het maken van games kan dit enorm optellen.
 
 ## Reference types en value types
 Het verschil tussen een reference en een value type is een van de belangrijkste dingen die je moet weten over werken met geheugen in C#. Een value type bewaart de volledige inhoud van de instance in de variabele. Een reference type bewaart slechts een memory address naar de plek waar de inhoud van de variabele in het geheugen staat. Een value type is dus vergelijkbaar met een pointer in C/C++.
@@ -25,7 +25,7 @@ public struct VertexValueType
     float x, y, z;
 }
 ```
-Als je een lokale variabele opslaat, komt deze terecht op de zogenaamde ***stack***. Je kunt dit zien als het lokale geheugen van een functie of een statement. De stack staat altijd op een vaste plek, en alles wat op de stack staat, staat ook naast elkaar in het fysieke geheugen. Als je een variabele van een value type aanmaakt, wordt alle inhoud ervan op de stack geplaatst. Maar als je een reference type aanmaakt, wordt de inhoud op een willekeurige andere plek in het geheugen opgeslagen, op de zogenaamde ***heap***, en wordt slechts de pointer naar die plek in het geheugen opgeslagen.
+Als je een lokale variabele opslaat, komt deze terecht op de zogenaamde ***stack***. Je kunt dit zien als het lokale geheugen van een functie of een statement. De stack staat altijd op een vaste plek, en alles wat op de stack staat, staat ook naast elkaar in het fysieke geheugen. Als je een variabele van een value type aanmaakt, wordt alle inhoud ervan op de stack geplaatst. Maar als je een reference type aanmaakt, wordt de inhoud op een willekeurige andere plek in het geheugen opgeslagen, op de zogenaamde ***heap***, en wordt slechts de pointer naar die plek op de stack opgeslagen.
 
 ```csharp
 VertexRefType myVert = new VertexRefType(2, 3, 4);
@@ -108,7 +108,9 @@ Maar toch is het een compromis: als je memory gebruikt, moet dit linksom of rech
 ### Games
 Games daarentegen zijn een heel ander verhaal. Als de garbage collector in een game aan de slag moet, neemt dit hoe dan ook een hapje uit je frametime. Meestal is dit een vrij klein hapje, maar als je niet uitkijkt met heap allocations, kan het ook een vrij groot hapje worden. Dit zul je merken als periodieke uitschieters in frametime, ofwel: **frame spikes**. (Frame spikes als gevolg van de garbage collector worden vaak GC spikes genoemd.)
 
-Om deze reden heeft Unity haar eigen garbage collector die een stuk beter geoptimaliseerd is voor games dan de oorspronkelijke. Dit lost een deel van de problemen op, maar nog lang niet alles. Tegenwoordig (sinds Unity 2019.4) is er zelfs een optie om een iets complexere garbage collector te gebruiken die het werk verspreidt over meerdere frames (zie afbeelding). Maar toch moet het werk hoe dan ook gedaan worden, en dit gaat altijd ten koste van jouw frame time. Het is dus een goede zaak om ervoor zorgen dat de garbage collector zo min mogelijk werk hoeft te doen.
+Om deze reden heeft Unity haar eigen garbage collector die een stuk beter geoptimaliseerd is voor games dan de oorspronkelijke. Het lost een deel van de problemen op, maar nog lang niet alles. Tegenwoordig (sinds Unity 2019.4) is er zelfs een optie om een iets complexere garbage collector te gebruiken die het werk verspreidt over meerdere frames (zie afbeelding). Maar toch moet het werk hoe dan ook gedaan worden, en dit gaat altijd ten koste van jouw frame time. Het is dus een goede zaak om ervoor zorgen dat de garbage collector zo min mogelijk werk hoeft te doen.
 
-![Fig_UnityIncrementalGC.png](Fig_UnityIncrementalGC.png)
+![](Fig_UnityIncrementalGC.png)
 
+### Meer informatie
+- [Garbage collector overview - Unity Manual](https://docs.unity3d.com/Manual/performance-garbage-collector.html)

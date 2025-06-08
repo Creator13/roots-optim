@@ -101,16 +101,73 @@ De C# language reference gaat een stuk dieper in op de werking van value en refe
 - [C# language reference - Reference types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/reference-types)
 
 ## De garbage collector
-De garbage collector ruimt jouw ongebruikte variabelen op de heap op. De garbage collector is heel fijn: Je hoeft je niet druk te maken over het vrijmaken van geheugen dat je opgevraagd had, geen gedoe met pointers en memory leaks en ownership. Dit is een kernfeature van C# (of specifieker van *.NET Core* of Unity's *Mono*), dus het is niet iets wat je kunt uitzetten.
+De garbage collector ruimt jouw ongebruikte variabelen op de heap op, reference types dus. De garbage collector is heel fijn: Je hoeft je niet druk te maken over het vrijmaken van geheugen dat je opgevraagd had, geen gedoe met pointers en memory leaks en ownership. Dit is een kernfeature van C# (of specifieker van *.NET Core* of Unity's *Mono*), dus het is niet iets wat je kunt uitzetten.
 
-Maar toch is het een compromis: als je memory gebruikt, moet dit linksom of rechtsom toch weer vrijgemaakt worden. De garbage collector doet dit in de achtergrond. Je hebt er zo geen last van tijdens gebruik van het programma. C# en .NET waren oorspronkelijk vooral ontwikkeld als een framework voor desktop-applicaties op Windows. Deze programma's zijn vaak een stuk minder zwaar, en hebben meer dan genoeg ruimte om in de achtergrond af en toe wat geheugen op te ruimen. 
+Elke keer dat je een nieuwe *reference type* aanmaakt, wordt er geheugen op de *heap* vrijgemaakt om de data op te slaan. De garbage collector moet dit geheugen later weer opruimen en vrijgeven. Dit is waarom garbage collection tijd kost, en uiteindelijk toch een compromis is.
+
+De garbage collector doet dit in de achtergrond. Je hebt er zo geen last van tijdens gebruik van het programma. C# en .NET waren oorspronkelijk vooral ontwikkeld als een framework voor desktop-applicaties op Windows. Deze programma's zijn vaak een stuk minder zwaar, en hebben meer dan genoeg ruimte om in de achtergrond af en toe wat geheugen op te ruimen.
 
 ### Games
 Games daarentegen zijn een heel ander verhaal. Als de garbage collector in een game aan de slag moet, neemt dit hoe dan ook een hapje uit je frametime. Meestal is dit een vrij klein hapje, maar als je niet uitkijkt met heap allocations, kan het ook een vrij groot hapje worden. Dit zul je merken als periodieke uitschieters in frametime, ofwel: **frame spikes**. (Frame spikes als gevolg van de garbage collector worden ook vaak **GC spikes** genoemd.)
 
-Om deze reden heeft Unity haar eigen garbage collector die een stuk beter geoptimaliseerd is voor games dan de oorspronkelijke. Het lost een deel van de problemen op, maar nog lang niet alles. Tegenwoordig (sinds Unity 2019.4) is er zelfs een optie om een iets complexere garbage collector te gebruiken die het werk verspreidt over meerdere frames (zie afbeelding). Maar toch moet het werk hoe dan ook gedaan worden, en dit gaat altijd ten koste van jouw frame time. Het is dus een goede zaak om ervoor zorgen dat de garbage collector *altijd* zo min mogelijk werk hoeft te doen.
+Om deze reden heeft Unity haar eigen garbage collector die een stuk beter geoptimaliseerd is voor games dan de oorspronkelijke. Het lost een deel van de problemen op, maar nog lang niet alles. Een garbage collection zal vaak niet meer dan 5ms kosten, maar kan in erge gevallen tot tientallen milliseconden duren, waardoor het dus makkelijk een framebudget van 16.7ms (60FPS) overschrijdt. De snelheid is direct afhankelijk van de hoeveelheid op te ruimen geheugen en de snelheid van de computer. 
+
+Tegenwoordig (sinds Unity 2019.4) is er zelfs een optie om een iets complexere garbage collector te gebruiken die het werk verspreidt over meerdere frames (zie afbeelding). Maar toch moet het werk hoe dan ook gedaan worden, en dit gaat altijd ten koste van jouw frame time. Het is dus een goede zaak om ervoor zorgen dat de garbage collector *altijd* zo min mogelijk werk hoeft te doen. Dat betekent: we willen het aantal allocations minimaliseren!
 
 ![](Fig_UnityIncrementalGC.png)
 
+### In de praktijk
+
+Een aantal voorbeelden van allocations die de garbage collector later moet opruimen:
+
+```csharp
+// Het aanmaken van een nieuwe instantie van een eigen class (maar niet van een struct!)
+CustomClass newCustomObject = new CustomClass();
+StateMachine myStateMachine = new StateMachine();
+myStateMachine.SwitchState(new GamePlayingState());
+
+// Alle verzamelingen zijn vrijwel per definitie reference types die op de heap aangemaakt worden, ook als de waarden in de verzameling zelf géén reference type zijn.
+List<int> newList = new List<int> { 4, 5 };
+GameObject[] newGameObjectArray = new GameObject[3];
+Dictionary<int, string> newDictionary = new Dictionary<int, string>();
+
+// In Unity: GameObjects aanmaken via 'new' of 'Instantiate()' gebruikt ruimte op de heap, evenals het toevoegen van components
+GameObject newGameObject = new GameObject();
+PlayerController playerController = Instatiate(PlayerControllerPrefab);
+ParticleSystem particles = newGameObject.AddComponent<ParticleSystem>();
+
+// Strings maken met dynamische waarden (waarden die onbekend zijn voor de game start)
+string newString = "Time: " + Time.time;
+
+// In Unity: Coroutines starten
+StartCoroutine(ExampleCoroutine());
+
+// Boxing: een fenomeen waarin een value type geforceerd wordt om een reference type te worden, omdat de functie of een reference type verwacht
+private void RefTypeFunc(object obj) { /* ... */ } // << object is per definitie een reference type
+RefTypeFunc(18) // << 18 is een int (een value type) en kan door het ontwerp van de taal alleen doorgegeven worden via de heap.
+object unknownObj = 18 // << 18 wordt ook hier "geboxed", omdat "object" een reference type moet worden.
+```
+
+Let op dat `new` in C# niet per se een heap allocation doet, in tegenstelling tot C++. Het hangt puur af van het soort object wat aangemaakt wordt:
+
+```csharp
+struct Vertex { float x, y, z; }
+class Player { float age; }
+
+Vertex vertex = new Vertex { x = 5, y = 5, z = 8 }; // << Vertex is een struct, dus ondanks 'new' wordt er geen heap garbage gemaakt.
+Player player = new Player { age = 22 }; // << Player is een class, dus er wordt wel heap garbage gemaakt.
+```
+
 ### Meer informatie
 - [Garbage collector overview - Unity Manual](https://docs.unity3d.com/Manual/performance-garbage-collector.html)
+
+## Samenvatting
+
+- In C# wordt er onderscheid gemaakt tussen twee soorten datatypen: **value types** die op **stack** bestaan, en **reference types** die op de **heap** bestaan.  
+  - Value types slaan al hun data op in zichzelf
+  - Reference types slaan slechts een referentie op naar een plek in het geheugen waar de daadwerkelijke data staat (de heap).
+- Geheugen dat gebruikt wordt moet ook altijd opgeruimd worden. 
+  - Stack-geheugen gebruikt door value types kan automatisch opgeruimd worden door programma-logica.
+  - Heap-geheugen gebruikt door reference types kan alleen worden opgeruimd door de **garbage collector** (**GC**).
+- Als de garbage collector aan de slag moet, kost dit altijd tijd van je frame. In ernstige gevallen kan dit voor merkbare haperingen in de game zorgen.
+- We willen allocations vermijden om de garbage collector te ontlasten.

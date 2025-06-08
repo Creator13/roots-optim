@@ -29,7 +29,9 @@ Deze masterclass gaat uit van **Unity 6.1**. Hoewel ik Unity gebruik als context
 
 - Je kunt met C# programmeren, of een vergelijkbare programmeertaal.
 - Basiskennis van pointers/references zoals in C/C++, Rust, of een vergelijkbare programmeertaal.
+- Je weet wat de game loop van een engine is en wat het concept van een frame is.
 - Je kan je weg vinden in Unity.
+  - Inclusief het gebruik van de profiler (zo niet staan er resources in het volgende hoofdstuk).
 
 ## Inhoud
 

@@ -1,6 +1,12 @@
 ﻿# Geheugen hergebruiken
 
-Een game-wereld bevat zeer veel data. Een stukje terrein van 10 bij 10 meter bevat al gauw 400-1600 vertices. Om een beetje in de verte te kunnen kijken wil je een omgeving in een straal van ongeveer 1km tot 3km om je heen laden. Een stuk wereld van 4km bij 4km kan makkelijk honderden miljoenen vertices bevatten. Voor allerlei redenen is het slim om dit op te breken in kleinere stukjes, die in jargon chunks genoemd worden. Chunks worden in een bepaalde radius om de speler heen geladen, en als de speler zich verplaatst worden oude chunks vergeten en nieuwe gemaakt.
+---
+
+[←](3-references-gc.md) • [Intro](1-intro.md) • [Frametimes](2-frametimes-profiler.md) • [References, GC](3-references-gc.md) • Afsluiting • [→]()
+
+---
+
+In dit deel gaan we kijken naar verschillende technieken om geheugen te hergebruiken, met als voorbeeld het chunk-systeem dat ik gemaakt heb voor mijn game. Een game-wereld bevat veel data, en om het voor de computer makkelijker te maken om ermee te werken worden werelden vaak opgedeeld in kleinere stukjes, ook wel **chunks** genoemd. Deze chunks moeten dynamisch geladen worden op basis van de locatie van de speler, en dit doet veel beroep op het geheugen en data-management. Daarom is dit een goede plek om dieper te kijken naar hoe je dit kunt verbeteren. 
 
 Mijn eerste implementatie van een chunk-systeem was ultra-simpel. Gemaakt voor snel resultaat, niet voor goede performance. De verantwoordelijkheid van dit component is om de geladen chunks bij te houden, en om nieuwe chunks te maken als de speler over een chunk-grens heenloopt.
 
@@ -123,7 +129,7 @@ We kunnen ook duidelijk zien waar oude data als afval achtergelaten wordt
     ```csharp
     loadedChunks = newChunks; 
     ```
-   De oude loadedChunks wordt overschreven met de nieuwe, waardoor de oude out-of-scope gaat en opgeruimd moet worden door de garbage collector. Je kunt je afvragen waarom de nieuwe niet gewoon de plek van de oude inneemt. Ten eerste is het nieuwe object al gemaakt, op een andere plek. Ten tweede overschrijf je alleen de referentie, omdat `Dictionary` een reference type is.
+   De oude loadedChunks wordt overschreven met de nieuwe, waardoor de oude out-of-scope gaat en opgeruimd moet worden door de garbage collector. Je kunt je afvragen waarom de nieuwe niet gewoon de plek van de oude inneemt. Ten eerste is het nieuwe object al gemaakt, op een andere plek. Ten tweede overschrijf je alleen de referentie, omdat `Dictionary<T>` een reference type is.
 2. Het aanroepen van `Destroy(gameObject)` genereert ook afval dat opgeruimd moet worden
     ```csharp
     // Invalidate and remove old chunks
@@ -327,7 +333,7 @@ private void UpdateVisibleChunks()
 
 Ook deze kunnen we door de (deep) profiler heen halen:
 ![Fig_ProfilerPooledChunks.png](Fig_ProfilerPooledChunks.png)
-We zien dat van de 1.4KB nog maar 0.6KB over is! Deze laatste paar honderd bytes blijken aan `String.Format()` te liggen, als we verder in de hiërarchie kijken. Omdat hier geen simpele oplossing voor is, kunnen we kiezen om de naam van de chunks helemaal niet aan te passen. Dan krijgen we inderdaad 0B allocated voor de hele functie:
+We zien dat van de 1.4KB nog maar 0.6KB over is! Deze laatste paar 0.6KB blijken door `String.Format()` te komen, als we verder in de hiërarchie kijken. Omdat hier geen simpele oplossing voor is, kunnen we kiezen om de naam van de chunks helemaal niet aan te passen. Dan krijgen we inderdaad 0B allocated voor de hele functie:
 ![Fig_ProfilerNoAllocs.png](Fig_ProfilerNoAllocs.png)
 
 We zien bovendien dat de totale executietijd van de functie dit keer wel flink omlaag gegaan is: van 1.16ms eerst naar 0.56ms nu, ongeveer gehalveerd dus. Er is dus zeker ook winst te behalen in de snelheid van de functie nu, en bovendien voorkomen we ook nog eens tijd in een later frame omdat de GC niet aan de slag hoeft. Win-win!
@@ -336,7 +342,28 @@ We zien bovendien dat de totale executietijd van de functie dit keer wel flink o
 > Unity heeft een `ObjectPool<T>` type ingebouwd. Deze werkt erg goed als je een variabel aantal objecten van het soort in je scene hebt. In dit geval is het aantal chunks altijd bekend en altijd hetzelfde, waardoor we veel van de extra functies die deze pool heeft niet nodig gaan hebben.\
 > *Meer info: https://docs.unity3d.com/ScriptReference/Pool.ObjectPool_1.html*
 
-## Verdere optimalisatie
+## Samenvatting
+
+We hebben in dit een aantal technieken bekeken voor het hergebruiken van bestaand geheugen, waarmee we ervoor gezorgd hebben dat de garbage collector minder aan het werk hoeft. We willen er altijd voor zorgen dat er zelden tot nooit allocations worden gedaan in een frame, zeker niet *elk* frame. Dit doen we door:
+
+- Data-verzamelingen zoals `List<T>` of `Dictionary<T>` te hergebruiken om data in op te slaan. 
+  - Mocht het toch nodig zijn om er een te maken en je weet al hoe groot deze moet worden, gebruik dan altijd de `capacity` parameter van de constructor.
+  - Ga altijd na of het slim is om een `new` verzameling aan te maken tijdens een frame, en ga na of je deze ook kunt hergebruiken. 
+- Objecten te hergebruiken door gebruik te maken van een pool. 
+  - Gebruik een van de ingebouwde pool types in Unity, zoals een `ObjectPool<T>` voor objecten waarvan er niet altijd evenveel in de scene zullen zijn.
+  - Maak een eigen oplossing als je altijd evenveel van dezelfde objecten in de scene hebt, waarbij je de oude objecten niet afschrijft, maar direct hergebruikt.
+  - Het is niet onredelijk om een harde regel aan te houden dat je nooit `Instantiate()` mag gebruiken in een functie die aangeroepen wordt vanuit een `Update()`, `LateUpdate()`, coroutine, of vergelijkbaar, test/prototype code uitgezonderd. 
+
+Hier zijn nog een aantal andere veelvoorkomende functies of taken die memory allocaten, om te voorkomen of om op te lossen met de technieken die we hier bekeken hebben:
+
+- `Physics.Raycast()` maakt een nieuwe array aan waar de HitResults in opgeslagen worden. Gebruik de `Physics.RaycastNonAlloc()` functie om dit te voorkomen. Deze geef je een bestaande array mee, die je kunt managen op dezelfde manier als de dictionaries uit het voorbeeld op deze pagina.
+- LINQ-functies die je op verzamelingen aan kunt roepen zoals `.Sum()`, `.All()`, `.Any()`, `.Select()`, [en nog veel meer](https://learn.microsoft.com/en-us/dotnet/standard/linq/) zorgen bijna altijd voor substantiële memory allocations. Probeer deze functies te vermijden op de meeste plekken (en nooit aan te roepen in een frame update) en te vervangen met `for` loops.
+- Het opvragen van een `transform` (bijvoorbeeld `myGameObject.transform.position`) of een ander component (met `GetComponent<T>()`) kost allocations. Net zoals bij de dictionaries is het handig om deze op te slaan (te *cachen*) in je eigen `MonoBehaviour` als je ze vaak nodig hebt.
+- Strings samenstellen met concatenation (`"stats: " + myStat`), interpolation (`$"stats: {myStat}"`), of `Format()` (`String.Format("stats: {0}", myStat)`) hebben allemaal memory allocation als gevolg. Door de aard van strings is het lastig om hieromheen te bouwen, maar `StringBuilder` ([docs](https://learn.microsoft.com/en-us/dotnet/api/system.text.stringbuilder?view=net-9.0)) kan hierbij helpen, ook al is het geen complete oplossing.
+- Nog een tip: je kunt pools niet alleen voor Unity GameObjects gebruiken, maar voor nagenoeg alle reference types! Unity's ingebouwde pools ondersteunen alle veelvoorkomende data-verzamelingen (met o.a. [`CollectionPool<T0, T1>`](https://docs.unity3d.com/ScriptReference/Pool.CollectionPool_2.html)), en zelfs algemene objecten met [`GenericPool<T>`](https://docs.unity3d.com/ScriptReference/Pool.GenericPool_1.html). Value types kunnen niet gepoold worden.
+
+## Verdere optimalisatie en ontwikkeling
 
 - Het gebruiken van een `Dictionary` is niet optimaal voor 2D grids. Het kan uiteindelijk best veel tijd kosten om een `Chunk` op te vragen op basis van een coördinaat. Het is efficiënter om een platte array te gebruiken van chunks, `Chunk[ChunkCount]`, en de chunks die er in voorkomen aan te passen. Omdat de platte array een tweedimensionaal grid voorstelt, is dit verre van triviaal. Ik heb deze optimalisatie in mijn eigen project toegepast, maar ik vond dit uiteindelijk niet de tijd waard.\
   De voornaamste reden om dictionaries te vervangen met arrays was dat ik in eerdere projecten tegen performance-problemen aangelopen ben met het gebruik van dictionaries voor 2D grids. Dit waren echter top-down games waar er veel meer toegang tot de tiles nodig was. Het is dus wel iets om rekening mee te houden in bepaalde situaties, maar in deze situatie is het niet relevant. Bovendien is dit een optimalisatie die weinig met geheugen te maken heeft en is het dus buiten de scope van deze tutorial. 
+- In de realiteit is een chunk meer dan alleen een stuk terrein. Zeker als er door de gebruiker geplaatste data in de wereld zit, moet dit onthouden worden en niet verwijderd op het moment dat een chunk buiten bereik valt. Dit vraagt om een net iets uitgebreidere implementatie, waarbij data die buiten bereik gaat alsnog bewaard blijft. Dit kan bijvoorbeeld door deze data te registreren met de `ChunkLoader` of de `Chunk` zelf op het moment dat de speler iets in de wereld plaatst, en deze data vervolgens apart te bewaren onder de coördinaten zodra de chunk ge-unload wordt. Hier komen allerlei extra uitdagingen bij kijken, maar deze vallen ver buiten de scope van zowel deze masterclass als mijn eigen project.

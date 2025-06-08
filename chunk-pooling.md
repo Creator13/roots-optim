@@ -130,14 +130,16 @@ We kunnen ook duidelijk zien waar oude data als afval achtergelaten wordt
     }
     ```
    
-Kortom, de memory allocator heeft het maar druk in het frame waarin deze code gerund wordt, en de garbage collector wordt flink belast als dit frame voorbij is.
+Als we de Unity profiler gebruiken kunnen we beter zien wat er gebeurt (en ook exact hoeveel memory er geallocate wordt):
+![Fig_ProfilerAllAllocs.png](Fig_ProfilerAllAllocs.png)
+Zoals je kunt zien wordt er voor de `CreateChunks()` functie 1.4KB vrijgemaakt, en de rest komt door de dictionaries.
 
 ## Objecten hergebruiken (*pooling*)
 
-We kunnen ervoor zorgen dat we dezelfde objecten hergebruiken, zodat we telkens maar één keer in de hele game een object hoeven aan te maken. Er zijn een aantal manieren om dat voor elkaar te krijgen, maar het komt ook met een paar eigenaardigheden.
+We kunnen ervoor zorgen dat we dezelfde objecten hergebruiken, zodat we telkens maar één keer in de hele game een object hoeven aan te maken. We gaan kijken wat we kunnen doen voor zowel de `loadedChunks` dictionary, en de `Chunk` objecten zelf.
 
 1. ### `loadedChunks` dictionary
-Achter de schermen bestaat een verzameling (o.a. `Dictionary`, `List` en `Array`) uit een pointer naar het memory-adres van het eerste element, en een getal om bij te houden hoeveel elementen er in de lijst zitten. Iedere verzameling heeft twee eigenschappen voor de grootte: `Length` of `Count`, en `Capacity`. De lengte geeft aan hoeveel elementen er op dit moment in de lijst zitten. De capaciteit geeft aan hoeveel elementen er in de lijst *kunnen* zitten. In feite is dit hoeveel vrijgemaakt geheugen de verzameling geclaimd heeft. In het geheugen ziet dit er ongeveer zo uit:
+Iedere verzameling heeft twee eigenschappen voor de grootte: `Length` of `Count`, en `Capacity`. De lengte geeft aan hoeveel elementen er op dit moment in de lijst zitten. De capaciteit geeft aan hoeveel elementen er in de lijst *kunnen* zitten. In feite is dit hoeveel geheugen de verzameling geclaimd heeft. In het geheugen ziet dit er ongeveer zo uit:
 
 ```csharp
 List<int> myList = new List { 8, 15, 88, 47 }; // Capacity en Length zijn allebei 4
@@ -146,28 +148,30 @@ List<int> myList = new List { 8, 15, 88, 47 }; // Capacity en Length zijn allebe
  ## | ## | 08 | 15 | 88 | 47 | ## | ## | ##
 ---------|----- myList ------|--------------
 
-myList.Capacity = 6; // maak de capaciteit 6
+myList.Capacity = 6; // maak de capaciteit 6, maar lengte blijft 4
 
 ---------|     geclaimed geheugen      |----
  ## | ## | 08 | 15 | 88 | 47 | ## | ## | ##
 ---------|---------- myList -----------|----
 ```
 
-Een verzameling kan leeggemaakt worden met de functie `Clear()`. `Clear()` zorgt ervoor dat alle data in de verzameling gewist wordt, terwijl de capaciteit gelijk blijft. We kunnen dan het oude geheugen gebruiken om nieuwe data op te slaan. Omdat we tijdens 
+Een verzameling kan leeggemaakt worden met de functie `Clear()`. `Clear()` zorgt ervoor dat alle data in de verzameling gewist wordt, terwijl de capaciteit gelijk blijft. We kunnen dan het oude geheugen gebruiken om nieuwe data op te slaan. Omdat we tijdens het bepalen van welke chunks nieuw zijn we ook moeten weten welke chunks er al waren, hebben we alsnog altijd twee Dictionaries nodig om de functie te laten werken. Dit is hoe we dat kunnen doen:
 
 ```csharp
 public class ChunkLoader : MonoBehavior {
     
     private Dictionary<Vector2Int, Chunk> loadedChunks;
+    private Dictionary<Vector2Int, Chunk> tempChunks;
     
     private void Start() 
     {
         loadedChunks = new Dictionary<Vector2Int, Chunk>(ChunkCount); // Maak een dictionary één keer aan met een capaciteit van het aantal chunks.
+        tempChunks = new Dictionary<Vector2Int, Chunk>(ChunkCount); // Hou een tweede dictionary bij.
     }
     
     private void UpdateVisibleChunks()
     {
-        Dictionary<Vector2Int, Chunk> newChunks = new();
+        tempChunks.Clear(); // In plaats van een nieuwe Dictionary maken, maak je de tijdelijke dict van vorige keer leeg
         
         // Create new chunks
         for (int x = -loadRadius; x < loadRadius + 1; x++)
@@ -177,32 +181,43 @@ public class ChunkLoader : MonoBehavior {
                 Vector2Int key = new Vector2Int(x + playerChunkX, z + playerChunkZ);
                 if (loadedChunks.TryGetValue(key, out var chunk))
                 {
-                    newChunks.Add(key, chunk);
+                   tempChunks.Add(key, chunk); // Voeg de chunks die je nodig hebt toe
                 }
                 else
                 {
-                    newChunks.Add(key, CreateChunk(x + playerChunkX, z + playerChunkZ));
+                   tempChunks.Add(key, CreateChunk(x + playerChunkX, z + playerChunkZ));
                 }
             }
         }
-    
+        
         // Invalidate and remove old chunks
-        foreach (var (key, chunk) in loadedChunks)
+        foreach (var (key, chunk) in loadedChunks) 
         {
-            if (!newChunks.ContainsKey(key))
+            if (!tempChunks.ContainsKey(key))
             {
                 Destroy(chunk.gameObject);
             }
         }
-    
+        
         // Update loaded chunks
-        loadedChunks = newChunks;
+        // Er is geen functie om direct de ene Dictionary naar de andere te kopiëren, 
+        // dus doen we het handmatig. 
+        loadedChunks.Clear();
+        foreach (var pair in tempChunks)
+        {
+            loadedChunks.Add(pair.Key, pair.Value);
+        }
     }
 }
 ```
 
+We kunnen nu nog een keer de profiler gebruiken om te kijken of dit geholpen heeft:
+![Fig_ProfilerNoDicts.png](Fig_ProfilerNoDicts.png)
+We zien nu dat de enige plek waar nog memory geallocate wordt in de `CreateChunks()` functie is, waar de nieuwe GameObjects aangemaakt worden. Dat scheelt dus veel werk!
+
 > **Tip**\
-> Je kunt een verzameling een start-capaciteit meegeven. Als je van tevoren al weet hoeveel elementen je moet gaan opslaan (wat vaak het geval is), zorg je er zo voor dat je maar één keer geheugen hoeft vrij te maken. Je doet dit in de meeste gevallen door de capaciteit in de constructor mee te geven: `new Dictionary<int, string>(capacity)`.
+> Je kunt een verzameling een start-capaciteit meegeven, zoals ik in de `Start()` van de nieuwe versie doe. Als je van tevoren al weet hoeveel elementen je moet gaan opslaan (wat hier het geval is), zorg je er zo voor dat je maar één keer geheugen hoeft vrij te maken. Je doet dit door de capaciteit in de constructor mee te geven: `new Dictionary<int, string>(capacity)`. Alleen deze optimalisatie zou al veel schelen in dit geval, zelfs zonder een tweede tijdelijke dictionary bij te houden, omdat de initiële capaciteit altijd 0 is. Zodra je een element toevoegt moet er dus al opnieuw memory geallocate worden. \
+> *Meer info: https://stackoverflow.com/a/2760961/2274782*
 
 2. ### `Chunk` GameObjects
 

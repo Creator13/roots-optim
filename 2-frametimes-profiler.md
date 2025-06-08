@@ -5,7 +5,7 @@ Om een richtlijn voor jezelf op de stellen voor de performance van je game heb j
 ## Frametime
 Om te zorgen dat het beeld vloeiend is moet elke nieuwe afbeelding (frame) binnen een bepaalde tijd klaar zijn. Als je 30 frames per seconde wil laten zien (30 FPS), dan heb je hooguit één dertigste van een seconde de tijd om de frame te maken. Dit is (net iets meer dan) 33 milliseconde (`1s / 30 = 0,0333…s ≈ 33ms`). We noemen dit ook de **frametime**. Als het langer duurt om een frame te maken kun je er minder in een seconde maken, en krijg je dus een lagere FPS. Het framebudget is de maximale frametime. 
 
-> **Note**\
+> **Tip**\
 > Voor games wordt framerate vaak uitgedrukt in FPS, maar de standaard-eenheid voor "keer per seconde" (frequentie) is Hz (hertz). Dit zul je vaak zien op monitors of TV's. Een monitor van 120Hz kan 120 beelden per seconde weergeven, ofwel, 120 frames per second.
 
 Game developers rekenen vaak liever met de frametime dan met de framerate van een spel: 
@@ -13,8 +13,6 @@ Game developers rekenen vaak liever met de frametime dan met de framerate van ee
 - De frametime simpelweg de som van de tijd die het duurt om alle functies uit te voeren en dit is één-op-één te vergelijken met je budget: als je functies samen 5ms duren, en je budget is 33ms, dan past je frame binnen het budget met nog 28ms over. 
 
 - Een framerate kan alleen berekend worden als een gemiddelde over tijd. De framerate is het gemiddelde aantal frames over een tijdsduur van één seconde. Dit zegt weinig tot niets over de tijd die elk individueel frame kost. Om een vloeiende ervaring te maken is het juist belangrijk om te zorgen dat elk individueel frame binnen het budget blijft.
-
-
 
 Het kiezen van een goed framebudget hangt van veel vergelijkbare factoren af als het kiezen van hardware. Het soort game is het meest bepalend: een casual- of simulatie-game blijft goed speelbaar met FPS onder de 60 (hierbij hoort een frametime van 16.7ms), terwijl een shooter of een competitief spel vaak pas vanaf 60 FPS speelbaar wordt. 
 

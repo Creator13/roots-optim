@@ -1,6 +1,8 @@
 ﻿# Afsluiting
 
-ssd
+## Samengevat
+
+
 
 ## Verder lezen
 

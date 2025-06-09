@@ -157,6 +157,8 @@ class Player { float age; }
 Vertex vertex = new Vertex { x = 5, y = 5, z = 8 }; // << Vertex is een struct, dus ondanks 'new' wordt er geen heap garbage gemaakt.
 Player player = new Player { age = 22 }; // << Player is een class, dus er wordt wel heap garbage gemaakt.
 ```
+> **Tip**\
+> Het is ook geen groot probleem om memory te allocaten voor objecten die zullen blijven bestaan, en dus niet tijdelijk zijn. Het liefst zorg je ervoor dat alle allocation in de `Start()` of `Awake()`-functie in Unity of een class constructor gebeuren. Heap allocations kosten (veel) meer tijd dan geheugen op de stack gebruiken, maar zolang de objecten gebruikt worden hoeft het geheugen niet opgeruimd te worden. Permanente allocations in een frame-update zijn dus ook niet zo'n groot probleem als tijdelijke allocations, maar vanwege de extra tijd die het kost *om te allocaten* is het nog steeds goed om dit te vermijden. 
 
 ### Meer informatie
 - [Garbage collector overview - Unity Manual](https://docs.unity3d.com/Manual/performance-garbage-collector.html)

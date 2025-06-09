@@ -40,6 +40,5 @@ Deze masterclass gaat uit van **Unity 6.1**. Hoewel ik Unity gebruik als context
   - [Performance-doelen & profiler](2-frametimes-profiler.md)
   - [C# data types & garbage collector](3-references-gc.md)
 - Foliage updaten: data locality
-- Jobs voor parallel genereren: native memory
 - Chunks poolen: hergebruiken van memory
 - Afsluiting en verder lezen

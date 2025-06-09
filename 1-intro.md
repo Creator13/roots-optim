@@ -4,7 +4,7 @@
 
 ---
 
-![](Fig_Terrain.png)
+**Intro** • [Frametimes](2-frametimes-profiler.md) • [References, GC](3-references-gc.md) • [Geheugen hergebruiken](4-chunk-pooling.md) • [Geheugen-layout](5-layout.md) • [Afsluiting](9-afsluiting.md) • [→](2-frametimes-profiler.md)
 
 ---
 
@@ -36,10 +36,13 @@ Deze masterclass gaat uit van **Unity 6.1**. Hoewel ik Unity gebruik als context
 
 ## Inhoud
 
-- **Intro**
-- Basis:
-  - [Performance-doelen & profiler](2-frametimes-profiler.md)
-  - [C# data types & garbage collector](3-references-gc.md)
-- Foliage updaten: data locality
-- Chunks poolen: hergebruiken van memory
-- Afsluiting en verder lezen
+1. **Intro**
+2. [Performance-doelen & profiler](2-frametimes-profiler.md)
+3. [C# data types & garbage collector](3-references-gc.md)
+4. [Geheugen hergebruiken: terrain chunks laden](4-chunk-pooling.md)
+5. [Geheugen-layout: vegetatie updaten](5-layout.md)
+6. [Afsluiting en verder lezen](9-afsluiting.md)
+
+---
+
+Volgende deel: [Geheugen hergebruiken →](2-frametimes-profiler.md)

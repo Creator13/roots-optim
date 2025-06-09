@@ -1,5 +1,11 @@
 ﻿# Performance-doelen en de profiler
 
+---
+
+[←](1-intro.md) • [Intro](1-intro.md) • **Frametimes** • [References, GC](3-references-gc.md) • [Geheugen hergebruiken](4-chunk-pooling.md) • [Geheugen-layout](5-layout.md) • [Afsluiting](9-afsluiting.md) • [→](3-references-gc.md)
+
+---
+
 Bij het werken aan een game wil je van tevoren een doel opstellen voor welke snelheid je game moet hebben. De meest bekende maat voor het meten van de snelheid van games is FPS, frames per seconde, ook wel framerate genoemd. De framerate hangt af van de hardware waar de game op moet draaien en de snelheid van de code. Voordat je je code gaat optimaliseren moet je eerst nagaan of dit wel nodig is, en dit test je aan de hand van dit doel. Tijdens het optimaliseren wil je ook kunnen testen of je optimalisaties daadwerkelijk doen wat ze moeten doen.
 
 We gaan in dit deel een alternatieve manier bekijken om de snelheid in te meten die beter inzicht geeft in de snelheid van je code, namelijk de frametime. Daarnaast gaan we ook even snel de profiler van Unity bekijken, omdat we deze later nodig gaan hebben.
@@ -79,3 +85,7 @@ Als je een build wilt deep-profilen, moet je het aanzetten op het moment dat de 
 - We noemen de maximale tijd die een frame max duren het framebudget.
 - We gebruiken de profiler om te kijken of onze frames binnen de minimale framebudget en hoeveel geheugen er vrijgemaakt wordt tijdens een frame.
     - We kunnen deep profiling gebruiken om preciezer te kunnen zien welke functies zorgen voor geheugengebruik.
+
+---
+
+Volgende deel: [C# data types & garbage collector →](3-references-gc.md)

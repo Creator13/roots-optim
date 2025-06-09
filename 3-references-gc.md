@@ -1,8 +1,8 @@
-﻿# References en de garbage collector
+﻿# C# data types & garbage collector
 
 ---
 
-[←](2-frametimes-profiler.md) • [Intro](1-intro.md) • [Frametimes](2-frametimes-profiler.md) • **References, GC** • [→]()
+[←](2-frametimes-profiler.md) • [Intro](1-intro.md) • [Frametimes](2-frametimes-profiler.md) • **References, GC** • [Geheugen hergebruiken](4-chunk-pooling.md) • [Geheugen-layout](5-layout.md) • [Afsluiting](9-afsluiting.md) • [→](4-chunk-pooling.md)
 
 ---
 
@@ -173,3 +173,7 @@ Player player = new Player { age = 22 }; // << Player is een class, dus er wordt
   - Heap-geheugen gebruikt door reference types kan alleen worden opgeruimd door de **garbage collector** (**GC**).
 - Als de garbage collector aan de slag moet, kost dit altijd tijd uit je frame. In ernstige gevallen kan dit voor merkbare haperingen in de game zorgen.
 - We willen tijdelijke heap allocations vermijden om de garbage collector te ontlasten.
+
+---
+
+Volgende deel: [Geheugen hergebruiken →](4-chunk-pooling.md)

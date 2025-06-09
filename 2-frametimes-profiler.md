@@ -1,20 +1,20 @@
 ﻿# Performance-doelen en de profiler
 
-Bij het werken aan een game wil je een bepaald doel opstellen voor welke snelheid je game moet hebben. De meest bekende maat voor het meten van de snelheid van games is FPS, frames per seconde, ook wel framerate genoemd. De framerate hangt af van de hardware waar de game op moet draaien en de snelheid van de code. Voordat je je code gaat optimaliseren wil je kijken of dit wel nodig is, en dit test je aan de hand van je doel. Tijdens het optimaliseren wil je ook kunnen testen of je optimalisaties daadwerkelijk zin hebben. We gaan in dit deel een alternatieve manier bekijken om de snelheid in te meten, namelijk frametime. 
+Bij het werken aan een game wil je van tevoren een doel opstellen voor welke snelheid je game moet hebben. De meest bekende maat voor het meten van de snelheid van games is FPS, frames per seconde, ook wel framerate genoemd. De framerate hangt af van de hardware waar de game op moet draaien en de snelheid van de code. Voordat je je code gaat optimaliseren moet je eerst nagaan of dit wel nodig is, en dit test je aan de hand van dit doel. Tijdens het optimaliseren wil je ook kunnen testen of je optimalisaties daadwerkelijk doen wat ze moeten doen.
 
-Daarnaast gaan we ook even snel de profiler van Unity bekijken, omdat we deze later nodig gaan hebben.
+We gaan in dit deel een alternatieve manier bekijken om de snelheid in te meten die beter inzicht geeft in de snelheid van je code, namelijk de frametime. Daarnaast gaan we ook even snel de profiler van Unity bekijken, omdat we deze later nodig gaan hebben.
 
 ## Frametime
-Om te zorgen dat het beeld vloeiend is moet elke nieuwe afbeelding (frame) binnen een bepaalde tijd klaar zijn. Als je 30 frames per seconde wilt laten zien (30 FPS), dan heb je hooguit één dertigste van een seconde de tijd om de frame te maken. Dit is (net iets meer dan) 33 milliseconde (`1s / 30 = 0,0333…s ≈ 33ms`). We noemen dit ook de **frametime**. Als het langer duurt om een frame te maken kun je er minder in een seconde maken, en krijg je dus een lagere FPS. Het **framebudget** is de maximale frametime. 
+Om te zorgen dat het beeld vloeiend is moet elke nieuwe afbeelding van de game (frame) binnen een bepaalde tijd klaar zijn. Als je 30 frames per seconde wilt laten zien (30 FPS), dan heb je hooguit één dertigste van een seconde de tijd om de frame te maken. Dit is (net iets meer dan) 33 milliseconde (`1s / 30 = 0,0333…s ≈ 33ms`). De pure tijd die het kost om een frame te maken noemen we de **frametime**. Hoe langer het duurt om een frame te maken, hoe minder je er per seconde kunt laten zien, en hoe lager je FPS dus wordt. Het **framebudget** is de maximale frametime. 
 
 > **Tip**\
-> Voor games wordt framerate vaak uitgedrukt in FPS, maar de standaard-eenheid voor "keer per seconde" (frequentie) is Hz (hertz). Dit zul je vaak zien op monitors of TV's. Een monitor van 120Hz kan 120 beelden per seconde weergeven, ofwel, 120 frames per second.
+> Voor games wordt framerate vaak uitgedrukt in FPS, maar de standaard-eenheid voor "keer per seconde" (frequentie) is Hz (hertz). Dit zul je vaak zien op monitors of TV's. Een monitor van 120Hz kan 120 beelden per seconde weergeven, ofwel, 120 frames per seconde. Hz en FPS betekenen hetzelfde in de context van games.
 
 Game developers die bezig zijn met optimalisatie rekenen vaak liever met de frametime dan met de framerate van een spel: 
  
-- De frametime simpelweg de som van de tijd die het duurt om alle functies uit te voeren en dit is een-op-een te vergelijken met je budget: als je functies samen 5ms duren, en je budget is 33ms, dan past je frame binnen het budget met nog 28ms over. 
+- De frametime is simpelweg de som van de tijd die het duurt om alle functies uit te voeren en dit is een-op-een te vergelijken met je budget: als de functies samen 5ms duren, en je budget is 33ms, dan past je frame binnen het budget met nog 28ms over. 
 
-- Een framerate kan alleen berekend worden als een gemiddelde over tijd. De framerate is het gemiddelde aantal frames over een tijdsduur van één seconde. Dit zegt weinig tot niets over de tijd die elk individueel frame kost. Om een vloeiende ervaring te maken is het juist belangrijk om te zorgen dat elk individueel frame binnen het budget blijft.
+- Een framerate kan alleen berekend worden als een gemiddelde over tijd. Feitelijk is de framerate het gemiddelde aantal frames over een tijdsduur van één seconde. Dit zegt weinig tot niets over de tijd die elk individueel frame kost; het gemiddelde trekt die recht. Om een vloeiende ervaring te maken is het juist belangrijk om te zorgen dat elk individueel frame binnen het budget blijft.
 
 ### Framebudget kiezen
 Het kiezen van een goed framebudget hangt af van een aantal factoren. Het soort game is het meest bepalend: een casual- of simulatie-game blijft goed speelbaar met FPS onder de 60 (hierbij hoort een frametime van 16.7ms), terwijl een shooter of een competitief spel vaak pas vanaf 60 FPS speelbaar wordt. 
@@ -59,7 +59,7 @@ Deze functie gaan we later gebruiken om het geheugengebruik te controleren.
 Deep profiling is een functie om letterlijk elke functie te kunnen zien in de profiler. Deze functie staat standaard uit, omdat het erg veel performance kost om dit te doen. Deep profiling is voor twee scenario's interessant: 
 
 - Je wilt weten welke calls in jouw functies meer tijd innemen dan anderen (relatief)
-- Je wilt weten welke functies *specifiek* geheugen opvragen
+- Je wilt weten welke specifieke functies geheugen opvragen
 
 Deep profiling zal je game erg traag maken, en kun je niet gebruiken om de daadwerkelijke tijd van functies te achterhalen. Zelfs de standaard-profiler geeft een iets vertekend beeld, maar dit is een veel minder groot probleem.
 
@@ -71,3 +71,10 @@ Als je een build wilt deep-profilen, moet je het aanzetten op het moment dat de 
 
 ![Fig_DeepProfileBuild.png](Fig_DeepProfileBuild.png)
 
+## Samenvatting
+
+- Tijdens het optimaliseren kijken we liever naar de frame*time* dan de frame*rate* van een game:
+  - Frametime is simpelweg de tijd die het duurt om een frame te maken, vaak uitgedrukt in milliseconde (ms).
+  - De framerate laat een gemiddelde zien en zegt niets over de uitschieters.
+- We noemen de maximale tijd die een frame max duren het framebudget.
+- We gebruiken de profiler om te kijken of onze frames binnen de minimale framebudget en hoeveel geheugen er vrijgemaakt wordt tijdens een frame.

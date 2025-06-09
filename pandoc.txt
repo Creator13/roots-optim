@@ -1,0 +1,15 @@
+pandoc 0-combined.md   -f gfm -t html5   --standalone   --metadata title="test"   -H <(echo "<style>$(cat github-markdown.css)</style>")   -o temp.html
+
+wkhtmltopdf --enable-local-file-access temp.html test4.pdf
+
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+pre, code {
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-ligatures: none;
+  -webkit-font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  -moz-font-feature-settings: "liga" 0, "calt" 0;
+  -webkit-font-feature-settings: "liga" 0, "calt" 0;
+}
+</style>

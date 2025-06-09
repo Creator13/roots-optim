@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>test</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>@font-face {
+    font-family: octicons-link;
+    src: url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM+8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB/aFGpk3jaTY6xa8JAGMW/O62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v+k/0an2i+itHDw3v2+9+DBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3/I7AtxEJLtzzuZfI+VVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy/Lt7Kc+0vWY/gAgIIEqAN9we0pwKXreiMasxvabDQMM4riO+qxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw+ymhce7vwM9jSqO8JyVd5RH9gyTt2+J/yUmYlIR0s04n6+7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv/ocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi+W2+MjCzMIDApSwvXzC97Z4Ig8N/BxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh/8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT+AEjAwuDFpBmA9KMDEwMCh9i/v8H8sH0/4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9/lqYwOGZxeUelN2U2R6+cArgtCJpauW7UQBqnFkUsjAY/kOU1cP+DAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl+vvmM/byA48e6tWrKArm4ZJlCbdsrxksL1AwWn/yBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO//sdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd/89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF+9JOS0nbaaYDCQfwCJ7Au3AHj+LO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm+EBXuAbHmIMSRMs+4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL+hD7C1xoaHeLJSEao0FEW14ckxC+TU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13/+lm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl+9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O/AdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB///AA8AAQAAAAAAAAAAAAAAAAABAAAAAA==) format('woff');
+  }
+
+  .octicon {
+    display: inline-block;
+    fill: currentColor;
+    vertical-align: text-bottom;
+  }
+
+  .anchor {
+    float: left;
+    line-height: 1;
+    margin-left: -20px;
+    padding-right: 4px;
+  }
+
+  .anchor:focus {
+    outline: none;
+  }
+
+  h1 .octicon-link,
+  h2 .octicon-link,
+  h3 .octicon-link,
+  h4 .octicon-link,
+  h5 .octicon-link,
+  h6 .octicon-link {
+    color: #1b1f23;
+    vertical-align: middle;
+    visibility: hidden;
+  }
+
+  h1:hover .anchor,
+  h2:hover .anchor,
+  h3:hover .anchor,
+  h4:hover .anchor,
+  h5:hover .anchor,
+  h6:hover .anchor {
+    text-decoration: none;
+  }
+
+  h1:hover .anchor .octicon-link,
+  h2:hover .anchor .octicon-link,
+  h3:hover .anchor .octicon-link,
+  h4:hover .anchor .octicon-link,
+  h5:hover .anchor .octicon-link,
+  h6:hover .anchor .octicon-link {
+    visibility: visible;
+  }
+
+  body {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    color: #24292e;
+    line-height: 1.5;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+
+  .pl-c {
+    color: #6a737d;
+  }
+
+  .pl-c1,
+  .pl-s .pl-v {
+    color: #005cc5;
+  }
+
+  .pl-e,
+  .pl-en {
+    color: #6f42c1;
+  }
+
+  .pl-s .pl-s1,
+  .pl-smi {
+    color: #24292e;
+  }
+
+  .pl-ent {
+    color: #22863a;
+  }
+
+  .pl-k {
+    color: #d73a49;
+  }
+
+  .pl-pds,
+  .pl-s,
+  .pl-s .pl-pse .pl-s1,
+  .pl-sr,
+  .pl-sr .pl-cce,
+  .pl-sr .pl-sra,
+  .pl-sr .pl-sre {
+    color: #032f62;
+  }
+
+  .pl-smw,
+  .pl-v {
+    color: #e36209;
+  }
+
+  .pl-bu {
+    color: #b31d28;
+  }
+
+  .pl-ii {
+    background-color: #b31d28;
+    color: #fafbfc;
+  }
+
+  .pl-c2 {
+    background-color: #d73a49;
+    color: #fafbfc;
+  }
+
+  .pl-c2:before {
+    content: "^M";
+  }
+
+  .pl-sr .pl-cce {
+    color: #22863a;
+    font-weight: 700;
+  }
+
+  .pl-ml {
+    color: #735c0f;
+  }
+
+  .pl-mh,
+  .pl-mh .pl-en,
+  .pl-ms {
+    color: #005cc5;
+    font-weight: 700;
+  }
+
+  .pl-mi {
+    color: #24292e;
+    font-style: italic;
+  }
+
+  .pl-mb {
+    color: #24292e;
+    font-weight: 700;
+  }
+
+  .pl-md {
+    background-color: #ffeef0;
+    color: #b31d28;
+  }
+
+  .pl-mi1 {
+    background-color: #f0fff4;
+    color: #22863a;
+  }
+
+  .pl-mc {
+    background-color: #ffebda;
+    color: #e36209;
+  }
+
+  .pl-mi2 {
+    background-color: #005cc5;
+    color: #f6f8fa;
+  }
+
+  .pl-mdr {
+    color: #6f42c1;
+    font-weight: 700;
+  }
+
+  .pl-ba {
+    color: #586069;
+  }
+
+  .pl-sg {
+    color: #959da5;
+  }
+
+  .pl-corl {
+    color: #032f62;
+    text-decoration: underline;
+  }
+
+  details {
+    display: block;
+  }
+
+  summary {
+    display: list-item;
+  }
+
+  a {
+    background-color: transparent;
+  }
+
+  a:active,
+  a:hover {
+    outline-width: 0;
+  }
+
+  strong {
+    font-weight: inherit;
+    font-weight: bolder;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin: .67em 0;
+  }
+
+  img {
+    border-style: none;
+  }
+
+  code,
+  kbd,
+  pre {
+    font-family: monospace,monospace;
+    font-size: 1em;
+  }
+
+  hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
+  }
+
+  input {
+    font: inherit;
+    margin: 0;
+  }
+
+  input {
+    overflow: visible;
+  }
+
+  [type=checkbox] {
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  input {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  a {
+    color: #0366d6;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  hr {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #dfe2e5;
+    height: 0;
+    margin: 15px 0;
+    overflow: hidden;
+  }
+
+  hr:before {
+    content: "";
+    display: table;
+  }
+
+  hr:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  td,
+  th {
+    padding: 0;
+  }
+
+  details summary {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h1,
+  h2 {
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  h3,
+  h4 {
+    font-weight: 600;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+
+  h5 {
+    font-size: 14px;
+  }
+
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+
+  h6 {
+    font-size: 12px;
+  }
+
+  p {
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+
+  blockquote {
+    margin: 0;
+  }
+
+  ol,
+  ul {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-left: 0;
+  }
+
+  ol ol,
+  ul ol {
+    list-style-type: lower-roman;
+  }
+
+  ol ol ol,
+  ol ul ol,
+  ul ol ol,
+  ul ul ol {
+    list-style-type: lower-alpha;
+  }
+
+  dd {
+    margin-left: 0;
+  }
+
+  code,
+  pre {
+    font-family: "Courier New";
+    font-size: 12px;
+  }
+
+  pre {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  input::-webkit-inner-spin-button,
+  input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+
+  .border {
+    border: 1px solid #e1e4e8!important;
+  }
+
+  .border-0 {
+    border: 0!important;
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid #e1e4e8!important;
+  }
+
+  .rounded-1 {
+    border-radius: 3px!important;
+  }
+
+  .bg-white {
+    background-color: #fff!important;
+  }
+
+  .bg-gray-light {
+    background-color: #fafbfc!important;
+  }
+
+  .text-gray-light {
+    color: #6a737d!important;
+  }
+
+  .mb-0 {
+    margin-bottom: 0!important;
+  }
+
+  .my-2 {
+    margin-bottom: 8px!important;
+    margin-top: 8px!important;
+  }
+
+  .pl-0 {
+    padding-left: 0!important;
+  }
+
+  .py-0 {
+    padding-bottom: 0!important;
+    padding-top: 0!important;
+  }
+
+  .pl-1 {
+    padding-left: 4px!important;
+  }
+
+  .pl-2 {
+    padding-left: 8px!important;
+  }
+
+  .py-2 {
+    padding-bottom: 8px!important;
+    padding-top: 8px!important;
+  }
+
+  .pl-3,
+  .px-3 {
+    padding-left: 16px!important;
+  }
+
+  .px-3 {
+    padding-right: 16px!important;
+  }
+
+  .pl-4 {
+    padding-left: 24px!important;
+  }
+
+  .pl-5 {
+    padding-left: 32px!important;
+  }
+
+  .pl-6 {
+    padding-left: 40px!important;
+  }
+
+  .f6 {
+    font-size: 12px!important;
+  }
+
+  .lh-condensed {
+    line-height: 1.25!important;
+  }
+
+  .text-bold {
+    font-weight: 600!important;
+  }
+
+  a:not([href]) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  blockquote,
+  dl,
+  ol,
+  p,
+  pre,
+  table,
+  ul {
+    margin-bottom: 16px;
+    margin-top: 0;
+  }
+
+  hr {
+    background-color: #e1e4e8;
+    border: 0;
+    height: .25em;
+    margin: 24px 0;
+    padding: 0;
+  }
+
+  blockquote {
+    border-left: .25em solid #dfe2e5;
+    color: #6a737d;
+    padding: 0 1em;
+  }
+
+  blockquote>:first-child {
+    margin-top: 0;
+  }
+
+  blockquote>:last-child {
+    margin-bottom: 0;
+  }
+
+  kbd {
+    background-color: #fafbfc;
+    border: 1px solid #c6cbd1;
+    border-bottom-color: #959da5;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #959da5;
+    color: #444d56;
+    display: inline-block;
+    font-size: 11px;
+    line-height: 10px;
+    padding: 3px 5px;
+    vertical-align: middle;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    margin-top: 24px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h1,
+  h2 {
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: .3em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.25em;
+  }
+
+  h4 {
+    font-size: 1em;
+  }
+
+  h5 {
+    font-size: .875em;
+  }
+
+  h6 {
+    color: #6a737d;
+    font-size: .85em;
+  }
+
+  ol,
+  ul {
+    padding-left: 2em;
+  }
+
+  ol ol,
+  ol ul,
+  ul ol,
+  ul ul {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  li {
+    word-wrap: break-all;
+  }
+
+  li>p {
+    margin-top: 16px;
+  }
+
+  li+li {
+    margin-top: .25em;
+  }
+
+  dl {
+    padding: 0;
+  }
+
+  dl dt {
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 600;
+    margin-top: 16px;
+    padding: 0;
+  }
+
+  dl dd {
+    margin-bottom: 16px;
+    padding: 0 16px;
+  }
+
+  table {
+    display: block;
+    overflow: auto;
+    width: 100%;
+  }
+
+  table th {
+    font-weight: 600;
+  }
+
+  table td,
+  table th {
+    border: 1px solid #dfe2e5;
+    padding: 6px 13px;
+  }
+
+  table tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+  }
+
+  table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+  }
+
+  img {
+    background-color: #fff;
+    box-sizing: content-box;
+    max-width: 100%;
+  }
+
+  img[align=right] {
+    padding-left: 20px;
+  }
+
+  img[align=left] {
+    padding-right: 20px;
+  }
+
+  code {
+    background-color: rgba(27,31,35,.05);
+    border-radius: 3px;
+    font-size: 85%;
+    margin: 0;
+    padding: .2em .4em;
+  }
+
+  pre {
+    word-wrap: normal;
+  }
+
+  pre>code {
+    background: transparent;
+    border: 0;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    white-space: pre;
+    word-break: normal;
+  }
+
+  .highlight {
+    margin-bottom: 16px;
+  }
+
+  .highlight pre {
+    margin-bottom: 0;
+    word-break: normal;
+  }
+
+  .highlight pre,
+  pre {
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    font-size: 85%;
+    line-height: 1.45;
+    overflow: auto;
+    padding: 16px;
+  }
+
+  pre code {
+    background-color: transparent;
+    border: 0;
+    display: inline;
+    line-height: inherit;
+    margin: 0;
+    max-width: auto;
+    overflow: visible;
+    padding: 0;
+    word-wrap: normal;
+  }
+
+  .commit-tease-sha {
+    color: #444d56;
+    display: inline-block;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+    font-size: 90%;
+  }
+
+  .blob-wrapper {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .blob-wrapper-embedded {
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  .blob-num {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    color: rgba(27,31,35,.3);
+    cursor: pointer;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+    font-size: 12px;
+    line-height: 20px;
+    min-width: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: right;
+    user-select: none;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 1%;
+  }
+
+  .blob-num:hover {
+    color: rgba(27,31,35,.6);
+  }
+
+  .blob-num:before {
+    content: attr(data-line-number);
+  }
+
+  .blob-code {
+    line-height: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    vertical-align: top;
+  }
+
+  .blob-code-inner {
+    color: #24292e;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+    font-size: 12px;
+    overflow: visible;
+    white-space: pre;
+    word-wrap: normal;
+  }
+
+  .pl-token.active,
+  .pl-token:hover {
+    background: #ffea7f;
+    cursor: pointer;
+  }
+
+  kbd {
+    background-color: #fafbfc;
+    border: 1px solid #d1d5da;
+    border-bottom-color: #c6cbd1;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #c6cbd1;
+    color: #444d56;
+    display: inline-block;
+    font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+    line-height: 10px;
+    padding: 3px 5px;
+    vertical-align: middle;
+  }
+
+  :checked+.radio-label {
+    border-color: #0366d6;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tab-size[data-tab-size="1"] {
+    -moz-tab-size: 1;
+    tab-size: 1;
+  }
+
+  .tab-size[data-tab-size="2"] {
+    -moz-tab-size: 2;
+    tab-size: 2;
+  }
+
+  .tab-size[data-tab-size="3"] {
+    -moz-tab-size: 3;
+    tab-size: 3;
+  }
+
+  .tab-size[data-tab-size="4"] {
+    -moz-tab-size: 4;
+    tab-size: 4;
+  }
+
+  .tab-size[data-tab-size="5"] {
+    -moz-tab-size: 5;
+    tab-size: 5;
+  }
+
+  .tab-size[data-tab-size="6"] {
+    -moz-tab-size: 6;
+    tab-size: 6;
+  }
+
+  .tab-size[data-tab-size="7"] {
+    -moz-tab-size: 7;
+    tab-size: 7;
+  }
+
+  .tab-size[data-tab-size="8"] {
+    -moz-tab-size: 8;
+    tab-size: 8;
+  }
+
+  .tab-size[data-tab-size="9"] {
+    -moz-tab-size: 9;
+    tab-size: 9;
+  }
+
+  .tab-size[data-tab-size="10"] {
+    -moz-tab-size: 10;
+    tab-size: 10;
+  }
+
+  .tab-size[data-tab-size="11"] {
+    -moz-tab-size: 11;
+    tab-size: 11;
+  }
+
+  .tab-size[data-tab-size="12"] {
+    -moz-tab-size: 12;
+    tab-size: 12;
+  }
+
+  .task-list-item {
+    list-style-type: none;
+  }
+
+  .task-list-item+.task-list-item {
+    margin-top: 3px;
+  }
+
+  .task-list-item input {
+    margin: 0 .2em .25em -1.6em;
+    vertical-align: middle;
+  }
+
+  hr {
+    border-bottom-color: #eee;
+  }
+
+  .pl-0 {
+    padding-left: 0!important;
+  }
+
+  .pl-1 {
+    padding-left: 4px!important;
+  }
+
+  .pl-2 {
+    padding-left: 8px!important;
+  }
+
+  .pl-3 {
+    padding-left: 16px!important;
+  }
+
+  .pl-4 {
+    padding-left: 24px!important;
+  }
+
+  .pl-5 {
+    padding-left: 32px!important;
+  }
+
+  .pl-6 {
+    padding-left: 40px!important;
+  }
+
+  .pl-7 {
+    padding-left: 48px!important;
+  }
+
+  .pl-8 {
+    padding-left: 64px!important;
+  }
+
+  .pl-9 {
+    padding-left: 80px!important;
+  }
+
+  .pl-10 {
+    padding-left: 96px!important;
+  }
+
+  .pl-11 {
+    padding-left: 112px!important;
+  }
+
+  .pl-12 {
+    padding-left: 128px!important;
+  }</style>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+pre, code {
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-ligatures: none;
+  -webkit-font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  -moz-font-feature-settings: "liga" 0, "calt" 0;
+  -webkit-font-feature-settings: "liga" 0, "calt" 0;
+    white-space: pre-wrap;       /* Wraps lines */
+  word-break: break-word;      /* Break long words if needed */
+  overflow-wrap: anywhere;    /* Breaks to avoid overflow */
+  /* Optional: add padding for readability */
+  /* padding: 0.5em; */
+}
+pre {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+</style>
+
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">test</h1>
+</header>
+<h1 id="masterclass-data-oriented-memory-optimalisaties-voor-een-procedurele-terreingenerator">Masterclass: Data-oriented memory-optimalisaties voor een procedurele terreingenerator</h1>
+<h3 id="casper-van-battum--graduation-hku-game-development">Casper van Battum • Graduation HKU Game Development</h3>
+<p>Voor betere weergave van code-blokken en (gif) afbeeldingen, bezoek de GitHub-repo: <a href="https://github.com/Creator13/roots-optim/blob/master/1-intro.md">https://github.com/Creator13/roots-optim/blob/master/1-intro.md</a></p>
+<hr />
+<p>Voor mijn afstudeerproject – Roots – heb ik een procedurele terrein-generator geschreven. Een uitdaging die ik hiervoor opgezocht heb was het optimaliseren van de generator: terrein moest tijdens het spelen van de game zonder haperingen geladen worden.</p>
+<p>Unity maakt het makkelijk om snel games te maken, maar daar staat tegenover dat je zelf wat extra werk moet doen om ook <em>snelle</em> games te maken. Met een beetje kennis van hoe programmeertalen en de computer werken valt er een hoop winst te behalen. Het doel van deze masterclass is om een goed begin te leggen voor die kennis.</p>
+<p>Door alle optimalisaties heen stond er een ding centraal: hoe ga je om met het geheugen? Feit is dat hier veel winst te behalen valt op moderne hardware. Daarom gaan we voornamelijk kijken naar hoe goed (of slecht) geheugengebruik mij heeft geholpen om een oppervlakte van 24km² verdeeld over 15 chunks in slechts 2ms te genereren. En was dat proces het ook daadwerkelijk waard? <img src="Fig_Terrain.png" alt="Fig_Terrain.png" /></p>
+<h2 id="wat-ga-je-leren">Wat ga je leren?</h2>
+<p>Je gaat in deze masterclass leren hoe het bijhouden en bewaren van data de performance van je game beïnvloedt. Dit doen we door eerst naar de basis te kijken van memory-management in C# en Unity, en vervolgens twee concrete voorbeelden uit mijn project te bekijken waar ik deze concepten heb toegepast om performance-bottlenecks op te lossen. Voor deze case studies heb ik een minimaal voorbeeldproject om zelf de stof toe te passen, maar de masterclass is vooral bedoeld als uitgangspunt om zelf verder te leren over de concepten van geheugenmanagement.</p>
+<p>Ik gebruik twee voorbeelden uit mijn project om verschillende onderwerpen uit te lichten:</p>
+<ul>
+<li>Memory hergebruiken</li>
+<li>Code ontwerpen voor memory/cache locality</li>
+</ul>
+<p>Deze masterclass gaat uit van <strong>Unity 6.1</strong>. Hoewel ik Unity gebruik als context voor de code in deze masterclass, zijn de principes toepasbaar op alle engines. Memory werkt uiteindelijk hetzelfde op elke computer, voor elk programma. Zelfs non-game software kan hier winst behalen. De principes komen uit data-oriented design, een tegenhanger van het welbekende object-oriented design, dat steeds meer gebruikt wordt in games.</p>
+<h2 id="voorkennis">Voorkennis</h2>
+<ul>
+<li>Je kunt met C# programmeren, of een vergelijkbare programmeertaal.</li>
+<li>Basiskennis van pointers/references zoals in C/C++, Rust, of een vergelijkbare programmeertaal.</li>
+<li>Je weet wat de game loop van een engine is en wat het concept van een frame is.</li>
+<li>Je kan je weg vinden in Unity.
+<ul>
+<li>Inclusief het gebruik van de profiler (zo niet staan er resources in het volgende hoofdstuk).</li>
+</ul></li>
+</ul>
+<h2 id="inhoud">Inhoud</h2>
+<ol>
+<li>Intro</li>
+<li>Performance-doelen &amp; profiler</li>
+<li>C# data types &amp; garbage collector</li>
+<li>Geheugen hergebruiken: terrain chunks laden</li>
+<li>Geheugen-layout: vegetatie updaten</li>
+<li>Afsluiting en verder lezen</li>
+</ol>
+<h1 id="performance-doelen-en-de-profiler">Performance-doelen en de profiler</h1>
+<p>Bij het werken aan een game wil je van tevoren een doel opstellen voor welke snelheid je game moet hebben. De meest bekende maat voor het meten van de snelheid van games is FPS, frames per seconde, ook wel framerate genoemd. De framerate hangt af van de hardware waar de game op moet draaien en de snelheid van de code. Voordat je je code gaat optimaliseren moet je eerst nagaan of dit wel nodig is, en dit test je aan de hand van dit doel. Tijdens het optimaliseren wil je ook kunnen testen of je optimalisaties daadwerkelijk doen wat ze moeten doen.</p>
+<p>We gaan in dit deel een alternatieve manier bekijken om de snelheid in te meten die beter inzicht geeft in de snelheid van je code, namelijk de frametime. Daarnaast gaan we ook even snel de profiler van Unity bekijken, omdat we deze later nodig gaan hebben.</p>
+<h2 id="frametime">Frametime</h2>
+<p>Om te zorgen dat het beeld vloeiend is moet elke nieuwe afbeelding van de game (frame) binnen een bepaalde tijd klaar zijn. Als je 30 frames per seconde wilt laten zien (30 FPS), dan heb je hooguit één dertigste van een seconde de tijd om de frame te maken. Dit is (net iets meer dan) 33 milliseconde (<code>1s / 30 = 0,0333…s ≈ 33ms</code>). De pure tijd die het kost om een frame te maken noemen we de <strong>frametime</strong>. Hoe langer het duurt om een frame te maken, hoe minder je er per seconde kunt laten zien, en hoe lager je FPS dus wordt. Het <strong>framebudget</strong> is de maximale frametime.</p>
+<blockquote>
+<p><strong>Tip</strong><br />
+Voor games wordt framerate vaak uitgedrukt in FPS, maar de standaard-eenheid voor "keer per seconde" (frequentie) is Hz (hertz). Dit zul je vaak zien op monitors of TV's. Een monitor van 120Hz kan 120 beelden per seconde weergeven, ofwel, 120 frames per seconde. Hz en FPS betekenen hetzelfde in de context van games.</p>
+</blockquote>
+<p>Game developers die bezig zijn met optimalisatie rekenen vaak liever met de frametime dan met de framerate van een spel:</p>
+<ul>
+<li><p>De frametime is simpelweg de som van de tijd die het duurt om alle functies uit te voeren en dit is een-op-een te vergelijken met je budget: als de functies samen 5ms duren, en je budget is 33ms, dan past je frame binnen het budget met nog 28ms over.</p></li>
+<li><p>Een framerate kan alleen berekend worden als een gemiddelde over tijd. Feitelijk is de framerate het gemiddelde aantal frames over een tijdsduur van één seconde. Dit zegt weinig tot niets over de tijd die elk individueel frame kost; het gemiddelde trekt die recht. Om een vloeiende ervaring te maken is het juist belangrijk om te zorgen dat elk individueel frame binnen het budget blijft.</p></li>
+</ul>
+<h3 id="framebudget-kiezen">Framebudget kiezen</h3>
+<p>Het kiezen van een goed framebudget hangt af van een aantal factoren. Het soort game is het meest bepalend: een casual- of simulatie-game blijft goed speelbaar met FPS onder de 60 (hierbij hoort een frametime van 16.7ms), terwijl een shooter of een competitief spel vaak pas vanaf 60FPS als speelbaar wordt ervaren.</p>
+<p>De hardware van de speler is ook van belang: monitoren zijn gelimiteerd in het aantal beelden dat ze kunnen weergeven per seconde. De meeste laptop- of kantoormonitoren zullen een frequentie hebben van 60 of 75, soms 100FPS, terwijl specialistische game-monitoren vaak 120, 144 of zelfs nog hoger aankunnen.</p>
+<p>Je kunt het framebudget ook bijstellen om voor meer of minder krachtige hardware te corrigeren. Stel je hebt een supercomputer waar je op test en je verwacht dat je gebruikers gemiddeld slechtere computers gaan hebben, dan is het slim om te zeggen dat het op jouw computer veel sneller moet draaien dan dat je wil op de computer van je gebruiker. Pas hiermee wel op, want hardware schaalt vaak niet lineair met snelheid. Zo’n correctie is dus geen vervanging voor het af en toe testen op de hardware van gebruikers.</p>
+<p>De gebruiker zal snelheid uiteindelijk vooral merken op twee vlakken: de verversingssnelheid van de beelden op hun scherm, en de <strong>latency</strong> van hun inputs; ofwel de reactiesnelheid van de game op hun acties. Deze twee factoren zijn onafhankelijk van elkaar: een game die gespeeld wordt op een monitor van 60Hz terwijl de framerate waarop de game draait hoger is, zal sneller reageren dan een game die ook daadwerkelijk op 60FPS draait.</p>
+<p>Hieronder een tabel met de veelgebruikte waarden voor frametimes, en de framerates die erbij horen, evenals de scenario's waarin die waarden vaak gebruikt worden.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Frametime</th>
+<th>Framerate</th>
+<th>Scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>33ms</td>
+<td>30FPS</td>
+<td>Oudere consoles of mobiele apparaten.</td>
+</tr>
+<tr class="even">
+<td>16.7ms</td>
+<td>60FPS</td>
+<td>Meest voorkomende framerate van monitors; framerate van moderne consoles.</td>
+</tr>
+<tr class="odd">
+<td>17-10ms</td>
+<td>60-100FPS</td>
+<td>De gemiddelde snelheid die de meeste gebruikers verwachten van hun games.</td>
+</tr>
+<tr class="even">
+<td>10-5ms</td>
+<td>100-200fps</td>
+<td>Interessant voor games waar snelheid belangrijk is, bijvoorbeeld shooters die op 144Hz+ monitors gespeeld worden.</td>
+</tr>
+<tr class="odd">
+<td>&lt;5ms</td>
+<td>&gt;200FPS</td>
+<td>Zeldzaam nodig; weinig monitors ondersteunen zulke hoge framerates, en bovendien wordt het verschil in latency steeds minder goed merkbaar tussen steeds hogere snelheden.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="profiler">Profiler</h2>
+<p>We gebruiken de profiler in Unity voor het meten van de performance van een game. De profiler meet per frame onder andere de frametime en het geheugengebruik, naast nog veel andere dingen. Je vindt de profiler in het menu <code>Window &gt; Analysis &gt; Profiler</code>. Als je nog nooit met de profiler hebt gewerkt is het handig om hier eerst even bekend mee te worden, bijvoorbeeld met deze video van Unity: <a href="https://www.youtube.com/watch?v=xjsqv8nj0cw">https://www.youtube.com/watch?v=xjsqv8nj0cw</a>. Hier worden ook een paar eigenaardigheden in benoemd waar je je bewust van moet zijn als je je eigen games gaat profilen.</p>
+<blockquote>
+<p><strong>Tip</strong><br />
+Je hebt in het <code>Window &gt; Analysis</code> menu ook een optie voor <code>Profiler (Standalone Process)</code>. Dit is de optie die ik zelf liever gebruik. De ingebouwde profiler kan de hele editor, inclusief game, langzamer maken. Bovendien kan de standalone profiler gewoon functioneel blijven als Unity ergens mee bezig is of blijft hangen.</p>
+</blockquote>
+<h3 id="frames-bekijken">Frames bekijken</h3>
+<p>De profiler geeft aan welke functies er aangeroepen worden tijdens een frame. De timeline-view geeft een indruk welke functies op welk moment in de frame gebeuren, hoe lang functies duren, wat de volgorde is, en wat de hiërarchie is. Je kunt hierin zoomen en scrollen:</p>
+<p><img src="Fig_ProfilerTimeline.png" alt="Fig_ProfilerTimeline.png" /></p>
+<p>De Hierarchy-view laat meer pure data zien. Deze is vooral interessant voor deze masterclass, omdat hier ook aangegeven wordt hoeveel geheugen er in een frame wordt toegewezen (omcirkelde kolom, onder 'GC Alloc'):</p>
+<p><img src="Fig_ProfilerHierarchy.png" alt="Fig_ProfilerHierarchy.png" /></p>
+<p>Deze functie gaan we later gebruiken om het geheugengebruik te controleren.</p>
+<h3 id="deep-profiling">Deep profiling</h3>
+<p>Bij standaard-profiling wordt er enkel een overzicht gegeven van de functies die gedraaid worden. Deep profiling is een functie om letterlijk elke functie te kunnen zien in de profiler. Deze functie staat standaard uit, omdat dit erg veel rekenkracht kost en de performance van je game zal vernietigen. Deep profiling is voor twee scenario's interessant:</p>
+<ul>
+<li>Je wilt weten welke calls in jouw functies meer tijd innemen dan anderen (relatief)</li>
+<li>Je wilt weten welke specifieke functies geheugen opvragen</li>
+</ul>
+<p>Deep profiling zal je game erg traag maken, dus je kunt het niet gebruiken om de daadwerkelijke tijd van functies te achterhalen. Zelfs de standaard-profiler geeft een iets vertekend beeld, maar dit is een veel minder groot probleem. Door deep profiling kunnen de frames wel 5 tot 10 keer zo lang duren, terwijl de standaard profiler frames slechts enkele procenten langer maakt.</p>
+<p><img src="Fig_DeepProfile.png" alt="Fig_DeepProfile.png" /></p>
+<p>Deep profiling zet je aan met de "Deep profile"-knop bovenin. Dit zorgt ervoor dat de game opnieuw gecompileerd moet worden.</p>
+<p>Als je een build wilt deep-profilen, moet je het aanzetten op het moment dat de build gemaakt wordt, door in de build settings "Development build" en "Deep profiling support" aan te zetten.</p>
+<p><img src="Fig_DeepProfileBuild.png" alt="Fig_DeepProfileBuild.png" /></p>
+<h2 id="samenvatting">Samenvatting</h2>
+<ul>
+<li>Tijdens het optimaliseren kijken we liever naar de frame<em>time</em> dan de frame<em>rate</em> van een game:
+<ul>
+<li>Frametime is simpelweg de tijd die het duurt om een frame te maken, vaak uitgedrukt in milliseconde (ms).</li>
+<li>De framerate laat een gemiddelde zien en zegt niets over de uitschieters.</li>
+</ul></li>
+<li>We noemen de maximale tijd die een frame max duren het framebudget.</li>
+<li>We gebruiken de profiler om te kijken of onze frames binnen de minimale framebudget en hoeveel geheugen er vrijgemaakt wordt tijdens een frame.
+<ul>
+<li>We kunnen deep profiling gebruiken om preciezer te kunnen zien welke functies zorgen voor geheugengebruik.</li>
+</ul></li>
+</ul>
+<h1 id="c-data-types--garbage-collector">C# data types &amp; garbage collector</h1>
+<p>We beginnen bij een herhaling van de basis: bij het programmeren moeten we kunnen bijhouden waar we onze data opslaan. Dit doen we door variabelen mooie namen te geven waarmee we ze altijd kunnen terugvinden. Maar voor de computer werkt dit heel anders. Deze houdt een verwijzing bij naar waar het stukje data opgeslagen staat in het geheugen. Dit heet een memory address, en wordt vaak opgeslagen in een pointer of een reference.</p>
+<p>Elk programma op de computer krijgt een stukje geheugen toegewezen als die daar om vraagt. De programmeur kan zeggen “ik heb 10 megabyte aan geheugen nodig” en dan gaat de computer kijken waar hij 10 megabyte heeft, en geeft jou een adres terug van een plekje in het geheugen dat jij mag hebben. Maar je krijgt daarmee ook de verantwoordelijkheid om dit geheugen weer vrij te maken. Een programmeertaal als C# is ontworpen zodat jij hier niet over na hoeft te denken. Het enige wat jij als programmeur moet doen is zeggen wat je gaat opslaan, en de rest bepaalt het systeem: hoe groot jouw data is, het opvragen van het geheugen, en zelfs het opruimen daarvan. Dit scheelt de programmeur veel werk, maar net als bij de meeste dingen die de programmeur werk schelen zitten er ook nadelen aan, en in dit geval lever je een klein stukje performance in. In veel gevallen niet noemenswaardig, maar bij het maken van games kan dit behoorlijk optellen.</p>
+<h2 id="reference-types-en-value-types">Reference types en value types</h2>
+<p>Het verschil tussen een reference en een value type is een van de belangrijkste dingen die je moet weten over werken met geheugen in C#. Een <strong>value type</strong> bewaart de volledige inhoud van het object in die variabele. Een <strong>reference type</strong> bewaart slechts een memory-adres naar de plek waar de inhoud van het object in het geheugen staat. Een C# reference type is vergelijkbaar met een pointer in C/C++.</p>
+<p>Om te weten of iets een reference of een value type is, moet je vooral kijken naar of het een class of een struct is. We kunnen bijvoorbeeld een data type maken voor een vertex met een class of een struct:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">class</span> VertexRefType</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>{</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="dt">float</span> x, y, z;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">struct</span> VertexValueType</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>{</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="dt">float</span> x, y, z;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Als je een lokale variabele opslaat, komt deze terecht op de zogenaamde <strong>stack</strong>. Je kunt dit zien als het lokale geheugen van een functie of een statement. De stack staat altijd op een vaste plek, en alles wat op de stack staat, staat ook naast elkaar in het fysieke geheugen. Als je een variabele van een value type aanmaakt, wordt alle inhoud ervan op de stack geplaatst. Maar als je een reference type aanmaakt, wordt de inhoud op een willekeurige andere plek in het geheugen opgeslagen, op de zogenaamde <strong>heap</strong>, en wordt slechts de pointer naar die plek op de stack opgeslagen.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>VertexRefType myVert = <span class="kw">new</span> <span class="fu">VertexRefType</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>);</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>------------- stack -------------        ------------- heap ------------</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a> ## | ## | ## | <span class="bn">0x003b</span> | ## | ##          ## | <span class="dv">2</span> | <span class="dv">3</span> | <span class="dv">4</span> | ## | ## | ## </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>--------------- ^ ---------------        ----- ^ -----------------------</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>                myVert                         <span class="bn">0x003b</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>VertexValueType myVert = <span class="kw">new</span> <span class="fu">VertexValueType</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>);</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>------------- stack -----------</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a> ## | ## | ## | <span class="dv">2</span> | <span class="dv">3</span> | <span class="dv">4</span> | ## </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>--------------- ^ -------------</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>                myVert</span></code></pre></div>
+<p>Een ander belangrijk verschil tussen reference en value types is hoe de data gekopieerd wordt. Bij een reference type maak je alleen een kopie van het memory-adres. Bij een value type kopieer je de volledige inhoud. Dit maakt uit als je de variabelen daarna gaat aanpassen. Dit is wat er gebeurt bij een reference type:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>VertexRefType myVert = <span class="kw">new</span> <span class="fu">VertexRefType</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>);</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="dt">var</span> copyVert = myVert;</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>--------------------------------        ------------------------------</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a> ## | ## | <span class="bn">0x003b</span> | <span class="bn">0x003b</span> | ##         ## | <span class="dv">2</span> | <span class="dv">3</span> | <span class="dv">4</span> | ## | ## | ##</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>---------- ^ ------ ^ ----------        ---- ^ -----------------------</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>      myVert        copyVert                 <span class="bn">0x003b</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">// Pas een waarde van copyVert aan</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>copyVert.<span class="fu">y</span> = <span class="dv">5</span>;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="co">// De waarde veranderd voor zowel myVert als copyVert</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>--------------------------------        ------------------------------</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a> ## | ## | <span class="bn">0x003b</span> | <span class="bn">0x003b</span> | ##         ## | <span class="dv">2</span> | <span class="dv">5</span> | <span class="dv">4</span> | ## | ## | ##</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>---------- ^ ----------- ^ -----        ---- ^ -----------------------</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>      myVert      copyVert                   <span class="bn">0x003b</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a></span></code></pre></div>
+<p>En hier dezelfde code met een value type:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>VertexRefType myVert = <span class="kw">new</span> <span class="fu">VertexRefType</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>);</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="dt">var</span> copyVert = myVert;</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>--------------------------------------</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a> ## | ## | <span class="dv">2</span> | <span class="dv">3</span> | <span class="dv">4</span> | <span class="dv">2</span> | <span class="dv">3</span> | <span class="dv">4</span> | ## </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>---------- ^ --------- ^ -------------</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>      myVert           copyVert</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="co">// Pas een waarde van copyVert aan</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>copyVert.<span class="fu">y</span> = <span class="dv">5</span>;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="co">// De waarde veranderd alleen voor copyVert</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>--------------------------------------</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a> ## | ## | <span class="dv">2</span> | <span class="dv">3</span> | <span class="dv">4</span> | <span class="dv">2</span> | <span class="dv">5</span> | <span class="dv">4</span> | ## </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>---------- ^ --------- ^ -------------</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>      myVert           copyVert</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a></span></code></pre></div>
+<p>De volgende onderdelen gaan over waarom het verschil tussen value en reference types uit kan maken voor performance.</p>
+<h3 id="meer-informatie">Meer informatie</h3>
+<p>De C# language reference gaat een stuk dieper in op de werking van value en reference types, hoe je ze kunt herkennen, en alle bijzondere gevallen en uitzonderingen.</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-types">C# language reference - Value types</a></li>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/reference-types">C# language reference - Reference types</a></li>
+</ul>
+<h2 id="de-garbage-collector">De garbage collector</h2>
+<p>De garbage collector ruimt ongebruikte variabelen op de heap op, reference types dus. De garbage collector is heel fijn: Je hoeft je niet druk te maken over het vrijmaken van geheugen dat je opgevraagd had, geen gedoe met pointers en memory leaks en ownership. Dit is een kernfeature van C# (of specifieker van <em>.NET CLR</em> of Unity's <em>Mono</em>), dus het is niet iets wat je kunt uitzetten.</p>
+<p>Elke keer dat je een nieuwe <em>reference type</em> aanmaakt, wordt er geheugen op de <em>heap</em> vrijgemaakt om de data op te slaan. De garbage collector moet dit geheugen later weer opruimen en vrijgeven. Dit is waarom garbage collection tijd kost, en waarom het een compromis is tussen gemak en performance.</p>
+<p>De garbage collector doet dit opruimen in de achtergrond. Je hebt er zo geen last van tijdens gebruik van het programma. C# en .NET waren oorspronkelijk vooral ontwikkeld als een framework voor desktop-applicaties op Windows. Deze programma's zijn vaak een stuk minder zwaar, en hebben meer dan genoeg ruimte om in de achtergrond af en toe wat geheugen op te ruimen.</p>
+<h3 id="games">Games</h3>
+<p>Games daarentegen zijn een heel ander verhaal, die moeten minstens tientallen keren per seconde de hele game herberekenen. Als de garbage collector in een game aan de slag moet, neemt dit hoe dan ook een hapje uit je frametime. Meestal is dit een vrij klein hapje, maar als je niet uitkijkt met heap allocations, kan het ook een vrij groot hapje worden. Dit zul je merken als periodieke uitschieters in frametime, ofwel: <strong>frame spikes</strong>. (Frame spikes als gevolg van de garbage collector worden ook vaak <strong>GC spikes</strong> genoemd.)</p>
+<p>Om deze reden heeft Unity haar eigen garbage collector die een stuk beter geoptimaliseerd is voor games dan de oorspronkelijke. Het lost een deel van de problemen op, maar nog lang niet alles. Een garbage collection zal vaak niet meer dan 5ms kosten, maar kan in erge gevallen tot tientallen milliseconden duren, waardoor het dus makkelijk een framebudget van 16.7ms (60FPS) overschrijdt. De snelheid is direct afhankelijk van de hoeveelheid op te ruimen geheugen en de snelheid van de computer.</p>
+<p>Tegenwoordig (sinds Unity 2019.4) biedt Unity ook een optie om een iets complexere garbage collector te gebruiken die het werk verspreidt over meerdere frames (zie afbeelding). Maar toch moet het werk hoe dan ook gedaan worden, en dit gaat altijd ten koste van jouw frame time. Het is dus een goede zaak om ervoor zorgen dat de garbage collector <em>altijd</em> zo min mogelijk werk hoeft te doen. Dat betekent: we willen het aantal (tijdelijke) heap allocations minimaliseren!</p>
+<p><img src="Fig_UnityIncrementalGC.png" /></p>
+<h3 id="in-de-praktijk">In de praktijk</h3>
+<p>Een aantal voorbeelden van allocations die de garbage collector later moet opruimen:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="co">// Het aanmaken van een nieuwe instantie van een eigen class (maar niet van een struct!)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>CustomClass newCustomObject = <span class="kw">new</span> <span class="fu">CustomClass</span>();</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>StateMachine myStateMachine = <span class="kw">new</span> <span class="fu">StateMachine</span>();</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>myStateMachine.<span class="fu">SwitchState</span>(<span class="kw">new</span> <span class="fu">GamePlayingState</span>());</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="co">// Alle verzamelingen zijn vrijwel per definitie reference types die op de heap aangemaakt worden, ook als de waarden in de verzameling zelf géén reference type zijn.</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>List&lt;<span class="dt">int</span>&gt; newList = <span class="kw">new</span> List&lt;<span class="dt">int</span>&gt; { <span class="dv">4</span>, <span class="dv">5</span> };</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>GameObject[] newGameObjectArray = <span class="kw">new</span> GameObject[<span class="dv">3</span>];</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a>Dictionary&lt;<span class="dt">int</span>, <span class="dt">string</span>&gt; newDictionary = <span class="kw">new</span> Dictionary&lt;<span class="dt">int</span>, <span class="dt">string</span>&gt;();</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a><span class="co">// In Unity: GameObjects aanmaken via &#39;new&#39; of &#39;Instantiate()&#39; gebruikt ruimte op de heap, evenals het toevoegen van components</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>GameObject newGameObject = <span class="kw">new</span> <span class="fu">GameObject</span>();</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>PlayerController playerController = <span class="fu">Instatiate</span>(PlayerControllerPrefab);</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a>ParticleSystem particles = newGameObject.<span class="fu">AddComponent</span>&lt;ParticleSystem&gt;();</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a><span class="co">// Strings maken met dynamische waarden (waarden die onbekend zijn voor de game start)</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a><span class="dt">string</span> newString = <span class="st">&quot;Time: &quot;</span> + Time.<span class="fu">time</span>;</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a><span class="co">// In Unity: Coroutines starten</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a><span class="fu">StartCoroutine</span>(<span class="fu">ExampleCoroutine</span>());</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a><span class="co">// Boxing: een fenomeen waarin een value type geforceerd wordt om een reference type te worden, omdat de functie of een reference type verwacht</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">RefTypeFunc</span>(<span class="dt">object</span> obj) { <span class="co">/* ... */</span> } <span class="co">// &lt;&lt; object is per definitie een reference type</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a><span class="fu">RefTypeFunc</span>(<span class="dv">18</span>) <span class="co">// &lt;&lt; 18 is een int (een value type) en kan door het ontwerp van de taal alleen doorgegeven worden via de heap.</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a><span class="dt">object</span> unknownObj = <span class="dv">18</span> <span class="co">// &lt;&lt; 18 wordt ook hier &quot;geboxed&quot;, omdat &quot;object&quot; een reference type moet worden.</span></span></code></pre></div>
+<p>Let op dat <code>new</code> in C# niet per se een heap allocation doet, in tegenstelling tot C++. Het hangt puur af van het soort object wat aangemaakt wordt:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">struct</span> Vertex { <span class="dt">float</span> x, y, z; }</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">class</span> Player { <span class="dt">float</span> age; }</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>Vertex vertex = <span class="kw">new</span> Vertex { x = <span class="dv">5</span>, y = <span class="dv">5</span>, z = <span class="dv">8</span> }; <span class="co">// &lt;&lt; Vertex is een struct, dus ondanks &#39;new&#39; wordt er geen heap garbage gemaakt.</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>Player player = <span class="kw">new</span> Player { age = <span class="dv">22</span> }; <span class="co">// &lt;&lt; Player is een class, dus er wordt wel heap garbage gemaakt.</span></span></code></pre></div>
+<blockquote>
+<p><strong>Tip</strong><br />
+Het is geen groot probleem om memory te allocaten voor objecten die zullen blijven bestaan, en dus niet tijdelijk zijn. Het liefst zorg je ervoor dat alle allocation in de <code>Start()</code> of <code>Awake()</code>-functie in Unity of een class constructor gebeuren. Heap allocations kosten (veel) meer tijd dan geheugen op de stack gebruiken, maar zolang de objecten gebruikt worden hoeft het geheugen niet opgeruimd te worden. Permanente allocations in een frame-update zijn dus ook niet zo'n groot probleem als tijdelijke allocations, maar vanwege de extra tijd die het kost <em>om te allocaten</em> is het nog steeds goed om dit te vermijden.</p>
+</blockquote>
+<h3 id="meer-informatie-1">Meer informatie</h3>
+<ul>
+<li><a href="https://docs.unity3d.com/Manual/performance-garbage-collector.html">Garbage collector overview - Unity Manual</a></li>
+</ul>
+<h2 id="samenvatting-1">Samenvatting</h2>
+<ul>
+<li>In C# wordt er onderscheid gemaakt tussen twee soorten datatypen: <strong>value types</strong> die op <strong>stack</strong> bestaan, en <strong>reference types</strong> die op de <strong>heap</strong> bestaan.
+<ul>
+<li>Value types slaan al hun data op in zichzelf.</li>
+<li>Reference types slaan slechts een referentie op naar een plek in het geheugen waar de daadwerkelijke data staat (de heap).</li>
+</ul></li>
+<li>Geheugen dat gebruikt wordt moet ook altijd opgeruimd worden.
+<ul>
+<li>Stack-geheugen gebruikt door value types kan automatisch opgeruimd worden door programma-logica.</li>
+<li>Heap-geheugen gebruikt door reference types kan alleen worden opgeruimd door de <strong>garbage collector</strong> (<strong>GC</strong>).</li>
+</ul></li>
+<li>Als de garbage collector aan de slag moet, kost dit altijd tijd uit je frame. In ernstige gevallen kan dit voor merkbare haperingen in de game zorgen.</li>
+<li>We willen tijdelijke heap allocations vermijden om de garbage collector te ontlasten.</li>
+</ul>
+<h1 id="geheugen-hergebruiken">Geheugen hergebruiken</h1>
+<p>In dit deel gaan we kijken naar twee technieken om geheugen te hergebruiken, met als voorbeeld het chunk-systeem dat ik gemaakt heb voor mijn game. Een game-wereld bevat veel data, en om het voor de computer makkelijker te maken om ermee te werken worden werelden vaak opgedeeld in kleinere stukjes, ook wel <strong>chunks</strong> genoemd. Deze chunks moeten dynamisch geladen worden op basis van de locatie van de speler, en dit doet veel beroep op het geheugen en data-management. Daarom is dit een goede plek om dieper te kijken naar hoe je dit kunt verbeteren.</p>
+<p>Mijn eerste implementatie van een chunk-systeem was ultra-simpel. Gemaakt voor snel resultaat, niet voor goede performance. Voor een prototype is dit geen probleem, maar het kan problemen opleveren als er nog meer features aan toegevoegd worden. De verantwoordelijkheid van dit component is om de geladen chunks bij te houden, en om nieuwe chunks te maken als de speler over een chunk-grens heenloopt.</p>
+<h2 id="voorbeeldproject">Voorbeeldproject</h2>
+<p>Je kunt het voorbeeldproject voor deze pagina hier vinden: <a href="https://github.com/Creator13/roots-optim/raw/refs/heads/master/Sample_ChunkLoaderOptimalisation.zip">Sample_ChunkLoaderOptimalisation.zip</a>. Dit is een stripped-down versie van (een eerdere versie van) Roots. Het project is gemaakt met Unity 6000.1.1f1. Je kunt het project gebruiken om de veranderingen aan de code zelf te implementeren, en de effecten ervan zelf te meten met de profiler. Beweeg de PlayerCapsule met WASD of door deze in de scene view heen en weer te slepen.</p>
+<p><img src="Fig_ChunkLoaderAnim.gif" alt="Fig_ChunkLoaderAnim.gif" /></p>
+<h2 id="de-chunkloader">De <code>ChunkLoader</code></h2>
+<p>Een <code>Chunk</code> is een MonoBehaviour component waar data over de chunk in wordt opgeslagen. De <code>ChunkLoader</code> is verantwoordelijk voor het aanmaken van <code>Chunks</code>. Zie hieronder een suboptimale versie van mijn <code>ChunkLoader</code>. Chunks worden opgeslagen in een <code>Dictionary&lt;Vector2Int, Chunk&gt; loadedChunks</code>, waarbij elke chunk een coördinaat (<code>Vector2Int</code>) toegewezen krijgt om ze snel terug te kunnen vinden. In <code>UpdateVisibleChunks()</code> wordt er gekeken welke chunks er nodig zijn gebaseerd op de huidige positie van de speler, en worden er nieuwe chunks aangemaakt terwijl de oude verwijderd worden.</p>
+<p>Hoewel deze code werkt, wordt er heel inefficiënt gebruik gemaakt van het geheugen. We gaan deze code daarom als uitgangspunt gebruiken om een beter geoptimaliseerde <code>ChunkLoader</code> te schrijven.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">class</span> ChunkLoader : MonoBehavior {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>    </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="kw">private</span> Dictionary&lt;Vector2Int, Chunk&gt; loadedChunks;</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>    </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    <span class="co">// ... //</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>    </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateVisibleChunks</span>()</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>    {</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>        Dictionary&lt;Vector2Int, Chunk&gt; newChunks = <span class="kw">new</span>();</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>        </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>        <span class="co">// Create new chunks</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>        <span class="kw">for</span> (<span class="dt">int</span> x = -loadRadius; x &lt; loadRadius + <span class="dv">1</span>; x++)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>        {</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>            <span class="kw">for</span> (<span class="dt">int</span> z = -loadRadius; z &lt; loadRadius + <span class="dv">1</span>; z++)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a>            {</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a>                Vector2Int key = <span class="kw">new</span> <span class="fu">Vector2Int</span>(x + playerChunkX, z + playerChunkZ);</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true"></a>                <span class="kw">if</span> (loadedChunks.<span class="fu">TryGetValue</span>(key, <span class="kw">out</span> <span class="dt">var</span> chunk))</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true"></a>                {</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true"></a>                    newChunks.<span class="fu">Add</span>(key, chunk);</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true"></a>                }</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true"></a>                <span class="kw">else</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true"></a>                {</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true"></a>                    newChunks.<span class="fu">Add</span>(key, <span class="fu">CreateChunk</span>(x + playerChunkX, z + playerChunkZ));</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true"></a>                }</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true"></a>            }</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true"></a>        }</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true"></a>    </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true"></a>        <span class="co">// Invalidate and remove old chunks</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true"></a>        <span class="kw">foreach</span> (<span class="fu">var</span> (key, chunk) <span class="kw">in</span> loadedChunks)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true"></a>        {</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true"></a>            <span class="kw">if</span> (!newChunks.<span class="fu">ContainsKey</span>(key))</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true"></a>            {</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true"></a>                <span class="fu">Destroy</span>(chunk.<span class="fu">gameObject</span>);</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true"></a>            }</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true"></a>        }</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true"></a>    </span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true"></a>        <span class="co">// Update loaded chunks</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true"></a>        loadedChunks = newChunks;</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true"></a>    }</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true"></a>    </span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true"></a>    <span class="kw">private</span> Chunk <span class="fu">CreateChunk</span>(<span class="dt">int</span> x, <span class="dt">int</span> z)</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true"></a>    {</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true"></a>        Chunk chunk = <span class="fu">Instantiate</span>(chunkPrefab, <span class="fu">CalculateChunkCenter</span>(x, z), Quaternion.<span class="fu">identity</span>, transform);</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true"></a>        chunk.<span class="fu">gameObject</span>.<span class="fu">name</span> = $<span class="st">&quot;Chunk ({x}, {z})&quot;</span>;</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true"></a>        chunk.<span class="fu">LoadAt</span>(x, z);</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true"></a>        <span class="kw">return</span> chunk;</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true"></a>    }</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true"></a>    </span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true"></a>    <span class="co">// ... //</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true"></a>}</span></code></pre></div>
+<h2 id="garbage">Garbage</h2>
+<p>In deze implementatie gebeuren meer heap allocations dan nodig. Als oefening kun je nagaan of je zelf de allocations kunt vinden voor je verder leest.</p>
+<ol>
+<li>Bij het aanmaken van een dictionary
+<div class="sourceCode" id="cb11"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>...</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateVisibleChunks</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>    {</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>        Dictionary&lt;Vector2Int, Chunk&gt; newChunks = <span class="kw">new</span>(); <span class="co">// &lt;&lt; Heap allocation 1</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>        </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>        <span class="co">// Create new chunks </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>        ...</span></code></pre></div>
+Dictionaries zijn reference types, dus ze worden opgeslagen op de heap. We maken elke keer dat de functie draait een nieuwe dictionary aan, die op een nieuwe willekeurige plek in het geheugen staat.</li>
+</ol>
+<hr />
+<ol start="2">
+<li>Bij het toevoegen van een item
+<div class="sourceCode" id="cb12"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>...</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="kw">if</span> (loadedChunks.<span class="fu">TryGetValue</span>(key, <span class="kw">out</span> <span class="dt">var</span> chunk))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>{</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>    newChunks.<span class="fu">Add</span>(key, chunk); <span class="co">// &lt;&lt; Heap allocation 2a</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>}                </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a><span class="kw">else</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>{</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>    newChunks.<span class="fu">Add</span>(key, <span class="fu">CreateChunk</span>(x + playerChunkX, z + playerChunkZ)); <span class="co">// &lt;&lt; Heap allocation 2b</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a>}</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a><span class="co">// NB. De if-else zorgt ervoor dat ofwel 2a, ofwel 2b altijd aangeroepen wordt, </span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a><span class="co">// maar nooit allebei tegelijk. Het is dus feitelijk dezelfde allocation.</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>...</span></code></pre></div>
+Deze is een beetje gemeen, er is namelijk niet <em>altijd</em> een allocation als je <code>.Add(key, value)</code> op een dictionary aanroept. Als de capaciteit van de dictionary groot genoeg is, kan het element direct toegevoegd worden en vindt er geen allocation plaats. Maar als er geen ruimte is, moet de dictionary groeien. Dit kan alleen maar door de hele dictionary opnieuw te allocaten, met een grotere capaciteit. Dan pas wordt het element toegevoegd.</li>
+</ol>
+<hr />
+<ol start="3">
+<li>Bij het aanmaken van een GameObject (<code>Instantiate()</code>)
+<div class="sourceCode" id="cb13"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">private</span> Chunk <span class="fu">CreateChunk</span>(<span class="dt">int</span> x, <span class="dt">int</span> z)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>{</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>    Chunk chunk = <span class="fu">Instantiate</span>(chunkPrefab, <span class="fu">CalculateChunkCenter</span>(x, z), Quaternion.<span class="fu">identity</span>, transform); </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>               <span class="co">// ^^ Heap allocation 3</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>    chunk.<span class="fu">gameObject</span>.<span class="fu">name</span> = $<span class="st">&quot;Chunk ({x}, {z})&quot;</span>;</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a>    chunk.<span class="fu">InitAt</span>(x, z);</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>    <span class="kw">return</span> chunk;</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a>}</span></code></pre></div>
+Als je <code>Instantiate()</code> aanroept, wordt er altijd een nieuw geheugen voor een GameObject, inclusief components, vrijgemaakt. Dit gebeurt in deze functie één keer voor elke nieuwe <code>Chunk</code> die gemaakt wordt.
+<blockquote>
+<p><strong>Tip</strong><br />
+In het bovenstaand stukje code zit zelfs nog een vierde allocation verstopt: <code>name = $"Chunk ({x}, {z})"</code> maakt ook gebruik van de heap door het aanmaken van een string met variabele waarden. Dit is grotendeels onvermijdelijk als je werkt met strings, maar ook hier kun je optimaliseren. <br />
+<em>Meer info: <a href="https://medium.com/@johnklaumann/c-10-the-dark-and-evil-true-about-string-interpolation-29e10acc001b">https://medium.com/@johnklaumann/c-10-the-dark-and-evil-true-about-string-interpolation-29e10acc001b</a></em></p>
+</blockquote></li>
+</ol>
+<hr />
+<p>We kunnen ook duidelijk zien waar oude data als afval achtergelaten wordt:</p>
+<ol>
+<li>De oude dictionary wordt vernietigd door hem te overschrijven:
+<div class="sourceCode" id="cb14"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>loadedChunks = newChunks; </span></code></pre></div>
+De oude loadedChunks wordt overschreven met de nieuwe, waardoor de oude out-of-scope gaat en opgeruimd moet worden door de garbage collector. Je kunt je afvragen waarom de nieuwe niet gewoon de plek van de oude inneemt. Ten eerste is het nieuwe object al gemaakt, op een andere plek. Ten tweede overschrijf je alleen de referentie, omdat <code>Dictionary&lt;T&gt;</code> een reference type is.</li>
+<li>Het aanroepen van <code>Destroy(gameObject)</code> genereert ook afval dat opgeruimd moet worden
+<div class="sourceCode" id="cb15"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="co">// Invalidate and remove old chunks</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="kw">foreach</span> (<span class="fu">var</span> (key, chunk) <span class="kw">in</span> loadedChunks)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>{</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>    <span class="kw">if</span> (!newChunks.<span class="fu">ContainsKey</span>(key))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>    {</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>        <span class="fu">Destroy</span>(chunk.<span class="fu">gameObject</span>); <span class="co">// &lt;&lt; chunk.gameObject wordt hier afval</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>    }</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>}</span></code></pre></div></li>
+</ol>
+<p>Als we de Unity profiler gebruiken kunnen we beter zien wat er gebeurt (en ook exact hoeveel memory er geallocate wordt): <img src="Fig_ProfilerAllAllocs.png" alt="Fig_ProfilerAllAllocs.png" /> Zoals je kunt zien onder de <code>UpdateVisibleChunks()</code>-functie, wordt er voor de <code>CreateChunks()</code> functie 1.4KB vrijgemaakt terwijl de rest door dictionaries komt.</p>
+<h2 id="objecten-hergebruiken">Objecten hergebruiken</h2>
+<p>We kunnen ervoor zorgen dat we dezelfde objecten hergebruiken, zodat we telkens maar één keer in de hele game een object aan hoeven te maken. We gaan kijken wat we kunnen doen voor zowel de <code>loadedChunks</code> dictionary, en de <code>Chunk</code> objecten zelf.</p>
+<ol>
+<li><h3 id="loadedchunks-dictionary"><code>loadedChunks</code> dictionary</h3></li>
+</ol>
+<p>Iedere verzameling heeft twee eigenschappen voor de grootte: <code>Count</code> (of <code>Length</code> voor een array), en <code>Capacity</code>. De count/length geeft aan hoeveel elementen er op dit moment in de lijst zitten. De capaciteit geeft aan hoeveel elementen er in de lijst <em>kunnen</em> zitten. In feite is dit hoeveel geheugen de verzameling geclaimd heeft. In het geheugen ziet dit er ongeveer zo uit:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>List&lt;<span class="dt">int</span>&gt; myList = <span class="kw">new</span> List { <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">88</span>, <span class="dv">47</span> }; <span class="co">// Capacity en Length zijn allebei 4.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>---------|geclaimed geheugen |--------------</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a> ## | ## | <span class="dv">08</span> | <span class="dv">15</span> | <span class="dv">88</span> | <span class="dv">47</span> | ## | ## | ##</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>---------|----- myList ------|--------------</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>myList.<span class="fu">Capacity</span> = <span class="dv">6</span>; <span class="co">// maak de capaciteit 6; de lengte blijft 4.</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a>---------|     geclaimed geheugen      |----</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a> ## | ## | <span class="dv">08</span> | <span class="dv">15</span> | <span class="dv">88</span> | <span class="dv">47</span> | ## | ## | ##</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a>---------|---------- myList -----------|----</span></code></pre></div>
+<p>Een verzameling kan leeggemaakt worden met de functie <code>Clear()</code>. <code>Clear()</code> zorgt ervoor dat alle data in de verzameling gewist wordt, terwijl de capaciteit gelijk blijft. We kunnen dan het oude geheugen gebruiken om nieuwe data op te slaan. Omdat we tijdens het bepalen van welke chunks nieuw zijn we ook moeten weten welke chunks er al waren, hebben we alsnog altijd twee Dictionaries nodig om de functie te laten werken. Dit is hoe we dat kunnen doen:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">class</span> ChunkLoader : MonoBehavior {</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a>    </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>    <span class="kw">private</span> Dictionary&lt;Vector2Int, Chunk&gt; loadedChunks;</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>    <span class="kw">private</span> Dictionary&lt;Vector2Int, Chunk&gt; tempChunks;</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>    </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>    <span class="kw">public</span> <span class="dt">int</span> ChunkCount =&gt; (loadRadius * <span class="dv">2</span> + <span class="dv">1</span>) * (loadRadius * <span class="dv">2</span> + <span class="dv">1</span>);</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>    </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Awake</span>() </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a>    {</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a>        loadedChunks = <span class="kw">new</span> Dictionary&lt;Vector2Int, Chunk&gt;(ChunkCount); <span class="co">// Maak een dictionary één keer aan met een capaciteit van het aantal chunks.</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a>        tempChunks = <span class="kw">new</span> Dictionary&lt;Vector2Int, Chunk&gt;(ChunkCount); <span class="co">// Hou een tweede dictionary bij.</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a>    }</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a>    </span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateVisibleChunks</span>()</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true"></a>    {</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true"></a>        tempChunks.<span class="fu">Clear</span>(); <span class="co">// In plaats van een nieuwe Dictionary maken, maak je de tijdelijke dict van vorige keer leeg</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true"></a>        </span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true"></a>        <span class="co">// Create new chunks</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true"></a>        <span class="kw">for</span> (<span class="dt">int</span> x = -loadRadius; x &lt; loadRadius + <span class="dv">1</span>; x++)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true"></a>        {</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true"></a>            <span class="kw">for</span> (<span class="dt">int</span> z = -loadRadius; z &lt; loadRadius + <span class="dv">1</span>; z++)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true"></a>            {</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true"></a>                Vector2Int key = <span class="kw">new</span> <span class="fu">Vector2Int</span>(x + playerChunkX, z + playerChunkZ);</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true"></a>                <span class="kw">if</span> (loadedChunks.<span class="fu">TryGetValue</span>(key, <span class="kw">out</span> <span class="dt">var</span> chunk))</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true"></a>                {</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true"></a>                   tempChunks.<span class="fu">Add</span>(key, chunk); <span class="co">// Voeg de chunks die je nodig hebt toe</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true"></a>                }</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true"></a>                <span class="kw">else</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true"></a>                {</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true"></a>                   tempChunks.<span class="fu">Add</span>(key, <span class="fu">CreateChunk</span>(x + playerChunkX, z + playerChunkZ));</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true"></a>                }</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true"></a>            }</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true"></a>        }</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true"></a>        </span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true"></a>        <span class="co">// Invalidate and remove old chunks</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true"></a>        <span class="kw">foreach</span> (<span class="fu">var</span> (key, chunk) <span class="kw">in</span> loadedChunks) </span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true"></a>        {</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true"></a>            <span class="kw">if</span> (!tempChunks.<span class="fu">ContainsKey</span>(key))</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true"></a>            {</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true"></a>                <span class="fu">Destroy</span>(chunk.<span class="fu">gameObject</span>);</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true"></a>            }</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true"></a>        }</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true"></a>        </span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true"></a>        <span class="co">// Update loaded chunks</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true"></a>        <span class="co">// Er is geen functie om direct de ene Dictionary naar de andere te kopiëren, </span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true"></a>        <span class="co">// dus doen we het handmatig door ieder paar van Vector2Int en Chunk toe te voegen.</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true"></a>        loadedChunks.<span class="fu">Clear</span>();</span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true"></a>        <span class="kw">foreach</span> (<span class="dt">var</span> pair <span class="kw">in</span> tempChunks)</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true"></a>        {</span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true"></a>            loadedChunks.<span class="fu">Add</span>(pair.<span class="fu">Key</span>, pair.<span class="fu">Value</span>);</span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true"></a>        }</span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true"></a>    }</span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true"></a>}</span></code></pre></div>
+<p>We kunnen nu nog een keer de profiler gebruiken om te kijken of dit geholpen heeft: <img src="Fig_ProfilerNoDicts.png" alt="Fig_ProfilerNoDicts.png" /> We zien nu dat de enige plek waar nog memory geallocate wordt in de <code>CreateChunks()</code> functie is, waar de nieuwe GameObjects aangemaakt worden. Dat scheelt dus veel geheugen!</p>
+<p>Wat we tegelijk ook kunnen zien is dat de totale tijd van de functie niet enorm omlaag is gegaan (1.18ms &gt; 0.93ms). Die winst is niet noemenswaardig. Het belangrijkste doel van deze optimalisatie is niet dat we nu tijd besparen, maar dat we ervoor zorgen dat er later geen tijd besteedt hoeft te worden aan het opruimen van het afval dat deze functie achterlaat.</p>
+<p>Wat ook belangrijk is om mee te nemen is dat de nieuwe code meer geheugen in totaal gebruikt. In de originele versie is het geheugen alleen in gebruik tijdens de frame waarin de functie aangeroepen wordt, maar in de nieuwe functie is dit geheugen <em>altijd</em> geclaimd, ook tijdens alle frames waarin het niet nodig is. Dit kan opgelost worden door een ander algoritme te gebruiken waarbij je niet twee dictionaries nodig hebt, maar we kunnen dit ook voor lief nemen. Geheugen is er immers in overvloed op bijna alle moderne apparaten. Bedenk ook dat je apparaat sowieso het piekgeheugen aan moet kunnen, en dat het minder interessant is om te proberen het gemiddelde gebruik lager te maken.</p>
+<blockquote>
+<p><strong>Tip</strong><br />
+Je kunt een verzameling een start-capaciteit meegeven, zoals ik in de <code>Awake()</code> van de nieuwe versie doe. Als je van tevoren al weet hoeveel elementen je moet gaan opslaan (wat hier het geval is), zorg je er zo voor dat je maar één keer geheugen hoeft vrij te maken. Je doet dit door de capaciteit in de constructor mee te geven: <code>new Dictionary&lt;int, string&gt;(capacity)</code>. Alleen deze optimalisatie zou al veel schelen in dit geval, zelfs zonder een tweede tijdelijke dictionary bij te houden, omdat de initiële capaciteit altijd 0 is. Zodra je één element toevoegt moet er dus al opnieuw memory geallocate worden. <br />
+<em>Meer info: <a href="https://stackoverflow.com/a/2760961/2274782">https://stackoverflow.com/a/2760961/2274782</a></em></p>
+</blockquote>
+<ol start="2">
+<li><h3 id="chunk-gameobjects"><code>Chunk</code> GameObjects</h3></li>
+</ol>
+<p>Het aanmaken van GameObjects met <code>Instantiate()</code> (ook met <code>new GameObject()</code>) kost ook een allocation, zoals we konden zien in de profiler. De GameObjects worden opgeruimd wanneer we ze vernietigen. We kunnen dit voorkomen met een zogenaamde <strong>pool</strong>. Een pool is niets anders dan een verzameling objecten waar je er eentje uit kunt pakken als je hem nodig hebt, en weer terug kunt leggen als je ermee klaar bent. Vergelijk het met plastic tasjes in de supermarkt: je kunt elke keer een nieuw tasje kopen (<code>Instantiate()</code>) en weer weggooien als je hem gebruikt hebt (<code>Destroy()</code>), maar je kunt ze ook bewaren. Je moet ze wel één keer kopen, maar zolang ze niet scheuren kan je een verzameling bijhouden van tasjes die je kunt hergebruiken.</p>
+<p>Als je in Unity objecten hebt die je telkens opnieuw tijdelijk gebruikt, wil je hiervoor eigenlijk altijd een pool-techniek gebruiken in plaats van aanmaken en vernietigen. Onze chunks zijn hier een voorbeeld van: een chunk is in gebruik terwijl deze in zicht is. Zodra hij uit zicht valt wordt hij vernietigt, terwijl er meteen een nieuwe aangemaakt wordt. Dit is zonde; we kunnen die oude chunk toch gewoon verplaatsen en nieuwe terrein-data meegeven?</p>
+<p>Het idee om chunks te hergebruiken is simpel: we moeten eerst weten welke chunks niet meer nodig zijn, en vervolgens moeten we die verplaatsen naar een plek waar we een nieuwe chunk nodig hebben. Eenmaal daar, moeten we zorgen dat de chunk zich aanpast aan de nieuwe locatie, en niet gewoon de oude terrein-data meeneemt naar de nieuwe plek.</p>
+<p>We gaan eerst kijken hoe we het aanmaken van chunks kunnen aanpassen. De <code>CreateChunk()</code> functie is niet meer nodig, en kunnen we vervangen met <code>ReinitializeChunk()</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">ReinitializeChunk</span>(Chunk chunk, <span class="dt">int</span> x, <span class="dt">int</span> z)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>{</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>    chunk.<span class="fu">gameObject</span>.<span class="fu">name</span> = $<span class="st">&quot;Chunk ({x}, {z})&quot;</span>;</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>    chunk.<span class="fu">LoadAt</span>(x, z);</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Deze functie gebruikt een bestaand <code>Chunk</code>-object en stopt er de nieuwe data in. De objecten moeten nog steeds één keer aangemaakt worden, en nu dat niet meer in <code>CreateChunk()</code> gebeurt moeten we dit ergens anders doen. Hiervoor maken we een nieuwe functie <code>CreateChunks()</code> die we aanroepen in <code>Start()</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">Start</span>()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a>{</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a>    <span class="fu">CreateChunks</span>();</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>}</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">CreateChunks</span>()</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a>{</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a>    <span class="kw">for</span> (<span class="dt">int</span> x = -loadRadius; x &lt; loadRadius + <span class="dv">1</span>; x++)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true"></a>    {</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true"></a>        <span class="kw">for</span> (<span class="dt">int</span> z = -loadRadius; z &lt; loadRadius + <span class="dv">1</span>; z++)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true"></a>        {</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true"></a>            Vector2Int key = <span class="kw">new</span> <span class="fu">Vector2Int</span>(x + playerChunkX, z + playerChunkZ);</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true"></a>            Chunk chunk = <span class="fu">Instantiate</span>(chunkPrefab, <span class="fu">CalculateChunkCenter</span>(x, z), Quaternion.<span class="fu">identity</span>, transform);</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true"></a>            <span class="fu">ReinitializeChunk</span>(chunk, x, z);</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true"></a>            loadedChunks.<span class="fu">Add</span>(key, chunk);</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true"></a>        }</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true"></a>    }</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true"></a>}</span></code></pre></div>
+<p>In de originele code werd de nieuwe chunk <em>eerder</em> gemaakt dan de oude verwijderd werd. Daardoor zaten na de eerste loop alle nieuwe keys al in de temp-lijst, en kon je het verschil tussen de twee lijsten verwijderen; dat waren de chunks die overbodig waren. We moeten er nu voor zorgen dat we <em>eerst</em> weten welke chunks nu nodig zijn, en vervolgens bepalen welke chunks er gerecycled kunnen worden, zonder dat we nieuwe objecten aanmaken. De simpelste manier is om nog een aparte lijst bij te houden waarin we de nieuwe coördinaten die nog geen chunk hebben in opslaan, om vervolgens bij de verwijder-stap in plaats van hem te verwijderen, de chunk te koppelen aan één van deze coördinaten.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateVisibleChunks</span>()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>{</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a>    tempChunks.<span class="fu">Clear</span>(); <span class="co">// In plaats van een nieuwe Dictionary maken, maak je de tijdelijke dict van vorige keer leeg</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a>    chunksToLoadTemp.<span class="fu">Clear</span>(); <span class="co">// Zorg dat ook deze lijst leeg is.</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a>    <span class="co">// Create new chunks</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a>    <span class="kw">for</span> (<span class="dt">int</span> x = -loadRadius; x &lt; loadRadius + <span class="dv">1</span>; x++)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true"></a>    {</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true"></a>        <span class="kw">for</span> (<span class="dt">int</span> z = -loadRadius; z &lt; loadRadius + <span class="dv">1</span>; z++)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true"></a>        {</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true"></a>            Vector2Int key = <span class="kw">new</span> <span class="fu">Vector2Int</span>(x + playerChunkX, z + playerChunkZ);</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true"></a>            <span class="kw">if</span> (loadedChunks.<span class="fu">TryGetValue</span>(key, <span class="kw">out</span> <span class="dt">var</span> chunk))</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true"></a>            {</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true"></a>                tempChunks.<span class="fu">Add</span>(key, chunk); <span class="co">// Voeg de chunks die al goed ingesteld zijn meteen toe</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true"></a>            }</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true"></a>            <span class="kw">else</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true"></a>            {</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true"></a>                <span class="co">// Deze coördinaat heeft een nieuw chunk-object nodig, dus we slaan hem op in de lijst</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true"></a>                chunksToLoadTemp.<span class="fu">Add</span>(key); </span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true"></a>            }</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true"></a>        }</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true"></a>    }</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true"></a> </span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true"></a>    <span class="co">// We houden een index bij om door de chunksToLoad lijst heen te lopen</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true"></a>    <span class="dt">int</span> chunkRecycleIndex = <span class="dv">0</span>;</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true"></a>    <span class="kw">foreach</span> (<span class="fu">var</span> (key, chunk) <span class="kw">in</span> loadedChunks) </span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true"></a>    {</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true"></a>        <span class="co">// Bepaal of de key in loadedChunks opnieuw nodig is, zo niet kan hij hergebruikt worden</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true"></a>        <span class="kw">if</span> (!tempChunks.<span class="fu">ContainsKey</span>(key))  </span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true"></a>        {</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true"></a>            <span class="co">// Haal een index op die een nieuw chunk-object nodig heeft</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true"></a>            Vector2Int newKey = chunksToLoadTemp[chunkRecycleIndex]; </span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true"></a>            <span class="co">// Laad de nieuwe chunk in op de goede plek</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true"></a>            <span class="fu">ReinitializeChunk</span>(chunk, newKey.<span class="fu">x</span>, newKey.<span class="fu">y</span>);</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true"></a>            </span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true"></a>            <span class="co">// Koppel de nieuwe key aan de bestaande chunk</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true"></a>            tempChunks.<span class="fu">Add</span>(newKey, chunk);</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true"></a>            <span class="co">// We gaan door naar de volgende index die een nieuw object nodig heeft.</span></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true"></a>            chunkRecycleIndex++;</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true"></a>        }</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true"></a>    }</span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true"></a>    </span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true"></a>    <span class="co">// Update loaded chunks</span></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true"></a>    <span class="co">// Er is geen functie om direct de ene Dictionary naar de andere te kopiëren, </span></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true"></a>    <span class="co">// dus doen we het handmatig. </span></span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true"></a>    loadedChunks.<span class="fu">Clear</span>();</span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true"></a>    <span class="kw">foreach</span> (<span class="dt">var</span> pair <span class="kw">in</span> tempChunks)</span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true"></a>    {</span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true"></a>        loadedChunks.<span class="fu">Add</span>(pair.<span class="fu">Key</span>, pair.<span class="fu">Value</span>);</span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true"></a>    }</span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Ook deze kunnen we door de (deep) profiler heen halen: <img src="Fig_ProfilerPooledChunks.png" alt="Fig_ProfilerPooledChunks.png" /> We zien dat van de 1.4KB nog maar 0.6KB over is! Deze laatste paar 0.6KB blijken door <code>String.Format()</code> te komen, als we verder in de hiërarchie kijken. Omdat hier geen simpele oplossing voor is, kunnen we kiezen om de naam van de chunks helemaal niet aan te passen. Dan krijgen we inderdaad 0B allocated voor de hele functie: <img src="Fig_ProfilerNoAllocs.png" alt="Fig_ProfilerNoAllocs.png" /></p>
+<p>We zien bovendien dat de totale executietijd van de functie dit keer wel flink omlaag gegaan is: van 1.16ms eerst naar 0.56ms nu, ongeveer gehalveerd dus. Er is dus zeker ook winst te behalen in de snelheid van de functie nu, en bovendien voorkomen we ook nog eens tijd in een later frame omdat de GC niet aan de slag hoeft. Win-win!</p>
+<blockquote>
+<p><strong>Tip</strong><br />
+Voor overige pooling heeft Unity een <code>ObjectPool&lt;T&gt;</code> type ingebouwd. Deze werkt erg goed als je een variabel aantal objecten van het soort in je scene hebt. In dit geval is het aantal chunks altijd bekend en altijd hetzelfde, waardoor we veel van de extra functies die deze pool heeft niet nodig gaan hebben.<br />
+<em>Meer info: <a href="https://docs.unity3d.com/ScriptReference/Pool.ObjectPool_1.html">https://docs.unity3d.com/ScriptReference/Pool.ObjectPool_1.html</a></em></p>
+</blockquote>
+<h2 id="overige-info">Overige info</h2>
+<p>Hier zijn nog een aantal andere veelvoorkomende functies of taken die memory allocaten, om te voorkomen of om op te lossen met de technieken die we hier bekeken hebben:</p>
+<ul>
+<li><code>Physics.Raycast()</code> maakt een nieuwe array aan waar de HitResults in opgeslagen worden. Gebruik de <code>Physics.RaycastNonAlloc()</code> functie om dit te voorkomen. Deze geef je een bestaande array mee, die je kunt bijhouden op dezelfde manier als de dictionaries uit het voorbeeld op deze pagina.</li>
+<li>LINQ-functies die je op verzamelingen aan kunt roepen zoals <code>.Sum()</code>, <code>.All()</code>, <code>.Any()</code>, <code>.Select()</code>, <a href="https://learn.microsoft.com/en-us/dotnet/standard/linq/">en nog veel meer</a> zorgen bijna altijd voor substantiële memory allocations. Probeer deze functies te vermijden op de meeste plekken (en nooit aan te roepen in een frame update) en te vervangen met <code>for</code> loops.</li>
+<li>Het opvragen van een <code>transform</code> (bijvoorbeeld <code>myGameObject.transform.position</code>) of een ander component (met <code>GetComponent&lt;T&gt;()</code>) kost allocations. Net zoals bij de dictionaries is het handig om deze op te slaan (te <em>cachen</em>) in je eigen <code>MonoBehaviour</code> als je ze vaak nodig hebt.</li>
+<li>Strings samenstellen met concatenation (<code>"stats: " + myStat</code>), interpolation (<code>$"stats: {myStat}"</code>), of <code>Format()</code> (<code>String.Format("stats: {0}", myStat)</code>) hebben allemaal memory allocation als gevolg. Door de aard van strings is het lastig om hieromheen te bouwen, maar <code>StringBuilder</code> (<a href="https://learn.microsoft.com/en-us/dotnet/api/system.text.stringbuilder?view=net-9.0">docs</a>) kan hierbij helpen, ook al is het geen complete oplossing.</li>
+<li>Nog een tip: je kunt pools niet alleen voor Unity GameObjects gebruiken, maar voor nagenoeg alle reference types! Unity's ingebouwde pools ondersteunen alle veelvoorkomende data-verzamelingen (met o.a. <a href="https://docs.unity3d.com/ScriptReference/Pool.CollectionPool_2.html"><code>CollectionPool&lt;T0, T1&gt;</code></a>), en zelfs algemene objecten met <a href="https://docs.unity3d.com/ScriptReference/Pool.GenericPool_1.html"><code>GenericPool&lt;T&gt;</code></a>. Value types kunnen niet gepoold worden.</li>
+</ul>
+<h2 id="samenvatting-2">Samenvatting</h2>
+<p>We hebben in dit een aantal technieken bekeken voor het hergebruiken van bestaand geheugen, waarmee we ervoor gezorgd hebben dat de garbage collector minder aan het werk hoeft. We willen er altijd voor zorgen dat er zelden tot nooit allocations worden gedaan in een frame, zeker niet <em>elk</em> frame. Dit doen we door:</p>
+<ul>
+<li>Data-verzamelingen zoals <code>List&lt;T&gt;</code> of <code>Dictionary&lt;T&gt;</code> te hergebruiken om data in op te slaan.
+<ul>
+<li>Mocht het toch nodig zijn om er een te maken en je weet al hoe groot deze moet worden, gebruik dan altijd de <code>capacity</code> parameter van de constructor.</li>
+<li>Ga altijd na of het slim is om een <code>new</code> verzameling aan te maken tijdens een frame, en ga na of je deze ook kunt hergebruiken.</li>
+</ul></li>
+<li>Objecten te hergebruiken door gebruik te maken van een pool.
+<ul>
+<li>Gebruik een van de ingebouwde pool types in Unity, zoals een <code>ObjectPool&lt;T&gt;</code> voor objecten waarvan er niet altijd evenveel in de scene zullen zijn.</li>
+<li>Maak een eigen oplossing als je altijd evenveel van dezelfde objecten in de scene hebt, waarbij je de oude objecten niet afschrijft, maar direct hergebruikt.</li>
+<li>Het is niet onredelijk om een harde regel aan te houden dat je nooit <code>Instantiate()</code> mag gebruiken in een functie die aangeroepen wordt vanuit een <code>Update()</code>, <code>LateUpdate()</code>, coroutine, of vergelijkbaar, test/prototype code uitgezonderd.</li>
+</ul></li>
+</ul>
+<h2 id="verdere-optimalisatie-en-ontwikkeling">Verdere optimalisatie en ontwikkeling</h2>
+<ul>
+<li>Het gebruiken van een <code>Dictionary</code> is niet optimaal voor 2D grids. Het kan uiteindelijk best veel tijd kosten om een <code>Chunk</code> op te vragen op basis van een coördinaat. Het is efficiënter om een platte array te gebruiken van chunks, <code>Chunk[ChunkCount]</code>, en de chunks die er in voorkomen aan te passen. Omdat de platte array een tweedimensionaal grid voorstelt, is dit verre van triviaal. Ik heb deze optimalisatie in mijn eigen project toegepast, maar ik vond dit uiteindelijk niet de tijd waard.<br />
+De voornaamste reden om dictionaries te vervangen met arrays was dat ik in eerdere projecten tegen performance-problemen aangelopen ben met het gebruik van dictionaries voor 2D grids. Dit waren echter top-down games waar er veel meer toegang tot de tiles nodig was. Het is dus wel iets om rekening mee te houden in bepaalde situaties, maar in deze situatie is het niet relevant. Bovendien is dit een optimalisatie die weinig met geheugen te maken heeft en is het dus buiten de scope van deze tutorial.</li>
+<li>In de realiteit is een chunk meer dan alleen een stuk terrein. Zeker als er door de gebruiker geplaatste data in de wereld zit, moet dit onthouden worden en niet verwijderd op het moment dat een chunk buiten bereik valt. Dit vraagt om een net iets uitgebreidere implementatie, waarbij data die buiten bereik gaat alsnog bewaard blijft. Dit kan bijvoorbeeld door deze data te registreren met de <code>ChunkLoader</code> of de <code>Chunk</code> zelf op het moment dat de speler iets in de wereld plaatst, en deze data vervolgens apart te bewaren onder de coördinaten zodra de chunk ge-unload wordt. Hier komen allerlei extra uitdagingen bij kijken, maar deze vallen ver buiten de scope van zowel deze masterclass als mijn eigen project.</li>
+</ul>
+<h1 id="geheugen-layout">Geheugen-layout</h1>
+<p>Als je veel van dezelfde data achter elkaar moet verwerken is het belangrijk dat dit snel gaat. Veel data betekent immers ook veel werk, dus we willen zo min mogelijk tijd besteden aan zaken die niet van belang zijn. Ons tijdsbudget is tenslotte maar beperkt. De manier waarop we ons geheugen indelen is hierbij van groot belang. We gaan in dit deel kijken waarom dit zo belangrijk is, en hoe we dit slim aanpakken.</p>
+<h2 id="voorbeeldproject-1">Voorbeeldproject</h2>
+<p>Je kunt het voorbeeldproject voor deze pagina hier vinden: <a href="https://github.com/Creator13/roots-optim/raw/refs/heads/master/Sample_MemoryLayoutOptimization.zip">Sample_MemoryLayoutOptimization.zip</a>. Dit is een stripped-down versie van (een eerdere versie van) Roots. Het project is gemaakt met Unity 6000.1.1f1. Je kunt het project gebruiken om de veranderingen aan de code zelf te implementeren, en de effecten ervan zelf te meten met de profiler. Beweeg met WASD.</p>
+<p><img src="Fig_GrowablesGif.gif" alt="Fig_GrowablesGif.gif" /></p>
+<h2 id="layout">Layout</h2>
+<p>In mijn project wilde ik bomen maken die groeiden als de speler dichterbij kwam. Er zitten duizenden punten in een chunk waar een boom kan groeien, en elk moet apart kijken hoe ver weg de speler is om te bepalen of die moet groeien.</p>
+<p>Een eerste implementatie hiervan kan zo simpel zijn als dit: Je maakt een <code>Growable</code>-component, en je maakt een GameObject op elk punt waar een boom gaat groeien waar dit component op zit:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">class</span> Growable : MonoBehaviour</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>{</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> Transform player;</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> <span class="dt">float</span> maxDistance;</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> <span class="dt">float</span> minDistance;</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> <span class="dt">bool</span> keepMaxProgress;</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true"></a>    <span class="kw">private</span> Renderer renderer;</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> <span class="dt">float</span> progress = <span class="dv">0</span>;</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">float</span> maxProgress;</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Awake</span>()</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true"></a>    {</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true"></a>        renderer = GetComponentInChildren&lt;Renderer&gt;();</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true"></a>        player = GameObject.<span class="fu">FindWithTag</span>(<span class="st">&quot;Player&quot;</span>).<span class="fu">transform</span>;</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true"></a>    }</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Update</span>()</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true"></a>    {</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true"></a>        progress = <span class="fu">GetCurrentProgress</span>();</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true"></a>        maxProgress = math.<span class="fu">max</span>(progress, maxProgress);</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true"></a>        <span class="kw">if</span> (keepMaxProgress)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true"></a>        {</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true"></a>            transform.<span class="fu">localScale</span> = Vector3.<span class="fu">one</span> * maxProgress;</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true"></a>            renderer.<span class="fu">enabled</span> = maxProgress != <span class="dv">0</span>;</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true"></a>        }</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true"></a>        <span class="kw">else</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true"></a>        {</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true"></a>            transform.<span class="fu">localScale</span> = Vector3.<span class="fu">one</span> * progress;</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true"></a>            renderer.<span class="fu">enabled</span> = progress != <span class="dv">0</span>;</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true"></a>        }</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true"></a>    }</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true"></a></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">float</span> <span class="fu">GetCurrentProgress</span>()</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true"></a>    {</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true"></a>        Vector3 playerPos = player.<span class="fu">transform</span>.<span class="fu">position</span>;</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true"></a>        playerPos.<span class="fu">y</span> = <span class="dv">0</span>;</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true"></a>        Vector3 objectPos = transform.<span class="fu">position</span>;</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true"></a>        objectPos.<span class="fu">y</span> = <span class="dv">0</span>;</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true"></a>        <span class="dt">float</span> distance = Vector3.<span class="fu">Distance</span>(objectPos, playerPos);</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true"></a>        distance = math.<span class="fu">clamp</span>(distance, minDistance, maxDistance);</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true"></a></span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true"></a>        <span class="kw">return</span> math.<span class="fu">remap</span>(maxDistance, minDistance, <span class="dv">0</span>, <span class="dv">1</span>, distance);</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true"></a>    }</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Achter de schermen gaat Unity nu elk GameObject langs met dit component, en wordt de <code>Update()</code>-functie aangeroepen. We kunnen even meten hoe lang dit duurt: <img src="Fig_GrowableBase.png" alt="Fig_GrowableBase.png" /></p>
+<p>De ~22,000 bomen die in de wereld zijn doen er gezamenlijk meer dan 16ms over om te updaten, meer dan de helft van alle tijd van het frame! En dat terwijl de code helemaal niet zo ingewikkeld is. Wat is hier aan de hand?</p>
+<h3 id="overhead">Overhead</h3>
+<p>Het aanroepen van <code>Update()</code> kost extra tijd. Unity moet allerlei dingen doen om die <code>Update()</code> aan te roepen, zoals het vinden van de juiste objecten, of controleren of het object nog wel bestaat sinds vorig frame. Dit kost tijd. Omdat wij zelf weten welke objecten geüpdate moeten worden, en we zelf weten dat ze allemaal blijven bestaan tussen frames door, kunnen wij zelf die verantwoordelijkheid van Unity overnemen. We kunnen alle <code>GrowableTree</code> in een lijst stoppen, en zelf een handmatige update-functie aanroepen. We houden dit bij in een aparte GrowableManager:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">class</span> GrowableManager : MonoBehaviour</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a>{</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> Growable prefab;</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> Vector2 xBound;</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> Vector2 yBound;</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> <span class="dt">int</span> objectCount;</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true"></a>    <span class="kw">private</span> List&lt;Growable&gt; growables;</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true"></a>    </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Start</span>()</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true"></a>    {</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true"></a>        <span class="co">// Maak een lijst om de objecten in te bewaren</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true"></a>        growables = <span class="kw">new</span> List&lt;Growable&gt;(objectCount);</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true"></a>        </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true"></a>        <span class="co">// Maak de objecten aan en stop ze in de lijst</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true"></a>        <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; objectCount; i++)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true"></a>        {</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true"></a>            Growable obj = <span class="fu">Instantiate</span>(prefab, transform);</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true"></a>            obj.<span class="fu">transform</span>.<span class="fu">position</span> = <span class="kw">new</span> <span class="fu">Vector3</span>(Random.<span class="fu">Range</span>(xBound.<span class="fu">x</span>, xBound.<span class="fu">y</span>), <span class="dv">0</span>, Random.<span class="fu">Range</span>(yBound.<span class="fu">x</span>, yBound.<span class="fu">y</span>));</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true"></a>            growables.<span class="fu">Add</span>(obj);</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true"></a>        }</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true"></a>    }</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true"></a></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Update</span>()</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true"></a>    {</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true"></a>        <span class="co">// Elke update roepen we op één centrale plek aan</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true"></a>        <span class="kw">foreach</span> (<span class="dt">var</span> growable <span class="kw">in</span> growables)</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true"></a>        {</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true"></a>            growable.<span class="fu">ManualUpdate</span>();</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true"></a>        }</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true"></a>    }</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Als we nu nog eens naar de profiler kijken zien we dat er eigenlijk geen groot verschil is. Wat oorspronkelijk 16.5ms was, is nu 15.5ms. Een aantal frames komen zelfs nog steeds boven de 16ms uit. Er is meer nodig om het probleem op te lossen. <img src="Fig_GrowableManual.png" alt="Fig_GrowableManual.png" /></p>
+<h3 id="fragmentatie">Fragmentatie</h3>
+<p>Het probleem is dat alle objecten nu verspreid in het geheugen staan. Bij het aanmaken van het GameObject werd deze op een willekeurige plek in het geheugen gezet. Zodra we de waarden aan willen passen, moet de processor op elk adres in het geheugen langsgaan om de waarde aan te passen. Je kunt je een postbode voorstellen die ieder huis dat die moet bezoeken in willekeurige volgorde afgaat. Hij zal dan enorm veel tijd kwijt zijn met het heen-en-weer lopen tussen alle straten, terwijl hij ook gewoon zijn rondje straat voor straat af kan gaan. We noemen deze willekeurige verspreiding in het geheugen ook wel fragmentatie van de data.</p>
+<p>Geheugen is een fysiek iets: het zijn cellen waarin data wordt opgeslagen. Net als huizen met adressen heeft het geheugen adressen (het memory-adres). Om te voorkomen dat de processor net als de postbode over het hele geheugen heen en weer moet lopen, kunnen we er voor zorgen dat alle data netjes naast elkaar in het geheugen staat.</p>
+<p>Dit kunnen we alleen maar doen door te werk te gaan met een array van value types. Onthoud dat wij geen controle hebben over waar een reference type terechtkomt. We moeten dit dus in onze eigen handen nemen, en dat kan alleen met value types. Om ze te verzamelen op één plek gebruiken we een array. Een array mag dan zelf een reference type zijn, maar als deze gevuld is met value types staat alle data direct naast elkaar in het geheugen. Zodra de processor bij het begin van de array is, kan deze meteen doorlopen naar het volgende element, en het element daarna. Ze zitten direct achter elkaar in het fysieke geheugen.</p>
+<blockquote>
+<p><strong>Tip</strong><br />
+Het is niet genoeg om alleen een array te gebruiken en een reference type te blijven gebruiken. Wat er dan gebeurt, is dat je allemaal geheugenadressen naast elkaar in het geheugen hebt staan, en dat het programma nog steeds al die adressen door het hele geheugen moet bezoeken. Bovendien heeft een <code>List&lt;T&gt;</code> intern ook een array waar de waarden in bijgehouden worden, wat precies hetzelfde effect heeft.</p>
+</blockquote>
+<p>Als bijkomend voordeel kan de processor "rijen" van het geheugen in een soort speciaal geheugen laden (de <strong>cache</strong>) dat vele malen sneller is dan het gewone geheugen (dit proces heet <strong>prefetching</strong> en dit gebeurt automatisch). Hierdoor is het niet alleen efficiënter om bij alle data langs te gaan, maar is het ook nog eens vele malen sneller om de data daadwerkelijk te gebruiken.</p>
+<p>In plaats van een MonoBehaviour-class maken we een struct om de <code>Growable</code> in bij te houden. We verplaatsen vervolgens alle logica van het updaten naar de <code>GrowableManager</code></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">class</span> GrowableManager : MonoBehaviour</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a>{</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a>    <span class="kw">public</span> <span class="kw">struct</span> GrowableInstance</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a>    {</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a>        <span class="kw">public</span> Transform transform; <span class="co">// We hebben nog steeds een reference nodig naar de transform voor het updaten van de positie.</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a>        <span class="kw">public</span> Renderer renderer; <span class="co">// Het is efficienter om de renderer op te slaan dan om hem telkens opnieuw op te moeten vragen.</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true"></a>        <span class="kw">public</span> Vector3 position;</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true"></a>        <span class="kw">public</span> <span class="dt">float</span> progress;</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true"></a>        <span class="kw">public</span> <span class="dt">float</span> maxProgress;</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true"></a>    }</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true"></a>    [<span class="fu">Header</span>(<span class="st">&quot;Spawn settings&quot;</span>)]</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> GameObject prefab;</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> Vector2 xBound;</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> Vector2 yBound;</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> <span class="dt">int</span> objectCount;</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true"></a></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true"></a>    <span class="co">// De waarden die we eerst apart bijhielden in elke Growable, houden we nu op één centrale plek bij</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true"></a>    [<span class="fu">Header</span>(<span class="st">&quot;Update settings&quot;</span>)]</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> Transform player;</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true"></a></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> <span class="dt">float</span> maxDistance = <span class="dv">15</span>;</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> <span class="dt">float</span> minDistance = <span class="dv">5</span>;</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true"></a>    [SerializeField] <span class="kw">private</span> <span class="dt">bool</span> keepMaxProgress = <span class="kw">true</span>;</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true"></a></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true"></a>    <span class="kw">private</span> GrowableInstance[] growables; <span class="co">// Verander List&lt;Growable&gt; in een Growable[] array</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true"></a></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Awake</span>()</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true"></a>    {</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true"></a>        player = FindFirstObjectByType&lt;FirstPersonController&gt;().<span class="fu">transform</span>;</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true"></a>    }</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true"></a></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Start</span>()</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true"></a>    {</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true"></a>        growables = <span class="kw">new</span> GrowableInstance[objectCount]; <span class="co">// Maak de array groot genoeg voor het aantal objecten</span></span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true"></a></span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true"></a>        <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; objectCount; i++)</span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true"></a>        {</span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true"></a>            GrowableInstance growable = <span class="kw">new</span>();</span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true"></a>            <span class="co">// We houden alsnog een reference bij naar de transform, maar omdat dit een Unity-object is, is dit onvermijdelijk</span></span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true"></a>            growable.<span class="fu">transform</span> = <span class="fu">Instantiate</span>(prefab, transform).<span class="fu">transform</span>;</span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true"></a>            growable.<span class="fu">transform</span>.<span class="fu">position</span> = <span class="kw">new</span> <span class="fu">Vector3</span>(Random.<span class="fu">Range</span>(xBound.<span class="fu">x</span>, xBound.<span class="fu">y</span>), <span class="dv">0</span>, Random.<span class="fu">Range</span>(yBound.<span class="fu">x</span>, yBound.<span class="fu">y</span>));</span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true"></a>            <span class="co">// Kopieer de positie naar een value type direct in de struct, deze gaat nooit veranderen want bomen kunnen niet lopen</span></span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true"></a>            growable.<span class="fu">position</span> = growable.<span class="fu">transform</span>.<span class="fu">position</span>; </span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true"></a></span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true"></a>            <span class="co">// Om te voorkomen dat we ieder frame nóg een reference moeten opvragen naar de Renderer, cachen we ook deze:</span></span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true"></a>            growable.<span class="fu">renderer</span> = growable.<span class="fu">transform</span>.<span class="fu">GetComponentInChildren</span>&lt;Renderer&gt;();</span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true"></a></span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true"></a>            <span class="co">// Stel de start waarden in</span></span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true"></a>            growable.<span class="fu">progress</span> = <span class="dv">0</span>;</span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true"></a>            growable.<span class="fu">maxProgress</span> = <span class="dv">0</span>;</span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true"></a></span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true"></a>            <span class="co">// Sla de waarde op in de array</span></span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true"></a>            growables[i] = growable;</span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true"></a>        }</span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true"></a>    }</span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true"></a></span>
+<span id="cb23-59"><a href="#cb23-59" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Update</span>()</span>
+<span id="cb23-60"><a href="#cb23-60" aria-hidden="true"></a>    {</span>
+<span id="cb23-61"><a href="#cb23-61" aria-hidden="true"></a>        <span class="co">// We kunnen player nu één keer per frame opvragen, in plaats dat het opnieuw moet voor iedere growable</span></span>
+<span id="cb23-62"><a href="#cb23-62" aria-hidden="true"></a>        Vector3 playerPos = player.<span class="fu">transform</span>.<span class="fu">position</span>;</span>
+<span id="cb23-63"><a href="#cb23-63" aria-hidden="true"></a>        playerPos.<span class="fu">y</span> = <span class="dv">0</span>;</span>
+<span id="cb23-64"><a href="#cb23-64" aria-hidden="true"></a></span>
+<span id="cb23-65"><a href="#cb23-65" aria-hidden="true"></a>        <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; growables.<span class="fu">Length</span>; i++)</span>
+<span id="cb23-66"><a href="#cb23-66" aria-hidden="true"></a>        {</span>
+<span id="cb23-67"><a href="#cb23-67" aria-hidden="true"></a>            <span class="fu">UpdateGrowable</span>(i, playerPos);</span>
+<span id="cb23-68"><a href="#cb23-68" aria-hidden="true"></a>        }</span>
+<span id="cb23-69"><a href="#cb23-69" aria-hidden="true"></a>    }</span>
+<span id="cb23-70"><a href="#cb23-70" aria-hidden="true"></a></span>
+<span id="cb23-71"><a href="#cb23-71" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateGrowable</span>(<span class="dt">int</span> i, Vector3 playerPos)</span>
+<span id="cb23-72"><a href="#cb23-72" aria-hidden="true"></a>    {</span>
+<span id="cb23-73"><a href="#cb23-73" aria-hidden="true"></a>        <span class="co">// Door de waarde uit de array te halen maken we een lokale kopie om aan te passen.</span></span>
+<span id="cb23-74"><a href="#cb23-74" aria-hidden="true"></a>        <span class="co">// We kunnen de waardes niet direct in de array aanpassen.</span></span>
+<span id="cb23-75"><a href="#cb23-75" aria-hidden="true"></a>        GrowableInstance growable = growables[i];</span>
+<span id="cb23-76"><a href="#cb23-76" aria-hidden="true"></a></span>
+<span id="cb23-77"><a href="#cb23-77" aria-hidden="true"></a>        <span class="co">// We kunnen direct de opgeslagen positie gebruiken, en we hoeven niet door transform.position heen</span></span>
+<span id="cb23-78"><a href="#cb23-78" aria-hidden="true"></a>        Vector3 objectPos = growable.<span class="fu">position</span>;</span>
+<span id="cb23-79"><a href="#cb23-79" aria-hidden="true"></a>        objectPos.<span class="fu">y</span> = <span class="dv">0</span>;</span>
+<span id="cb23-80"><a href="#cb23-80" aria-hidden="true"></a></span>
+<span id="cb23-81"><a href="#cb23-81" aria-hidden="true"></a>        <span class="dt">float</span> distance = Vector3.<span class="fu">Distance</span>(objectPos, playerPos);</span>
+<span id="cb23-82"><a href="#cb23-82" aria-hidden="true"></a>        distance = math.<span class="fu">clamp</span>(distance, minDistance, maxDistance);</span>
+<span id="cb23-83"><a href="#cb23-83" aria-hidden="true"></a></span>
+<span id="cb23-84"><a href="#cb23-84" aria-hidden="true"></a>        <span class="dt">float</span> progress = math.<span class="fu">remap</span>(maxDistance, minDistance, <span class="dv">0</span>, <span class="dv">1</span>, distance);</span>
+<span id="cb23-85"><a href="#cb23-85" aria-hidden="true"></a></span>
+<span id="cb23-86"><a href="#cb23-86" aria-hidden="true"></a>        <span class="dt">float</span> maxProgress = math.<span class="fu">max</span>(progress, growable.<span class="fu">maxProgress</span>);</span>
+<span id="cb23-87"><a href="#cb23-87" aria-hidden="true"></a></span>
+<span id="cb23-88"><a href="#cb23-88" aria-hidden="true"></a>        <span class="co">// Sla de lokale aanpassingen op in de array</span></span>
+<span id="cb23-89"><a href="#cb23-89" aria-hidden="true"></a>        growable.<span class="fu">progress</span> = progress;</span>
+<span id="cb23-90"><a href="#cb23-90" aria-hidden="true"></a>        growable.<span class="fu">maxProgress</span> = maxProgress;</span>
+<span id="cb23-91"><a href="#cb23-91" aria-hidden="true"></a>        growables[i] = growable;</span>
+<span id="cb23-92"><a href="#cb23-92" aria-hidden="true"></a></span>
+<span id="cb23-93"><a href="#cb23-93" aria-hidden="true"></a>        <span class="co">// Pas meteen de waarden in de wereld aan</span></span>
+<span id="cb23-94"><a href="#cb23-94" aria-hidden="true"></a>        <span class="kw">if</span> (keepMaxProgress)</span>
+<span id="cb23-95"><a href="#cb23-95" aria-hidden="true"></a>        {</span>
+<span id="cb23-96"><a href="#cb23-96" aria-hidden="true"></a>            growable.<span class="fu">transform</span>.<span class="fu">localScale</span> = Vector3.<span class="fu">one</span> * maxProgress;</span>
+<span id="cb23-97"><a href="#cb23-97" aria-hidden="true"></a>            growable.<span class="fu">renderer</span>.<span class="fu">enabled</span> = maxProgress != <span class="dv">0</span>;</span>
+<span id="cb23-98"><a href="#cb23-98" aria-hidden="true"></a>        }</span>
+<span id="cb23-99"><a href="#cb23-99" aria-hidden="true"></a>        <span class="kw">else</span></span>
+<span id="cb23-100"><a href="#cb23-100" aria-hidden="true"></a>        {</span>
+<span id="cb23-101"><a href="#cb23-101" aria-hidden="true"></a>            growable.<span class="fu">transform</span>.<span class="fu">localScale</span> = Vector3.<span class="fu">one</span> * progress;</span>
+<span id="cb23-102"><a href="#cb23-102" aria-hidden="true"></a>            growable.<span class="fu">renderer</span>.<span class="fu">enabled</span> = progress != <span class="dv">0</span>;</span>
+<span id="cb23-103"><a href="#cb23-103" aria-hidden="true"></a>        }</span>
+<span id="cb23-104"><a href="#cb23-104" aria-hidden="true"></a>    }</span>
+<span id="cb23-105"><a href="#cb23-105" aria-hidden="true"></a>}</span></code></pre></div>
+<p>In de comments kun je meteen een aantal optimalisaties zien die deze manier van werken nog meer oplevert. Als we nu de profiler erbij pakken, zien we dat de functie wel degelijk sneller is geworden:</p>
+<p><img src="Fig_GrowableEfficient.png" alt="Fig_GrowableEfficient.png" /></p>
+<p>We zijn van 16ms naar rond de 5ms gegaan, meer dan 3x zo snel! Dit komt puur omdat de data allemaal dicht bij elkaar staat. De berekeningen zijn immers bijna hetzelfde gebleven.</p>
+<h3 id="array-of-structs-versus-struct-of-arrays">Array-of-structs versus struct-of-arrays</h3>
+<p>Als de computer graag werkt met data die dicht bij elkaar ligt, moet de data klein genoeg zijn om in de cache (het interne geheugen van de processor) te passen. Hoe groter de losse stukjes data in je array zijn, hoe moeilijker het wordt om er veel tegelijk in dit zeer beperkte geheugen te passen. In gevallen waar je data groter is, is het dan ook vaak efficiënter om niet één array van structs met je data bij te houden, maar om meerdere arrays bij te houden voor elk element van je data. Je loopt dan telkens over slechts enkele arrays tegelijk heen om zo te voorkomen dat je cache volloopt met dingen die je op dat moment niet nodig hebt.</p>
+<p>Hieronder zie je de array-of-structs-methode (AoS) die we hierboven ook gebruikt hebben. Je houdt één array bij waar alle data achter elkaar in zit:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">struct</span> MyUpdateData </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a>{</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a>    <span class="kw">public</span> Vector3 position;</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a>    <span class="kw">public</span> <span class="dt">float</span> number;</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a>}</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">class</span> Updater : MonoBehaviour </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true"></a>{</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true"></a>    <span class="kw">private</span> MyUpdateData[] updateData = <span class="kw">new</span> MyUpdateData[<span class="dv">40000</span>];</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true"></a>}</span></code></pre></div>
+<pre><code>Geheugenlayout:
+--------------------------------------------
+| pos1 | num1 | pos2 | num2 | pos3 | num 3 |
+- ^ ----------- ^ ----------- ^ ------------
+  i1            i2            i3  
+</code></pre>
+<p>Als we dit omdraaien krijgen we de struct-of-arrays-methode (SoA). In een struct houden we meerdere arrays bij waar alle data van elk type apart zit:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">struct</span> MyUpdateData </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>{</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>    <span class="kw">public</span> Vector3[] positions;</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a>    <span class="kw">public</span> <span class="dt">float</span>[] numbers;</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a>}</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">class</span> Updater : MonoBehaviour </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>{</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true"></a>    <span class="kw">private</span> MyUpdateData updateData = <span class="kw">new</span>();</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true"></a>    </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Awake</span>() </span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true"></a>    {</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true"></a>        updateData.<span class="fu">positions</span> = <span class="kw">new</span> Vector3[<span class="dv">40000</span>];</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true"></a>        updateData.<span class="fu">numbers</span> = <span class="kw">new</span> <span class="dt">float</span>[<span class="dv">40000</span>];</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true"></a>    } </span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true"></a>}</span></code></pre></div>
+<pre><code>Geheugenlayout:
+----------------------
+| pos1 | pos2 | pos3 |
+- ^ ---- ^ ---- ^ ----
+  i1     i2     i3 
+----------------------
+| num1 | num2 | num3 |
+- ^ ---- ^ ---- ^ ----
+  i1     i2     i3 
+
+</code></pre>
+<p>Als je in een loop alleen de positions nodig hebt, gebruikt dit dus veel minder ruimte dan de AoS methode.</p>
+<blockquote>
+<p><strong>Tip</strong><br />
+Let wel op: als je ze altijd beide onderdelen nodig gaat hebben maakt dit niet veel uit en is het soms zelfs efficiënter om wél een array-of-struct. De verschillende arrays zelf staan immers op verschillende willekeurige plekken in het geheugen, en dit kan langzamer zijn dan wanneer alle data op dezelfde plek staat. Hoe groter de je data, hoe waarschijnlijker het is dat SoA sneller is dan AoS.</p>
+</blockquote>
+<p>We kunnen dit ook proberen te implementeren bij onze <code>Growables</code>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="kw">public</span> <span class="kw">class</span> GrowableManager : MonoBehaviour</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a>{</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a>    <span class="co">// ...</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a>    <span class="co">// In plaats van de GrowableInstance[] houden we losse arrays bij voor de verschillende waarden</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a>    <span class="kw">private</span> Vector3[] positions;</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">float</span>[] maxProgresses;</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true"></a>    <span class="kw">private</span> Transform[] transforms;</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true"></a>    <span class="kw">private</span> Renderer[] renderers;</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true"></a>    <span class="co">// ...</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Start</span>()</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true"></a>    {</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true"></a>        <span class="co">// Maak de arrays aan</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true"></a>        positions = <span class="kw">new</span> Vector3[objectCount];</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true"></a>        maxProgresses = <span class="kw">new</span> <span class="dt">float</span>[objectCount];</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true"></a>        transforms = <span class="kw">new</span> Transform[objectCount];</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true"></a>        renderers = <span class="kw">new</span> Renderer[objectCount];</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true"></a></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true"></a>        <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; objectCount; i++)</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true"></a>        {</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true"></a>            <span class="co">// Maak het object en sla de data op</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true"></a>            Transform obj = <span class="fu">Instantiate</span>(prefab, transform).<span class="fu">transform</span>;</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true"></a>            renderers[i] = obj.<span class="fu">transform</span>.<span class="fu">GetComponentInChildren</span>&lt;Renderer&gt;();</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true"></a>            transforms[i] = obj;</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true"></a></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true"></a>            obj.<span class="fu">position</span> = <span class="kw">new</span> <span class="fu">Vector3</span>(Random.<span class="fu">Range</span>(xBound.<span class="fu">x</span>, xBound.<span class="fu">y</span>), <span class="dv">0</span>, Random.<span class="fu">Range</span>(yBound.<span class="fu">x</span>, yBound.<span class="fu">y</span>));</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true"></a>            positions[i] = obj.<span class="fu">transform</span>.<span class="fu">position</span>;</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true"></a></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true"></a>            <span class="co">// Stel de startwaarden in</span></span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true"></a>            maxProgresses[i] = <span class="dv">0</span>;</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true"></a>        }</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true"></a>    }</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true"></a></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Update</span>()</span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true"></a>    {</span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true"></a>        Vector3 playerPos = player.<span class="fu">transform</span>.<span class="fu">position</span>;</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true"></a>        playerPos.<span class="fu">y</span> = <span class="dv">0</span>;</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true"></a></span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true"></a>        <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; objectCount; i++)</span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true"></a>        {</span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true"></a>            <span class="fu">UpdateGrowable</span>(i, playerPos);</span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true"></a>        }</span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true"></a>    }</span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true"></a></span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateGrowable</span>(<span class="dt">int</span> i, Vector3 playerPos)</span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true"></a>    {</span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true"></a>        <span class="co">// We halen de losse waarden uit de losse arrays</span></span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true"></a>        Vector3 objectPos = positions[i];</span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true"></a>        objectPos.<span class="fu">y</span> = <span class="dv">0</span>;</span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true"></a></span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true"></a>        <span class="dt">float</span> distance = Vector3.<span class="fu">Distance</span>(objectPos, playerPos);</span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true"></a>        distance = math.<span class="fu">clamp</span>(distance, minDistance, maxDistance);</span>
+<span id="cb28-55"><a href="#cb28-55" aria-hidden="true"></a></span>
+<span id="cb28-56"><a href="#cb28-56" aria-hidden="true"></a>        <span class="dt">float</span> progress = math.<span class="fu">remap</span>(maxDistance, minDistance, <span class="dv">0</span>, <span class="dv">1</span>, distance);</span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true"></a></span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true"></a>        <span class="dt">float</span> maxProgress = math.<span class="fu">max</span>(progress, maxProgresses[i]);</span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true"></a>        maxProgresses[i] = maxProgress;</span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true"></a>            </span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true"></a>            </span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true"></a>        <span class="kw">if</span> (keepMaxProgress)</span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true"></a>        {</span>
+<span id="cb28-64"><a href="#cb28-64" aria-hidden="true"></a>            transforms[i].<span class="fu">localScale</span> = Vector3.<span class="fu">one</span> * maxProgress;</span>
+<span id="cb28-65"><a href="#cb28-65" aria-hidden="true"></a>            renderers[i].<span class="fu">enabled</span> = maxProgress != <span class="dv">0</span>;</span>
+<span id="cb28-66"><a href="#cb28-66" aria-hidden="true"></a>        }</span>
+<span id="cb28-67"><a href="#cb28-67" aria-hidden="true"></a>        <span class="kw">else</span></span>
+<span id="cb28-68"><a href="#cb28-68" aria-hidden="true"></a>        {</span>
+<span id="cb28-69"><a href="#cb28-69" aria-hidden="true"></a>            transforms[i].<span class="fu">localScale</span> = Vector3.<span class="fu">one</span> * progress;</span>
+<span id="cb28-70"><a href="#cb28-70" aria-hidden="true"></a>            renderers[i].<span class="fu">enabled</span> = progress != <span class="dv">0</span>;</span>
+<span id="cb28-71"><a href="#cb28-71" aria-hidden="true"></a>        }</span>
+<span id="cb28-72"><a href="#cb28-72" aria-hidden="true"></a>    }</span>
+<span id="cb28-73"><a href="#cb28-73" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Als we dit weer profilen zien we een klein maar consistent verschil, van ~5.15ms naar ~4.42ms: <img src="Fig_GrowableSoA.png" alt="Fig_GrowableSoA.png" /></p>
+<p>De beperkte grootte van het verschil is vooral te verklaren doordat de data hier slechts heel klein is, en alle data gebruikt wordt in de enige for-loop. Bij verschillende for-loops bij op verschillende stukjes van de data werken kan het verschil al beter zichtbaar worden. Toch moet je bij jezelf nagaan of deze optimalisatie de moeite waard is ten opzichte van de wat overzichtelijkere array-of-structs-methode.</p>
+<h2 id="verdere-optimalisatie">Verdere optimalisatie</h2>
+<p>We zitten nu nog altijd met 5ms aan functietijd, en dat is vrij veel van een 16.7ms budget (ongeveer een derde). Dit kan nog verder geoptimaliseerd worden. Unity biedt hier twee goede features voor: Jobs (+Burst) en ECS. Hoewel de implementatie hiervan buiten de scope van deze masterclass valt, kunnen ze niet ontbreken uit deze masterclass. Deze features (die allemaal in Unity's Data-Oriented technology stack (DOTS) zitten) zijn namelijk ontworpen om de bovenstaande layout-technieken nog breder en efficiënter toe te passen.</p>
+<ul>
+<li><h3 id="jobs">Jobs</h3>
+Unity Jobs is een feature om code parallel uit te voeren (met multithreading). Multithreading in games is alleen interessant voor grote hoeveelheden data, zoals onze 22.000 bomen, want uiteindelijk moet alles alsnog gesynchroniseerd worden op de lineaire game thread, ieder frame. Om Jobs zo snel te maken, vragen ze om exact dezelfde layout die we hierboven ook toegepast hebben: je slaat de data op in een array*, de job-code voert berekeningen uit, de resultaten worden opgeslagen in diezelfde array (of een andere, afhankelijk van de AoS of SoA layout), en als de job klaar is kan je de data weer gebruiken in je game.<br />
+Meer info: <a href="https://docs.unity3d.com/Manual/job-system.html">https://docs.unity3d.com/Manual/job-system.html</a>
+<blockquote>
+<p>*<strong>Tip</strong><br />
+Unity gebruikt voor jobs geen standaard arrays, maar een speciaal type <code>NativeArray&lt;T&gt;</code> (<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">docs</a>). Dit type is speciaal gemaakt om te werken met multithreading, nodig voor jobs en iets dat niet kan met de standaard C# array, en om buiten de garbage collector heen te werken. Je kunt deze dus aanmaken zonder dat de garbage collector deze later weer op moet ruimen! Maar let op, het vrijmaken van geheugen voor zo'n lijst kost nog altijd tijd. Het is dus nog altijd beter om deze lijsten te hergebruiken.</p>
+</blockquote></li>
+<li><h3 id="burst">Burst</h3>
+Burst is een speciale compiler voor jobs die probeert om speciale CPU-instructies te genereren waarmee meerdere berekeningen tegelijk uitgevoerd kunnen worden op een enkele CPU-core. Deze zogenaamde SIMD-instructies (same instruction, multiple data) werken het best als alle data direct naast elkaar staat, zoals we in dit hoofdstuk toegepast hebben. Burst profiteert bij uitstek van de SoA-architectuur.<br />
+Meer info: <a href="https://docs.unity3d.com/Packages/com.unity.burst@1.8/manual/index.html">Unity Burst docs</a>, <a href="https://en.wikipedia.org/wiki/Single_instruction,_multiple_data">SIMD - Wikipedia</a></li>
+<li><h3 id="ecs">ECS</h3>
+In onze code gebruiken we nog altijd reference types voor <code>Renderer</code> en <code>Transform</code>. Dit is onvermijdelijk, omdat we deze classes niet kunnen omtoveren in structs. In een ideale wereld willen we deze types toch ook veranderen in value types. De ECS-architectuur (afgekort van entity-component system) is hier het antwoord op. ECS zorgt ervoor dat óók de data uit componenten als <code>Renderer</code> en <code>Transform</code> naast elkaar in het geheugen kunnen staan, en alleen wanneer dit nodig is. <br />
+ECS is niet uniek in Unity. Er zijn zelfs voor Unity verschillende mogelijke opties om te gebruiken, naast Unity's eigen ECS. Daarnaast kan een ECS toegepast worden op slechts een klein deel van de game-wereld, en hoeft niet alles op de ECS-architectuur te draaien.<br />
+Meer info: <a href="https://en.wikipedia.org/wiki/Entity_component_system">ECS - Wikipedia</a>, <a href="https://docs.unity3d.com/Packages/com.unity.entities@1.3/manual/index.html">Unity ECS docs</a></li>
+<li><h3 id="compute-shaders">Compute shaders</h3>
+Net als Unity Jobs bieden compute shaders de mogelijkheid om berekeningen in groten getale te parallelliseren. In tegenstelling tot Jobs (die op de CPU uitgevoerd worden) worden compute shaders op de GPU uitgevoerd. Net als Jobs werkt een compute shader op een grote lijst aan uniforme data, en past deze data aan of verwerkt het tot nieuwe data. De data moet fysiek naar de GPU verplaatst worden, en waar een CPU arrays gebruikt, gebruikt een GPU buffers. Gebruik een <code>GraphicsBuffer</code> (vervanging van de oudere <code>ComputeBuffer</code>) om je data voor je compute shader in op te slaan, grotendeels op dezelfde manier als bij onze eigen array-of-structs. Om de data voor te bereiden voor de GPU zijn er een paar extra stappen nodig die je kunt vinden in de documentatie. Alternatief wordt ook <code>RenderTexture</code> gebruikt voor communicatie tussen een compute shader en C# code, met als grote verschil dat de data in een render texture altijd uit 3 of 4 getallen (float of int) bestaat.<br />
+Meer info: <a href="https://www.khronos.org/opengl/wiki/Compute_Shader">Compute shader (OpenGL wiki)</a>, <a href="https://docs.unity3d.com/Manual/class-ComputeShader.html">Unity Compute Shader docs</a>, <a href="https://docs.unity3d.com/6000.1/Documentation/ScriptReference/GraphicsBuffer.html">Unity GraphicsBuffer</a></li>
+</ul>
+<h2 id="samenvatting-3">Samenvatting</h2>
+<p>We hebben in dit deel gezien hoe de layout van data in het geheugen de performance kan verbeteren.</p>
+<ul>
+<li>Als data fysiek naast elkaar staat, kost het veel minder tijd om de data te gebruiken.</li>
+<li>Data kan fysiek naast elkaar gezet worden door value types in arrays te zetten volgens een van de twee methodes:
+<ul>
+<li>Array-of-structs: alle data van elk object staat in één array achter elkaar.</li>
+<li>Struct-of-arrays: elk stukje data van het object staat in een aparte array achter elkaar.</li>
+</ul></li>
+<li>Betere memory layout geeft niet alleen direct een performance boost, het is ook de voorwaarde voor verdere optimalisatie met Jobs, Burst of ECS.</li>
+</ul>
+<h1 id="afsluiting">Afsluiting</h1>
+<p>We zijn bij het einde van deze masterclass aangekomen. Je hebt nu hopelijk een beter idee over hoe je projecten moet ontwerpen die slimmer en efficiënter gebruik maken van het geheugen, de onzichtbare bottleneck in veel games. Nog een laatste tip:</p>
+<blockquote>
+<p><strong>Tip</strong><br />
+Hoewel veel programmeurs zullen zeggen dat het niet handig is om voortijdig te optimaliseren, is er wel degelijk iets voor te zeggen om code te schrijven die rekening houdt met slim geheugenmanagement. De technieken die we gezien hebben maken je code vaak niet complexer of moeilijker te onderhouden, en kosten weinig tot geen extra tijd om te implementeren vanaf het begin. Zelfs voor prototypes kan het interessant zijn.<br />
+De grootste factor waar de benodigdheid van geheugenoptimalisatie van afhangt, is vooral de frequentie waarmee er beroep op het geheugen gedaan wordt. Ofwel: bij veel objecten loont het meer om te optimaliseren dan bij weinig.</p>
+</blockquote>
+<h2 id="samenvatting-4">Samenvatting</h2>
+<p>Je hebt geleerd wat frametimes zijn, hoe je die moet gebruiken om een performance-doel op te stellen voor je game, en hoe je kunt testen of je dit doel bereikt hebt met de profiler.</p>
+<p>We hebben gekeken naar de verschillende data-typen in C# en hoe deze zich gedragen in het geheugen. Je hebt hier geleerd dat tijdelijke heap allocations opgeruimd moeten worden door de garbage collector, en hoe deze per ongeluk de performance van je game kan beïnvloeden.</p>
+<p>We hebben een aantal technieken bekeken om het aantal tijdelijke heap allocations te verminderen of zelfs te elimineren, door lijsten en dictionaries te hergebruiken, of door pools te gebruiken.</p>
+<p>Tot slot hebben we gekeken hoe we reference types kunnen vervangen door value types, en de value types in een array kunnen zetten om de data sneller en efficiënter toegankelijk te maken voor de processor.</p>
+<h2 id="verdere-resources">Verdere resources</h2>
+<ul>
+<li><h3 id="what-every-programmer-should-know-about-memory---door-ulrich-drepper-2007"><em>What Every Programmer Should Know About Memory</em> - door Ulrich Drepper (2007)</h3>
+Deze paper van 114 pagina's gaat zo ver de diepte in als maar kan. De titel is vind ik persoonlijk een beetje overdreven, maar de informatie is erg waardevol voor game-programmeurs die werken aan optimalisatie. Gaat vooral in op de technische details de werking van RAM, CPU cache gedrag, NUMA (Non Uniform Memory Access) systemen, en de consequenties die dit heeft op het ontwerp van snelle code. Dateert uit 2007 maar de technologie werkt grotendeels hetzelfde.<br />
+Mirror link: <a href="https://people.freebsd.org/~lstewart/articles/cpumemory.pdf">https://people.freebsd.org/~lstewart/articles/cpumemory.pdf</a></li>
+<li><h3 id="practical-optimizations---jason-booth-2023"><em>Practical Optimizations</em> - Jason Booth (2023)</h3>
+Gaat over dezelfde onderwerpen als deze masterclass, en geeft een paar praktische voorbeelden van toepassingen die Jason Booth tegen is gekomen in zijn 20-jarige carrière als graphics engineer.<br />
+YouTube link: <a href="https://www.youtube.com/watch?v=NAVbI1HIzCE">https://www.youtube.com/watch?v=NAVbI1HIzCE</a> <br />
+Bijbehorende Medium-post: <a href="https://medium.com/@jasonbooth_86226/intro-to-jobs-burst-dod-66c6b81c017f">https://medium.com/@jasonbooth_86226/intro-to-jobs-burst-dod-66c6b81c017f</a></li>
+<li><h3 id="catlike-coding-jasper-flick">Catlike Coding (Jasper Flick)</h3>
+Uitgebreide tutorials door Jasper Flick die ingaan op allerlei technische aspecten van Unity (en tegenwoordig ook Godot). In zijn Basics tutorial implementeert hij Jobs en compute shaders, en zijn Object Management tutorial gaat in op het bouwen van een geavanceerd pooling-systeem.<br />
+Links: <a href="https://catlikecoding.com/">catlikecoding.com</a> • <a href="https://catlikecoding.com/unity/tutorials/basics/">Unity Basics</a> • <a href="https://catlikecoding.com/unity/tutorials/object-management/">Unity Object Management</a></li>
+</ul>
+</body>
+</html>

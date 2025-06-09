@@ -8,10 +8,10 @@
 
 We beginnen bij een herhaling van de basis: bij het programmeren moeten we kunnen bijhouden waar we onze data opslaan. Dit doen we door variabelen mooie namen te geven waarmee we ze altijd kunnen terugvinden. Maar voor de computer werkt dit heel anders. Deze houdt een verwijzing bij naar waar het stukje data opgeslagen staat in het geheugen. Dit heet een memory address, en wordt vaak opgeslagen in een pointer of een reference.
 
-Elk programma op de computer krijgt een stukje geheugen toegewezen als die daar om vraagt. De programmeur kan zeggen “ik heb 10 megabyte aan geheugen nodig” en dan gaat de computer kijken waar hij 10 megabyte heeft, en geeft jou een adres terug van een plekje in het geheugen dat jij mag hebben. Maar je krijgt daarmee ook de verantwoordelijkheid om dit geheugen weer vrij te maken. Een programmeertaal als C# is ontworpen zodat jij hier niet over na hoeft te denken. Het enige wat jij als programmeur moet doen is zeggen wat je gaat opslaan, en de rest bepaalt het systeem: hoe groot jouw data is, het geheugen dat moet worden opgevraagd, en zelfs het opruimen daarvan. Dit scheelt de programmeur veel werk, maar net als bij de meeste dingen die de programmeur werk schelen zitten er ook nadelen aan, en in dit geval lever je een klein stukje performance in. In veel gevallen niet noemenswaardig, maar in bepaalde situaties die je tegenkomt bij het maken van games kan dit enorm optellen.
+Elk programma op de computer krijgt een stukje geheugen toegewezen als die daar om vraagt. De programmeur kan zeggen “ik heb 10 megabyte aan geheugen nodig” en dan gaat de computer kijken waar hij 10 megabyte heeft, en geeft jou een adres terug van een plekje in het geheugen dat jij mag hebben. Maar je krijgt daarmee ook de verantwoordelijkheid om dit geheugen weer vrij te maken. Een programmeertaal als C# is ontworpen zodat jij hier niet over na hoeft te denken. Het enige wat jij als programmeur moet doen is zeggen wat je gaat opslaan, en de rest bepaalt het systeem: hoe groot jouw data is, het opvragen van het geheugen, en zelfs het opruimen daarvan. Dit scheelt de programmeur veel werk, maar net als bij de meeste dingen die de programmeur werk schelen zitten er ook nadelen aan, en in dit geval lever je een klein stukje performance in. In veel gevallen niet noemenswaardig, maar bij het maken van games kan dit behoorlijk optellen.
 
 ## Reference types en value types
-Het verschil tussen een reference en een value type is een van de belangrijkste dingen die je moet weten over werken met geheugen in C#. Een value type bewaart de volledige inhoud van de instance in de variabele. Een reference type bewaart slechts een memory address naar de plek waar de inhoud van de variabele in het geheugen staat. Een value type is dus vergelijkbaar met een pointer in C/C++.
+Het verschil tussen een reference en een value type is een van de belangrijkste dingen die je moet weten over werken met geheugen in C#. Een **value type** bewaart de volledige inhoud van het object in die variabele. Een **reference type** bewaart slechts een memory-adres naar de plek waar de inhoud van het object in het geheugen staat. Een C# reference type is vergelijkbaar met een pointer in C/C++.
 
 Om te weten of iets een reference of een value type is, moet je vooral kijken naar of het een class of een struct is. We kunnen bijvoorbeeld een data type maken voor een vertex met een class of een struct:
 ```csharp
@@ -25,7 +25,7 @@ public struct VertexValueType
     float x, y, z;
 }
 ```
-Als je een lokale variabele opslaat, komt deze terecht op de zogenaamde ***stack***. Je kunt dit zien als het lokale geheugen van een functie of een statement. De stack staat altijd op een vaste plek, en alles wat op de stack staat, staat ook naast elkaar in het fysieke geheugen. Als je een variabele van een value type aanmaakt, wordt alle inhoud ervan op de stack geplaatst. Maar als je een reference type aanmaakt, wordt de inhoud op een willekeurige andere plek in het geheugen opgeslagen, op de zogenaamde ***heap***, en wordt slechts de pointer naar die plek op de stack opgeslagen.
+Als je een lokale variabele opslaat, komt deze terecht op de zogenaamde **stack**. Je kunt dit zien als het lokale geheugen van een functie of een statement. De stack staat altijd op een vaste plek, en alles wat op de stack staat, staat ook naast elkaar in het fysieke geheugen. Als je een variabele van een value type aanmaakt, wordt alle inhoud ervan op de stack geplaatst. Maar als je een reference type aanmaakt, wordt de inhoud op een willekeurige andere plek in het geheugen opgeslagen, op de zogenaamde **heap**, en wordt slechts de pointer naar die plek op de stack opgeslagen.
 
 ```csharp
 VertexRefType myVert = new VertexRefType(2, 3, 4);
@@ -46,7 +46,7 @@ VertexValueType myVert = new VertexValueType(2, 3, 4);
                  myVert
 ```
 
-Een ander belangrijk verschil tussen reference en value types is hoe de data gekopieerd wordt. Bij een reference type maak je alleen een kopie van het memory adres. Bij een value type kopieer je de volledige inhoud. Dit maakt uit als je de variabelen daarna gaat aanpassen. Dit is wat er gebeurt bij een reference type:
+Een ander belangrijk verschil tussen reference en value types is hoe de data gekopieerd wordt. Bij een reference type maak je alleen een kopie van het memory-adres. Bij een value type kopieer je de volledige inhoud. Dit maakt uit als je de variabelen daarna gaat aanpassen. Dit is wat er gebeurt bij een reference type:
 
 ```csharp
 VertexRefType myVert = new VertexRefType(2, 3, 4);
@@ -95,24 +95,24 @@ copyVert.y = 5;
 De volgende onderdelen gaan over waarom het verschil tussen value en reference types uit kan maken voor performance.
 
 ### Meer informatie
-De C# language reference gaat een stuk dieper in op de werking van value en reference types, en alle bijzondere gevallen en uitzonderingen.
+De C# language reference gaat een stuk dieper in op de werking van value en reference types, hoe je ze kunt herkennen, en alle bijzondere gevallen en uitzonderingen.
 
 - [C# language reference - Value types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-types) 
 - [C# language reference - Reference types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/reference-types)
 
 ## De garbage collector
-De garbage collector ruimt jouw ongebruikte variabelen op de heap op, reference types dus. De garbage collector is heel fijn: Je hoeft je niet druk te maken over het vrijmaken van geheugen dat je opgevraagd had, geen gedoe met pointers en memory leaks en ownership. Dit is een kernfeature van C# (of specifieker van *.NET Core* of Unity's *Mono*), dus het is niet iets wat je kunt uitzetten.
+De garbage collector ruimt ongebruikte variabelen op de heap op, reference types dus. De garbage collector is heel fijn: Je hoeft je niet druk te maken over het vrijmaken van geheugen dat je opgevraagd had, geen gedoe met pointers en memory leaks en ownership. Dit is een kernfeature van C# (of specifieker van *.NET CLR* of Unity's *Mono*), dus het is niet iets wat je kunt uitzetten.
 
-Elke keer dat je een nieuwe *reference type* aanmaakt, wordt er geheugen op de *heap* vrijgemaakt om de data op te slaan. De garbage collector moet dit geheugen later weer opruimen en vrijgeven. Dit is waarom garbage collection tijd kost, en uiteindelijk toch een compromis is.
+Elke keer dat je een nieuwe *reference type* aanmaakt, wordt er geheugen op de *heap* vrijgemaakt om de data op te slaan. De garbage collector moet dit geheugen later weer opruimen en vrijgeven. Dit is waarom garbage collection tijd kost, en waarom het een compromis is tussen gemak en performance.
 
-De garbage collector doet dit in de achtergrond. Je hebt er zo geen last van tijdens gebruik van het programma. C# en .NET waren oorspronkelijk vooral ontwikkeld als een framework voor desktop-applicaties op Windows. Deze programma's zijn vaak een stuk minder zwaar, en hebben meer dan genoeg ruimte om in de achtergrond af en toe wat geheugen op te ruimen.
+De garbage collector doet dit opruimen in de achtergrond. Je hebt er zo geen last van tijdens gebruik van het programma. C# en .NET waren oorspronkelijk vooral ontwikkeld als een framework voor desktop-applicaties op Windows. Deze programma's zijn vaak een stuk minder zwaar, en hebben meer dan genoeg ruimte om in de achtergrond af en toe wat geheugen op te ruimen.
 
 ### Games
-Games daarentegen zijn een heel ander verhaal. Als de garbage collector in een game aan de slag moet, neemt dit hoe dan ook een hapje uit je frametime. Meestal is dit een vrij klein hapje, maar als je niet uitkijkt met heap allocations, kan het ook een vrij groot hapje worden. Dit zul je merken als periodieke uitschieters in frametime, ofwel: **frame spikes**. (Frame spikes als gevolg van de garbage collector worden ook vaak **GC spikes** genoemd.)
+Games daarentegen zijn een heel ander verhaal, die moeten minstens tientallen keren per seconde de hele game herberekenen. Als de garbage collector in een game aan de slag moet, neemt dit hoe dan ook een hapje uit je frametime. Meestal is dit een vrij klein hapje, maar als je niet uitkijkt met heap allocations, kan het ook een vrij groot hapje worden. Dit zul je merken als periodieke uitschieters in frametime, ofwel: **frame spikes**. (Frame spikes als gevolg van de garbage collector worden ook vaak **GC spikes** genoemd.)
 
 Om deze reden heeft Unity haar eigen garbage collector die een stuk beter geoptimaliseerd is voor games dan de oorspronkelijke. Het lost een deel van de problemen op, maar nog lang niet alles. Een garbage collection zal vaak niet meer dan 5ms kosten, maar kan in erge gevallen tot tientallen milliseconden duren, waardoor het dus makkelijk een framebudget van 16.7ms (60FPS) overschrijdt. De snelheid is direct afhankelijk van de hoeveelheid op te ruimen geheugen en de snelheid van de computer. 
 
-Tegenwoordig (sinds Unity 2019.4) is er zelfs een optie om een iets complexere garbage collector te gebruiken die het werk verspreidt over meerdere frames (zie afbeelding). Maar toch moet het werk hoe dan ook gedaan worden, en dit gaat altijd ten koste van jouw frame time. Het is dus een goede zaak om ervoor zorgen dat de garbage collector *altijd* zo min mogelijk werk hoeft te doen. Dat betekent: we willen het aantal allocations minimaliseren!
+Tegenwoordig (sinds Unity 2019.4) biedt Unity ook een optie om een iets complexere garbage collector te gebruiken die het werk verspreidt over meerdere frames (zie afbeelding). Maar toch moet het werk hoe dan ook gedaan worden, en dit gaat altijd ten koste van jouw frame time. Het is dus een goede zaak om ervoor zorgen dat de garbage collector *altijd* zo min mogelijk werk hoeft te doen. Dat betekent: we willen het aantal (tijdelijke) heap allocations minimaliseren!
 
 ![](Fig_UnityIncrementalGC.png)
 
@@ -158,7 +158,7 @@ Vertex vertex = new Vertex { x = 5, y = 5, z = 8 }; // << Vertex is een struct, 
 Player player = new Player { age = 22 }; // << Player is een class, dus er wordt wel heap garbage gemaakt.
 ```
 > **Tip**\
-> Het is ook geen groot probleem om memory te allocaten voor objecten die zullen blijven bestaan, en dus niet tijdelijk zijn. Het liefst zorg je ervoor dat alle allocation in de `Start()` of `Awake()`-functie in Unity of een class constructor gebeuren. Heap allocations kosten (veel) meer tijd dan geheugen op de stack gebruiken, maar zolang de objecten gebruikt worden hoeft het geheugen niet opgeruimd te worden. Permanente allocations in een frame-update zijn dus ook niet zo'n groot probleem als tijdelijke allocations, maar vanwege de extra tijd die het kost *om te allocaten* is het nog steeds goed om dit te vermijden. 
+> Het is geen groot probleem om memory te allocaten voor objecten die zullen blijven bestaan, en dus niet tijdelijk zijn. Het liefst zorg je ervoor dat alle allocation in de `Start()` of `Awake()`-functie in Unity of een class constructor gebeuren. Heap allocations kosten (veel) meer tijd dan geheugen op de stack gebruiken, maar zolang de objecten gebruikt worden hoeft het geheugen niet opgeruimd te worden. Permanente allocations in een frame-update zijn dus ook niet zo'n groot probleem als tijdelijke allocations, maar vanwege de extra tijd die het kost *om te allocaten* is het nog steeds goed om dit te vermijden. 
 
 ### Meer informatie
 - [Garbage collector overview - Unity Manual](https://docs.unity3d.com/Manual/performance-garbage-collector.html)
@@ -166,10 +166,10 @@ Player player = new Player { age = 22 }; // << Player is een class, dus er wordt
 ## Samenvatting
 
 - In C# wordt er onderscheid gemaakt tussen twee soorten datatypen: **value types** die op **stack** bestaan, en **reference types** die op de **heap** bestaan.  
-  - Value types slaan al hun data op in zichzelf
+  - Value types slaan al hun data op in zichzelf.
   - Reference types slaan slechts een referentie op naar een plek in het geheugen waar de daadwerkelijke data staat (de heap).
 - Geheugen dat gebruikt wordt moet ook altijd opgeruimd worden. 
   - Stack-geheugen gebruikt door value types kan automatisch opgeruimd worden door programma-logica.
   - Heap-geheugen gebruikt door reference types kan alleen worden opgeruimd door de **garbage collector** (**GC**).
-- Als de garbage collector aan de slag moet, kost dit altijd tijd van je frame. In ernstige gevallen kan dit voor merkbare haperingen in de game zorgen.
-- We willen allocations vermijden om de garbage collector te ontlasten.
+- Als de garbage collector aan de slag moet, kost dit altijd tijd uit je frame. In ernstige gevallen kan dit voor merkbare haperingen in de game zorgen.
+- We willen tijdelijke heap allocations vermijden om de garbage collector te ontlasten.

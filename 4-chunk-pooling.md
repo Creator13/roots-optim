@@ -12,7 +12,7 @@ Mijn eerste implementatie van een chunk-systeem was ultra-simpel. Gemaakt voor s
 
 ## Voorbeeldproject
 
-Je kunt het voorbeeldproject voor deze pagina hier vinden: [Sample_ChunkLoaderOptimalisation.zip](Sample_ChunkLoaderOptimalisation.zip). Dit is een stripped-down versie van (een eerdere versie van) Roots. Het project is gemaakt met Unity 6000.1.1f1. Je kunt het project gebruiken om de veranderingen aan de code zelf te implementeren, en de effecten ervan zelf te meten met de profiler. Beweeg de PlayerCapsule met WASD of door deze in de scene view heen en weer te slepen.
+Je kunt het voorbeeldproject voor deze pagina hier vinden: [Sample_ChunkLoaderOptimization.zip](Sample_ChunkLoaderOptimization.zip). Dit is een stripped-down versie van (een eerdere versie van) Roots. Het project is gemaakt met Unity 6000.1.1f1. Je kunt het project gebruiken om de veranderingen aan de code zelf te implementeren, en de effecten ervan zelf te meten met de profiler. Beweeg de PlayerCapsule met WASD of door deze in de scene view heen en weer te slepen.
 
 ![Fig_ChunkLoaderAnim.gif](Fig_ChunkLoaderAnim.gif)
 

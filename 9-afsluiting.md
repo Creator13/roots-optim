@@ -31,3 +31,6 @@ Tot slot hebben we gekeken hoe we reference types kunnen vervangen door value ty
     Gaat over dezelfde onderwerpen als deze masterclass, en geeft een paar praktische voorbeelden van toepassingen die Jason Booth tegen is gekomen in zijn 20-jarige carrière als graphics engineer.\
     YouTube link: https://www.youtube.com/watch?v=NAVbI1HIzCE \
     Bijbehorende Medium-post: https://medium.com/@jasonbooth_86226/intro-to-jobs-burst-dod-66c6b81c017f
+- ### Catlike Coding (Jasper Flick)
+    Uitgebreide tutorials door Jasper Flick die ingaan op allerlei technische aspecten van Unity (en tegenwoordig ook Godot). In zijn Basics tutorial implementeert hij Jobs en compute shaders, en zijn Object Management tutorial gaat in op het bouwen van een geavanceerd pooling-systeem.\
+    Links: [catlikecoding.com](https://catlikecoding.com/) • [Unity Basics](https://catlikecoding.com/unity/tutorials/basics/) • [Unity Object Management](https://catlikecoding.com/unity/tutorials/object-management/)

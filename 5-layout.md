@@ -88,7 +88,7 @@ public class GrowableManager : MonoBehaviour
         {
             Growable obj = Instantiate(prefab, transform);
             obj.transform.position = new Vector3(Random.Range(xBound.x, xBound.y), 0, Random.Range(yBound.x, yBound.y));
-            growables.Add(obj.GetComponent<Growable>());
+            growables.Add(obj);
         }
     }
 
@@ -114,8 +114,295 @@ Geheugen is een fysiek iets: het zijn cellen waarin data wordt opgeslagen. Net a
 
 Dit kunnen we alleen maar doen door te werk te gaan met een array van value types. Onthoud dat wij geen controle hebben over waar een reference type terechtkomt. We moeten dit dus in onze eigen handen nemen, en dat kan alleen met value types. Om ze te verzamelen op één plek gebruiken we een array. Een array mag dan zelf een reference type zijn, maar als deze gevuld is met value types staat alle data direct naast elkaar in het geheugen. Zodra de processor bij het begin van de array is, kan deze meteen doorlopen naar het volgende element, en het element daarna. Ze zitten direct achter elkaar in het fysieke geheugen.
 
-Als bijkomend voordeel kan de processor "rijen" van het geheugen in een soort speciaal geheugen laden dat vele malen sneller is dan het gewone geheugen (dit proces heet *prefetching* en dit gebeurt automatisch). Hierdoor is het niet alleen efficiënter om bij alle data langs te gaan, maar is het ook nog eens vele malen sneller om de data daadwerkelijk te gebruiken.
+> **Tip**\
+> Het is niet genoeg om alleen een array te gebruiken en een reference type te blijven gebruiken. Wat er dan gebeurt, is dat je allemaal geheugenadressen naast elkaar in het geheugen hebt staan, en dat het programma nog steeds al die adressen door het hele geheugen moet bezoeken. Bovendien heeft een `List<T>` intern ook een array waar de waarden in bijgehouden worden, wat precies hetzelfde effect heeft.
+
+Als bijkomend voordeel kan de processor "rijen" van het geheugen in een soort speciaal geheugen laden (de **cache**) dat vele malen sneller is dan het gewone geheugen (dit proces heet **prefetching** en dit gebeurt automatisch). Hierdoor is het niet alleen efficiënter om bij alle data langs te gaan, maar is het ook nog eens vele malen sneller om de data daadwerkelijk te gebruiken.
+
+In plaats van een MonoBehaviour-class maken we een struct om de `Growable` in bij te houden. We verplaatsen vervolgens alle logica van het updaten naar de `GrowableManager`
+```csharp
+public class GrowableManager : MonoBehaviour
+{
+    public struct GrowableInstance
+    {
+        public Transform transform; // We hebben nog steeds een reference nodig naar de transform voor het updaten van de positie.
+        public Renderer renderer; // Het is efficienter om de renderer op te slaan dan om hem telkens opnieuw op te moeten vragen.
+
+        public Vector3 position;
+        public float progress;
+        public float maxProgress;
+    }
+
+    [Header("Spawn settings")]
+    [SerializeField] private GameObject prefab;
+    [SerializeField] private Vector2 xBound;
+    [SerializeField] private Vector2 yBound;
+    [SerializeField] private int objectCount;
+
+    // De waarden die we eerst apart bijhielden in elke Growable, houden we nu op één centrale plek bij
+    [Header("Update settings")]
+    [SerializeField] private Transform player;
+
+    [SerializeField] private float maxDistance = 15;
+    [SerializeField] private float minDistance = 5;
+    [SerializeField] private bool keepMaxProgress = true;
+
+    private GrowableInstance[] growables; // Verander List<Growable> in een Growable[] array
+
+    private void Awake()
+    {
+        player = FindFirstObjectByType<FirstPersonController>().transform;
+    }
+
+    private void Start()
+    {
+        growables = new GrowableInstance[objectCount]; // Maak de array groot genoeg voor het aantal objecten
+
+        for (int i = 0; i < objectCount; i++)
+        {
+            GrowableInstance growable = new();
+            // We houden alsnog een reference bij naar de transform, maar omdat dit een Unity-object is, is dit onvermijdelijk
+            growable.transform = Instantiate(prefab, transform).transform;
+            growable.transform.position = new Vector3(Random.Range(xBound.x, xBound.y), 0, Random.Range(yBound.x, yBound.y));
+            // Kopieer de positie naar een value type direct in de struct, deze gaat nooit veranderen want bomen kunnen niet lopen
+            growable.position = growable.transform.position; 
+
+            // Om te voorkomen dat we ieder frame nóg een reference moeten opvragen naar de Renderer, cachen we ook deze:
+            growable.renderer = growable.transform.GetComponentInChildren<Renderer>();
+
+            // Stel de start waarden in
+            growable.progress = 0;
+            growable.maxProgress = 0;
+
+            // Sla de waarde op in de array
+            growables[i] = growable;
+        }
+    }
+
+    private void Update()
+    {
+        // We kunnen player nu één keer per frame opvragen, in plaats dat het opnieuw moet voor iedere growable
+        Vector3 playerPos = player.transform.position;
+        playerPos.y = 0;
+
+        for (int i = 0; i < growables.Length; i++)
+        {
+            UpdateGrowable(i, playerPos);
+        }
+    }
+
+    private void UpdateGrowable(int i, Vector3 playerPos)
+    {
+        // Door de waarde uit de array te halen maken we een lokale kopie om aan te passen.
+        // We kunnen de waardes niet direct in de array aanpassen.
+        GrowableInstance growable = growables[i];
+
+        // We kunnen direct de opgeslagen positie gebruiken, en we hoeven niet door transform.position heen
+        Vector3 objectPos = growable.position;
+        objectPos.y = 0;
+
+        float distance = Vector3.Distance(objectPos, playerPos);
+        distance = math.clamp(distance, minDistance, maxDistance);
+
+        float progress = math.remap(maxDistance, minDistance, 0, 1, distance);
+
+        float maxProgress = math.max(progress, growable.maxProgress);
+
+        // Sla de lokale aanpassingen op in de array
+        growable.progress = progress;
+        growable.maxProgress = maxProgress;
+        growables[i] = growable;
+
+        // Pas meteen de waarden in de wereld aan
+        if (keepMaxProgress)
+        {
+            growable.transform.localScale = Vector3.one * maxProgress;
+            growable.renderer.enabled = maxProgress != 0;
+        }
+        else
+        {
+            growable.transform.localScale = Vector3.one * progress;
+            growable.renderer.enabled = progress != 0;
+        }
+    }
+}
+```
+
+In de comments kun je meteen een aantal optimalisaties zien die deze manier van werken nog meer oplevert. Als we nu de profiler erbij pakken, zien we dat de functie wel degelijk sneller is geworden:
+
+![Fig_GrowableEfficient.png](Fig_GrowableEfficient.png)
+
+We zijn van 16ms naar rond de 5ms gegaan, meer dan 3x zo snel! Dit komt puur omdat de data allemaal dicht bij elkaar staat. De berekeningen zijn immers bijna hetzelfde gebleven.
+
+### Array-of-structs versus struct-of-arrays
+
+Als de computer graag werkt met data die dicht bij elkaar ligt, moet de data klein genoeg zijn om in de cache (het interne geheugen van de processor) te passen. Hoe groter de losse stukjes data in je array zijn, hoe moeilijker het wordt om er veel tegelijk in dit zeer beperkte geheugen te passen. In gevallen waar je data groter is, is het dan ook vaak efficiënter om niet één array van structs met je data bij te houden, maar om meerdere arrays bij te houden voor elk element van je data. Je loopt dan telkens over slechts enkele arrays tegelijk heen om zo te voorkomen dat je cache volloopt met dingen die je op dat moment niet nodig hebt.
+
+Hieronder zie je de array-of-structs-methode (AoS) die we hierboven ook gebruikt hebben. Je houdt één array bij waar alle data achter elkaar in zit:
+```csharp
+public struct MyUpdateData 
+{
+    public Vector3 position;
+    public float number;
+}
+
+public class Updater : MonoBehaviour 
+{
+    private MyUpdateData[] updateData = new MyUpdateData[40000];
+}
+```
+```
+Geheugenlayout:
+--------------------------------------------
+| pos1 | num1 | pos2 | num2 | pos3 | num 3 |
+- ^ ----------- ^ ----------- ^ ------------
+  i1            i2            i3  
+```
+
+Als we dit omdraaien krijgen we de struct-of-arrays-methode (SoA). In een struct houden we meerdere arrays bij waar alle data van elk type apart zit:
 
 ```csharp
+public struct MyUpdateData 
+{
+    public Vector3[] positions;
+    public float[] numbers;
+}
+
+public class Updater : MonoBehaviour 
+{
+    private MyUpdateData updateData = new();
+    
+    private void Awake() 
+    {
+        updateData.positions = new Vector3[40000];
+        updateData.numbers = new float[40000];
+    } 
+}
+```
+```
+Geheugenlayout:
+----------------------
+| pos1 | pos2 | pos3 |
+- ^ ---- ^ ---- ^ ----
+  i1     i2     i3 
+----------------------
+| num1 | num2 | num3 |
+- ^ ---- ^ ---- ^ ----
+  i1     i2     i3 
 
 ```
+
+Als je in een loop alleen de positions nodig hebt, gebruikt dit dus veel minder ruimte dan de AoS methode. 
+
+> **Tip**\
+> Let wel op: als je ze altijd beide onderdelen nodig gaat hebben maakt dit niet veel uit en is het soms zelfs efficiënter om wél een array-of-struct. De verschillende arrays zelf staan immers op verschillende willekeurige plekken in het geheugen, en dit kan langzamer zijn dan wanneer alle data op dezelfde plek staat. Hoe groter de je data, hoe waarschijnlijker het is dat SoA sneller is dan AoS. 
+
+We kunnen dit ook proberen te implementeren bij onze `Growables`.
+
+```csharp
+public class GrowableManager : MonoBehaviour
+{
+    // ...
+
+    // In plaats van de GrowableInstance[] houden we losse arrays bij voor de verschillende waarden
+    private Vector3[] positions;
+    private float[] maxProgresses;
+    private Transform[] transforms;
+    private Renderer[] renderers;
+
+    // ...
+
+    private void Start()
+    {
+        // Maak de arrays aan
+        positions = new Vector3[objectCount];
+        maxProgresses = new float[objectCount];
+        transforms = new Transform[objectCount];
+        renderers = new Renderer[objectCount];
+
+        for (int i = 0; i < objectCount; i++)
+        {
+            // Maak het object en sla de data op
+            Transform obj = Instantiate(prefab, transform).transform;
+            renderers[i] = obj.transform.GetComponentInChildren<Renderer>();
+            transforms[i] = obj;
+
+            obj.position = new Vector3(Random.Range(xBound.x, xBound.y), 0, Random.Range(yBound.x, yBound.y));
+            positions[i] = obj.transform.position;
+
+            // Stel de startwaarden in
+            maxProgresses[i] = 0;
+        }
+    }
+
+    private void Update()
+    {
+        Vector3 playerPos = player.transform.position;
+        playerPos.y = 0;
+
+        for (int i = 0; i < objectCount; i++)
+        {
+            UpdateGrowable(i, playerPos);
+        }
+    }
+
+    private void UpdateGrowable(int i, Vector3 playerPos)
+    {
+        // We halen de losse waarden uit de losse arrays
+        Vector3 objectPos = positions[i];
+        objectPos.y = 0;
+
+        float distance = Vector3.Distance(objectPos, playerPos);
+        distance = math.clamp(distance, minDistance, maxDistance);
+
+        float progress = math.remap(maxDistance, minDistance, 0, 1, distance);
+
+        float maxProgress = math.max(progress, maxProgresses[i]);
+        maxProgresses[i] = maxProgress;
+            
+            
+        if (keepMaxProgress)
+        {
+            transforms[i].localScale = Vector3.one * maxProgress;
+            renderers[i].enabled = maxProgress != 0;
+        }
+        else
+        {
+            transforms[i].localScale = Vector3.one * progress;
+            renderers[i].enabled = progress != 0;
+        }
+    }
+}
+```
+
+Als we dit weer profilen zien we een klein maar consistent verschil, van ~5.15ms naar ~4.42ms:
+![Fig_GrowableSoA.png](Fig_GrowableSoA.png)
+
+De beperkte grootte van het verschil is vooral te verklaren doordat de data hier slechts heel klein is, en alle data gebruikt wordt in de enige for-loop. Bij verschillende for-loops bij op verschillende stukjes van de data werken kan het verschil al beter zichtbaar worden. Toch moet je bij jezelf nagaan of deze optimalisatie de moeite waard is ten opzichte van de wat overzichtelijkere array-of-structs-methode.
+
+## Verdere optimalisatie
+
+We zitten nu nog altijd met 5ms aan functietijd, en dat is vrij veel van een 16.7ms budget (ongeveer een derde). Dit kan nog verder geoptimaliseerd worden. Unity biedt hier twee goede features voor: Jobs (+Burst) en ECS. Hoewel de implementatie hiervan buiten de scope van deze masterclass valt, kunnen ze niet ontbreken uit deze masterclass. Deze features (die allemaal in Unity's Data-Oriented technology stack (DOTS) zitten) zijn namelijk ontworpen om de bovenstaande layout-technieken nog breder en efficiënter toe te passen.
+
+- ### Jobs
+    Unity Jobs is een feature om code parallel uit te voeren (met multithreading). Multithreading in games is alleen interessant voor grote hoeveelheden data, zoals onze 22.000 bomen, want uiteindelijk moet alles alsnog gesynchroniseerd worden op de lineaire game thread, ieder frame. Om Jobs zo snel te maken, vragen ze om exact dezelfde layout die we hierboven ook toegepast hebben: je slaat de data op in een array*, de job-code voert berekeningen uit, de resultaten worden opgeslagen in diezelfde array (of een andere, afhankelijk van de AoS of SoA layout), en als de job klaar is kan je de data weer gebruiken in je game.\
+    Meer info: https://docs.unity3d.com/Manual/job-system.html
+    > ***Tip**\
+    Unity gebruikt voor jobs geen standaard arrays, maar een speciaal type `NativeArray<T>` ([docs](https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html)). Dit type is speciaal gemaakt om te werken met multithreading, nodig voor jobs en iets dat niet kan met de standaard C# array, en om buiten de garbage collector heen te werken. Je kunt deze dus aanmaken zonder dat de garbage collector deze later weer op moet ruimen! Maar let op, het vrijmaken van geheugen voor zo'n lijst kost nog altijd tijd. Het is dus nog altijd beter om deze lijsten te hergebruiken. 
+- ### Burst
+    Burst is een speciale compiler voor jobs die probeert om speciale CPU-instructies te genereren waarmee meerdere berekeningen tegelijk uitgevoerd kunnen worden op een enkele CPU-core. Deze zogenaamde SIMD-instructies (same instruction, multiple data) werken het best als alle data direct naast elkaar staat, zoals we in dit hoofdstuk toegepast hebben. Burst profiteert bij uitstek van de SoA-architectuur.\
+    Meer info: [Unity Burst docs](https://docs.unity3d.com/Packages/com.unity.burst@1.8/manual/index.html), [SIMD - Wikipedia](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data)
+- ### ECS
+    In onze code gebruiken we nog altijd reference types voor `Renderer` en `Transform`. Dit is onvermijdelijk, omdat we deze classes niet kunnen omtoveren in structs. In een ideale wereld willen we deze types toch ook veranderen in value types. De ECS-architectuur (afgekort van entity-component system) is hier het antwoord op. ECS zorgt ervoor dat óók de data uit componenten als `Renderer` en `Transform` naast elkaar in het geheugen kunnen staan, en alleen wanneer dit nodig is. \
+    ECS is niet uniek in Unity. Er zijn zelfs voor Unity verschillende mogelijke opties om te gebruiken, naast Unity's eigen ECS. Daarnaast kan een ECS toegepast worden op slechts een klein deel van de game-wereld, en hoeft niet alles op de ECS-architectuur te draaien.\
+    Meer info: [ECS - Wikipedia](https://en.wikipedia.org/wiki/Entity_component_system), [Unity ECS docs](https://docs.unity3d.com/Packages/com.unity.entities@1.3/manual/index.html)
+
+## Samenvatting
+
+We hebben in dit deel gezien hoe de layout van data in het geheugen de performance kan verbeteren. 
+
+- Als data fysiek naast elkaar staat, kost het veel minder tijd om de data te gebruiken.
+- Data kan fysiek naast elkaar gezet worden door value types in arrays te zetten volgens een van de twee methodes:
+  - Array-of-structs: alle data van elk object staat in één array achter elkaar.
+  - Struct-of-arrays: elk stukje data van het object staat in een aparte array achter elkaar.
+- Betere memory layout geeft niet alleen direct een performance boost, het is ook de voorwaarde voor verdere optimalisatie met Jobs, Burst of ECS.

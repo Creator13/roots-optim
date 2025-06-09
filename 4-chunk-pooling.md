@@ -151,7 +151,7 @@ Zoals je kunt zien onder de `UpdateVisibleChunks()`-functie, wordt er voor de `C
 We kunnen ervoor zorgen dat we dezelfde objecten hergebruiken, zodat we telkens maar één keer in de hele game een object aan hoeven te maken. We gaan kijken wat we kunnen doen voor zowel de `loadedChunks` dictionary, en de `Chunk` objecten zelf.
 
 1. ### `loadedChunks` dictionary
-Iedere verzameling heeft twee eigenschappen voor de grootte: `Length` (of `Count` voor een array), en `Capacity`. De lengte geeft aan hoeveel elementen er op dit moment in de lijst zitten. De capaciteit geeft aan hoeveel elementen er in de lijst *kunnen* zitten. In feite is dit hoeveel geheugen de verzameling geclaimd heeft. In het geheugen ziet dit er ongeveer zo uit:
+Iedere verzameling heeft twee eigenschappen voor de grootte: `Count` (of `Length` voor een array), en `Capacity`. De count/length geeft aan hoeveel elementen er op dit moment in de lijst zitten. De capaciteit geeft aan hoeveel elementen er in de lijst *kunnen* zitten. In feite is dit hoeveel geheugen de verzameling geclaimd heeft. In het geheugen ziet dit er ongeveer zo uit:
 
 ```csharp
 List<int> myList = new List { 8, 15, 88, 47 }; // Capacity en Length zijn allebei 4.

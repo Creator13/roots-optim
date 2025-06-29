@@ -1,4 +1,4 @@
-﻿# Masterclass: Data-oriented memory-optimalisaties voor een procedurele terreingenerator
+﻿# Masterclass: Data-oriented memory-optimalisaties (voor een procedurele terreingenerator)
 
 ### Casper van Battum • Graduation HKU Game Development
 
